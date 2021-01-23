@@ -1,9 +1,10 @@
 # Git branche names
-* master branch name: ???
+* master branch name: main (updated publishing time?)
+* dev branch name: dev  (updated at the meeting?)
 * jamie: 
-* jasmine: 
 * michael: michael
 * tashika: 
+*  yasmine:
 
 #One of two ways  of starting a project:
 * git clone https://github.com/Twilliams0897/musical-quad-collab.git

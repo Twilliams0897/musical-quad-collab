@@ -1,15 +1,37 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Provider} from 'react-redux';
+import { StyleSheet, Text, View, Button, Linking } from 'react-native';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { HomeScreen} from './screens/home.screen'
+import { LoginScreen} from './screens/login.screen'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default function App() {
+
+const Stack = createStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text style={{ fontSize: 20 }}>Open up App.tsx to start working on our app Music Maniac!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: 'Welcome' }}
+        />
+        <Stack.Screen name="Login" component={ 
+              LoginScreen }
+         />
+      
+          
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
+
+export default App; 
 
 const styles = StyleSheet.create({
   container: {
