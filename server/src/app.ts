@@ -16,6 +16,7 @@ dotenv.config();
 // router setup
 import indexRouter from './staticrouter/index';
 import usersRouter from './user/user.router';
+import rdsRouter from './pg/rds.router';
 
 
 const app = express();
@@ -38,6 +39,7 @@ app.use(session({
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/rds', rdsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

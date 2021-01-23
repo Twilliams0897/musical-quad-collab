@@ -12,7 +12,7 @@ router.post('/', function(req: any, res, next) {
       res.sendStatus(401);
     }
     req.session.user = user;
-   console.log(JSON.stringify(user) + ' from /user with post method');
+   console.log(JSON.stringify(user) + ' from /user with post method: session cookie is tracked by browser for authentication');
     res.send('success');
 
   });
