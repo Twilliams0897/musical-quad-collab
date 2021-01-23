@@ -1,17 +1,43 @@
 # Git branche names
-* master branch name: main (updated publishing time?)
-* dev branch name: dev  (updated at the meeting?)
+* master branch name: main (update publishing time?)
+* dev branch name: dev  (update at the meeting?)
 * jamie: 
 * michael: michael
 * tashika: 
 *  yasmine:
 
 #One of two ways  of starting a project:
-* git clone https://github.com/Twilliams0897/musical-quad-collab.git
-
+* git init
 * git remote add origin https://github.com/Twilliams0897/musical-quad-collab.git
+* git config --list
+* git pull origin dev
 * cd server  then npm install   
 * cd client then npm install
-# Task done on 1/21/21
-* michael: setup dynamodb test table 'test-user', connection working,  push the project structure to my branch name ( postgres setup not done yet)
+* git checkout -b your-local-branch-name 
+# Task done on 1/22/21
+* setup dynamodb and aws rds both working'
 
+## directory structure
+  
+```
+client
+   deezer
+   screens
+   store
+      action.tsx
+      reducer.tsx
+   user
+   App.tsx
+server
+   bin
+   build
+   public
+   src
+      deezer
+      dynamo
+      pg
+      setup
+      staticrouter
+      user
+      app
+```
