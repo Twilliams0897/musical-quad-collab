@@ -14,7 +14,7 @@ class UserService {
     async getUserByName(name: string): Promise<User | null> {
         // GetItem api call allows us to get something by the key
         const params = {
-            TableName: 'test-users',
+            TableName: 'users',
             Key: {
                 'name': name
             }
@@ -33,7 +33,7 @@ class UserService {
         // object to be sent to AWS.
         const params = {
             // TableName - the name of the table we are sending it to
-            TableName: 'test-users',
+            TableName: 'users',
             // Item - the object we are sending
             Item: user,
             ConditionExpression: '#name <> :name',

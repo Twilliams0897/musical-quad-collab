@@ -10,7 +10,7 @@ const ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 
 
 const removeUsers = {
-    TableName: 'test-users'
+    TableName: 'users'
 }
 
 const userSchema = {
@@ -30,7 +30,7 @@ const userSchema = {
         ReadCapacityUnits: 3,
         WriteCapacityUnits: 3
     },
-    TableName: 'test-users',
+    TableName: 'users',
     StreamSpecification: {
         StreamEnabled: false
     }
@@ -61,5 +61,6 @@ ddb.deleteTable(removeUsers, function (err, data) {
 });
 
 function populateUserTable() {
-    userService.addUser({name: 'Bob', password: 'pass', money: 10}).then(()=>{});
+    userService.addUser({name: 'Bob', password: 'pass', credits: 10, role: 'customer', playlist: [{song_id: 5, clicked: 4}]}).then(()=>{});
+    userService.addUser({name: 'Kamila', password: 'pass', credits: 10, role: 'employee', playlist: [{song_id:3, clicked: 7 }]}).then(()=>{});
 }

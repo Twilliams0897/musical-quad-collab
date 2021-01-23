@@ -19,8 +19,8 @@ router.get('/', function(req: any, res: any, next: Function){
   login('rorr', 'pass', async (q: string, args: string[] )=>{
     
     const resp = await pool.query(q, args);
-    console.log(resp.rows, 'from aws rds');
-    res.send(JSON.stringify(resp.rows) + 'from aws rds');
+    console.log(resp.rows, 'from aws pg');
+    res.send(JSON.stringify(resp.rows) + 'from aws pg');
   });
  
 })
