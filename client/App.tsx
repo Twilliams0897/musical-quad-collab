@@ -6,6 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { HomeScreen} from './screens/home.screen'
 import { LoginScreen} from './screens/login.screen'
+import { MyScreen} from './screens/my.screen'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -18,13 +19,15 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={HomeScreen}
+          component={MyScreen}
           options={{ title: 'Welcome' }}
         />
         <Stack.Screen name="Login" component={ 
               LoginScreen }
          />
-      
+         <Stack.Screen name="MyScreen" component={ 
+              MyScreen }
+         />
           
       </Stack.Navigator>
     </NavigationContainer>
