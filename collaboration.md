@@ -41,3 +41,13 @@ server
       user
       app
 ```
+
+```
+user { name, password, role, credits,       playlist
+ }
+ // 'customer', 'employee', 'admin'
+
+ song {
+     song_id: number , clicked: number
+ }
+ ```
