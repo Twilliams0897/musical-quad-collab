@@ -1,6 +1,7 @@
 import express from 'express';
 import * as user from './user';
 import logger from '../log';
+import userService from './user.service';
 
 const router = express.Router();
 
@@ -38,6 +39,31 @@ router.post('/', function(req: any, res) {
     }
   });
 });
+
+
+router.delete('/:username', function(req: any, res: any){
+  const username = req.params.username;
+  if( req.session && req.session.user && req.session.user.role === 'employee'){
+    userService.deleteUser(username).then((data) => {
+      logger.debug(username, ' : delete a user');
+      res.send(JSON.stringify(data));
+    }).catch((err) => res.send(JSON.stringify(err)) )
+
+  }
+  else {
+    res.send('You are not authorized to delete ' + username);
+  }
+});
+
+router.post('/register', function(req: any, res: any){
+
+  const username = req.body.username;
+  const password = req.body.password;
+  user.register(username, password).then(data => res.send(JSON.stringify(data)))
+  .catch(err => res.send(JSON.stringify(err)))
+
+})
+
 
 
 export default router;
