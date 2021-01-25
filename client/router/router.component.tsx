@@ -7,6 +7,7 @@ import NavBarComponent from './navbar.component';
 
 import { GrubState } from '../store/store';
 import { useSelector } from 'react-redux';
+import { MyScreen } from '../screens/my.screen';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -26,6 +27,11 @@ function RouterComponent(props: any) {
             <Stack.Screen
                 name='Login'
                 component={LoginComponent}
+                options={headerOptions}
+            />
+            <Stack.Screen
+                name='MyScreen'
+                component={MyScreen}
                 options={headerOptions}
             />
          
