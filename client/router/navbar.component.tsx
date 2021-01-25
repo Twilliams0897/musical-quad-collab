@@ -13,8 +13,14 @@ function NavBarComponent() {
     return (
         <View style={styles.row}>
         {user.username && <Text>Welcome {user.username} </Text>}
-        {user.role === 'Employee' && <Button onPress={()=> {nav.navigate('DELETE-USER')}} title='Delete User'/>}
+        {user.role === 'Employee' && <Button onPress={()=> {nav.navigate('MyScreen')}} title='Delete User'/>}
         <Button onPress={()=> {nav.navigate('MyScreen')}} title='Playlist'/>
+        <Button
+  onPress={() => {
+    alert('You tapped the button!');
+  }}
+  title="Press Me"
+/>
         </View>
     )
 }
