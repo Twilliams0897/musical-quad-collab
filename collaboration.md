@@ -73,6 +73,11 @@ user { userId, username, password, role, credits,  favorites: [song_id],
  }
  // 'customer', 'employee', 'admin' in dynamoDb
 
+user_account { userId, username, password, role, credits,  favorites: [song_id],      
+       playlist: [playlist_id]
+ }
+ // user_account also in pg
+
 playlist {
 	playlist_id: PK, song_id : FK, user_id: FK,
  
@@ -82,6 +87,9 @@ playlist {
  song {
      song_id: number , clicked: number
  }   in pg
+
+
+ api endpoints to test: /, /users, /pg/user, /pg/songs, /pg/playlist/:id
  ```
 
  # user strories:
