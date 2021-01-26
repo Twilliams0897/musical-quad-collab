@@ -45,9 +45,15 @@ insert into user_account (user_id, username, password, role, credits, favorites,
 insert into song (song_id, clicked)
 	values (1, 5);
 insert into song (song_id, clicked)
-	values (2);
+	values (2, 0);
 insert into song (song_id, clicked)
 	values (3, 1);
+	insert into song (song_id, clicked)
+	values (4, 5);
+insert into song (song_id, clicked)
+	values (5, 0);
+insert into song (song_id, clicked)
+	values (6, 1);
 
 insert into playlist (playlist_id, song_id, user_id)
 	values (1, 2, 3);

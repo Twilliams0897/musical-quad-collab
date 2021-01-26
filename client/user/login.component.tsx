@@ -30,8 +30,13 @@ function LoginComponent({navigation}: LoginProp) {
     function submitForm() {
         userService.login(user).then((user) => {
             console.log(user);
+            if( user.role=== 'admin'){
+                console.log('admin');
+                navigation.navigate('Songs');  //*
+            }
             dispatch(getUser(user));
             
+         
             
         });
     }

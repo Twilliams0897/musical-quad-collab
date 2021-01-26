@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+const purple= '#9900ff';
 
 const styles = StyleSheet.create({
     container: {
@@ -7,14 +8,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderColor: '#880022',
         borderStyle: 'solid',
-        borderWidth: 3
+        borderWidth: 3,
     },
     input: {
         backgroundColor: '#fff',
-        borderRadius: 20
+        borderRadius: 20,
+        padding: 4
     },
     login: {
-        backgroundColor: '#aaa'
+        backgroundColor: '#009999'
     },
     row: {
         flex: 1,

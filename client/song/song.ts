@@ -1,4 +1,4 @@
 export class Song {
-    song_id?: number;
-    clicked?: number;
+    song_id: number = 0;
+    clicked: number = 0;
 } 

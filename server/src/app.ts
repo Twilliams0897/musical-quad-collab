@@ -18,7 +18,6 @@ import indexRouter from './staticrouter/index';
 import usersRouter from './user/user.router';
 import pgRouter from './pg/pg.router';
 
-
 const app = express();
 app.use(cors({
   origin: [process.env.CLIENT as string, process.env.MOBILE as string, process.env.ANDROID as string], 
