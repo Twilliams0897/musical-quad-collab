@@ -9,11 +9,11 @@ AWS.config.update({ region: 'us-west-2' });
 const ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 
 
-const removeUsers = {
-    TableName: 'users'
+const removep1Users = {
+    TableName: 'p1users'
 }
 
-const userSchema = {
+const p1userSchema = {
     AttributeDefinitions: [
         {
             AttributeName: 'username',
@@ -30,7 +30,7 @@ const userSchema = {
         ReadCapacityUnits: 3,
         WriteCapacityUnits: 3
     },
-    TableName: 'users',
+    TableName: 'p1users',
     StreamSpecification: {
         StreamEnabled: false
     }
@@ -38,14 +38,14 @@ const userSchema = {
 
 
 
-ddb.deleteTable(removeUsers, function (err, data) {
+ddb.deleteTable(removep1Users, function (err, data) {
     if (err) {
         console.error('Unable to delete table. Error JSON:', JSON.stringify(err, null, 2));
     } else {
         console.log('Deleted table. Table description JSON:', JSON.stringify(data, null, 2));
     }
     setTimeout(()=>{
-        ddb.createTable(userSchema, (err, data) => {
+        ddb.createTable(p1userSchema, (err, data) => {
             if (err) {
                 // log the error
                 console.log('Error', err);

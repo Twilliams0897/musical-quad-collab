@@ -23,7 +23,7 @@ router.get('/login', function(req: any, res, next) {
     console.log(req.session.user);
     res.redirect('/');
   }
-  res.send('<h1> Cannot login </h1>');
+  res.send('This is where the login page would be');
 });
 
 /* testing whether dynamo db connection works and set session*/
@@ -43,7 +43,7 @@ router.post('/', function(req: any, res) {
 
 router.delete('/:username', function(req: any, res: any){
   const username = req.params.username;
-  if( req.session && req.session.user && req.session.user.role === 'employee'){
+  if( req.session && req.session.user && req.session.user.role === 'admin'){
     userService.deleteUser(username).then((data) => {
       logger.debug(username, ' : delete a user');
       res.send(JSON.stringify(data));
@@ -55,12 +55,19 @@ router.delete('/:username', function(req: any, res: any){
   }
 });
 
+
 router.post('/register', function(req: any, res: any){
 
   const username = req.body.username;
   const password = req.body.password;
-  user.register(username, password).then(data => res.send(JSON.stringify(data)))
+  if (req.session && req.session.user.role == 'admin'){
+    user.registerEmp(username, password).then(data => res.send(JSON.stringify(data)))
   .catch(err => res.send(JSON.stringify(err)))
+  }
+  else{
+    user.register(username, password).then(data => res.send(JSON.stringify(data)))
+  .catch(err => res.send(JSON.stringify(err)))
+  }
 
 })
 
