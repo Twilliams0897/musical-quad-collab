@@ -8,11 +8,11 @@ import NavBarComponent from './navbar.component';
 import { GrubState } from '../store/store';
 import { useSelector } from 'react-redux';
 import { MyScreen } from '../screens/my.screen';
-// import {HomeScreen} form '../screens/home.screen';
+import { HomeScreen } from '../screens/home.screen';
+
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
     Login: undefined;
-
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -29,11 +29,11 @@ function RouterComponent(props: any) {
                 component={LoginComponent}
                 options={headerOptions}
             />
-            {/* <Stack.Screen
-                name='MyScreen'
-                component={MyScreen}
+            <Stack.Screen
+                name='Home'
+                component={HomeScreen}
                 options={headerOptions}
-            /> */}
+            />
          
         </Stack.Navigator>
     );
