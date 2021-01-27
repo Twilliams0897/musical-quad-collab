@@ -1,10 +1,7 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, Button } from 'react-native';
 
-export const  HomeScreen = () => {
-    return (
-        <View>
-             <Text> I am Home Screen </Text>
-        </View>
-    )
-}
+const HomeScreen = () => {
+	return <View></View>;
+};
+export default HomeScreen;
