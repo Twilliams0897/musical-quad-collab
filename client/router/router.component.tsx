@@ -31,7 +31,7 @@ function RouterComponent(props: any) {
             />
             <Stack.Screen
                 name='Home'
-                component={HomeScreen}
+                component={NavBarComponent}
                 options={headerOptions}
             />
          
