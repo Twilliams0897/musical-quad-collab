@@ -6,6 +6,7 @@ class SongService {
     constructor() {
         // URL of the express server
         this.URI = process.env.SERVER + '/pg/songs';
+       // this.URI = 'https://k8n63gmyw8.execute-api.us-west-2.amazonaws.com/default/restaurants';
     }
 
     getSongs(): Promise<Song []> {

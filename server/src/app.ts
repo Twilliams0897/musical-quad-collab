@@ -17,7 +17,7 @@ dotenv.config();
 import indexRouter from './staticrouter/index';
 import usersRouter from './user/user.router';
 import pgRouter from './pg/pg.router';
-
+import songRouter from './song/song.router';
 const app = express();
 app.use(cors({
   origin: [process.env.CLIENT as string, process.env.MOBILE as string, process.env.ANDROID as string], 
@@ -39,6 +39,7 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/pg', pgRouter);
+app.use('/songs', songRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

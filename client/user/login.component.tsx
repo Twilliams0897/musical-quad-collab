@@ -42,6 +42,7 @@ function LoginComponent({navigation}: LoginProp) {
     }
     return (
         <View style={[style.container, style.login]}>
+            
             <Text>Username: </Text>
             <TextInput
                 style={style.input}

@@ -35,10 +35,11 @@ export default function SongDetailComponent(props: Props) {
     return (
         <View style={styles.container}>
          
+            <Text> {song.song_id}</Text>
             <Text >{song.clicked}</Text>
             
             <View>
-                <Text>Menu:</Text>
+                <Text>Song Item:</Text>
                 {song.clicked }
                 <Text>{JSON.stringify(song)}</Text>
             </View>
