@@ -35,7 +35,7 @@ router.post('/', function(req: any, res) {
     }
     else{
       req.session.user = user;
-      res.send(JSON.stringify(user) + ' from /users/dydb with post method and data from dynamoDb');
+      res.send(JSON.stringify(user));
     }
   });
 });
@@ -61,6 +61,7 @@ router.delete('/:username', function(req: any, res: any){
     res.send('You are not authorized to delete ' + username);
   }
 });
+
 
 router.post('/register', function(req: any, res: any){
 

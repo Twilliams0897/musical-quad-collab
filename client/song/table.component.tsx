@@ -34,7 +34,7 @@ export default function TableComponent() {
         <FlatList
             data={songs}
             renderItem={({item}) => (<SongComponent data={item}></SongComponent>)}
-            keyExtractor={(item)=>item.title}/>
+            keyExtractor={(item)=>String(item.song_id)}/>
         : <Text>Loading</Text>}
         </>
     );
