@@ -2,6 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginComponent from '../user/login.component';
+import GetUsersComponent from '../user/get.users.component';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import NavBarComponent from './navbar.component';
 import SongDetailComponent from '../song/song.detail.component';
@@ -15,6 +16,7 @@ import { State } from 'react-native-gesture-handler';
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
     Login: undefined;
+    GetUsers: undefined;
     SongDetail: Song;
     Songs: undefined;
 
@@ -44,7 +46,13 @@ function RouterComponent(props: any) {
             name='Songs'
             component={TableComponent}
             options={headerOptions}
-        />
+            />
+                   <Stack.Screen
+            name='GetUsers'
+            component={GetUsersComponent}
+            options={headerOptions}
+            />
+
         </Stack.Navigator>
     );
 }

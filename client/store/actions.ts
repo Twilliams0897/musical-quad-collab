@@ -1,5 +1,5 @@
 import { Song } from '../song/song';
-import {User} from './../user/user';
+import {User} from '../user/user';
 
 export enum SongActions {
     GetSongs ='GET_SONGS',
@@ -7,12 +7,10 @@ export enum SongActions {
 }
 
 
-
-
 export enum UserActions {
+    GetUsers ='GET_USERS',
     GetUser = 'GET_USER',
-    LoginChange = 'CHANGE_LOGIN',
-    ChangeLocale = "ChangeLocale"
+    LoginChange = 'CHANGE_LOGIN'
 }
 
 export interface AppAction {
@@ -24,6 +22,15 @@ export interface UserAction<P> extends AppAction {
     type: UserActions;
     payload: P;
 }
+
+
+// export function getUsers (users: User[]): UserAction {
+//     const action: UserAction = {
+//         type: UserActions.GetUsers,
+//         payload: users
+//     }
+//     return action;
+// }
 
 export interface SongAction extends AppAction {
     type: SongActions;
@@ -47,7 +54,6 @@ export function changeSong(song: Song): SongAction {
 }
 
 
-
 export function getUser(user: User): UserAction<User> {
     const action: UserAction<User> = {
         type: UserActions.GetUser,
@@ -64,3 +70,7 @@ export function loginAction(user: User): UserAction<User> {
     return action;
 }
 
+export interface UserAction<P> extends AppAction {
+    type: UserActions;
+    payload: P;
+}

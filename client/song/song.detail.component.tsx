@@ -35,13 +35,13 @@ export default function SongDetailComponent(props: Props) {
     return (
         <View style={styles.container}>
          
-            <Text> {song.song_id}</Text>
-            <Text >{song.clicked}</Text>
+            <Text> {song.title}</Text>
+            <Text >{song.clicks}</Text>
             
             <View>
                 <Text>Song Item:</Text>
-                {song.clicked }
-                <Text>{JSON.stringify(song)}</Text>
+                {song.clicks }
+                <Image source={{uri: song.img_url}} />
             </View>
             {userContext.role === 'employee' && (
                 <>

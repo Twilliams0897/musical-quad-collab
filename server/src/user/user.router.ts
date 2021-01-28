@@ -41,11 +41,6 @@ router.post('/', function(req: any, res) {
 });
 
 
-/* using just temmporalily to logout */
-router.get('/logout', (req, res, next) => {
-  req.session.destroy((err)=> logger.error(err));
-  res.redirect('/');
-});
 // Much more restful
 router.delete('/', (req, res, next) => {
   req.session.destroy((err) => logger.error(err));
@@ -75,17 +70,5 @@ router.post('/register', function(req: any, res: any){
   .catch(err => res.send(JSON.stringify(err)))
 
 })
-
-router.post('/', function(req: any, res, next) {
-  logger.debug(req.body);
-  user.login(req.body.username, req.body.password).then((user) => {
-    if(user === null) {
-      res.sendStatus(401);
-    }
-    req.session.user = user;
-    res.send(JSON.stringify(user))
-  });
-});
-
 
 export default router;

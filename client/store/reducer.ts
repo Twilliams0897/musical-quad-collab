@@ -23,6 +23,12 @@ const reducer = (state: GrubState = initialState, action: Actions.AppAction): Gr
 
     switch (action.type) {    
      
+        case Actions.SongActions.GetSongs:
+            newState.songs = action.payload as Song[];
+            return newState;
+        case Actions.SongActions.ChangeSong:
+            newState.song = action.payload as Song;
+            return newState;
         case Actions.UserActions.GetUser:
             newState.user = action.payload as User;
             newState.loginUser = new User();

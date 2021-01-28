@@ -21,54 +21,56 @@ function login(user: string, pass: string, cb: Function) {
 
 }
 
+router.get('/user/', function(req: any, res: any, next: Function){
+  
+  // login(username, password, async (q: string, args: string[] )=>{
+    
+  //   const resp = await pool.query(q, args);
+  //   console.log(resp.rows, 'from aws pg');
+  //   res.send(JSON.stringify(resp.rows) + 'from pg user_account table');
+  // });
+  res.send('user must be logged in from dydb and user_data will be displayed');
+
+})
+
+
 function songs(cb: Function){
   const q = `select * from song`;
   cb(q);
 }
 
-function getPlaylistByUserId(userId: number, cb: Function){
-  const q = `select * from playlist where user_id=$1::integer`;
-  const args = [userId];
+router.get('/songs', function(req: any, res: any){
+    
+  songs( async (q: string) => {
+    const resp = await pool.query(q);
+    console.log(resp.rows[0]);
+
+    res.send(resp.rows);
+  
+  });
+})
+
+
+
+const getSongById = (song_id: number, cb: Function) => {
+  const q = `select * from song where song_id=$1::integer`;
+  const args = [song_id];
   cb(q, args);
 
 }
 
 
-// testing user_account table in pg
-router.get('/user/', function(req: any, res: any, next: Function){
-  const username ='Cus1';  // 'Cus2', 'Cus3'
-  const password = 'pass';
-  login(username, password, async (q: string, args: string[] )=>{
+router.get('/songs/:song_id',  function(req: any, res: any, next: Function){
+  
+  const song_id = Number(req.params.song_id);
+  console.log(song_id);
+  getSongById(song_id, async (q: string, args: string[] )=>{
     
     const resp = await pool.query(q, args);
-    console.log(resp.rows, 'from aws pg');
-    res.send(JSON.stringify(resp.rows) + 'from pg user_account table');
-  });
- 
-})
 
-// testing song table in pg
-router.get('/songs', function(req: any, res: any){
-  
-
-  songs( async (q: string) => {
-    const resp = await pool.query(q);
-    console.log(resp.rows, 'from aws pg song table');
-    res.send(JSON.stringify(resp.rows) + 'from pg song table');
-  
-  });
-})
-  // testing playlist table
-
-
-// testing user_account table in pg
-router.get('/playlist/:userId', function(req: any, res: any, next: Function){
-  const userId = req.params.userId;
-  getPlaylistByUserId(userId, async (q: string, args: string[] )=>{
-    
-    const resp = await pool.query(q, args);
     console.log(resp.rows, 'from pg playlist table');
-    res.send(JSON.stringify(resp.rows) + 'from pg playlist table');
+  
+    res.send(JSON.stringify(resp.rows[0]));
   });
  
 })
