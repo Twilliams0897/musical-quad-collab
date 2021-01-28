@@ -1,4 +1,5 @@
 import * as Actions from './actions';
+import { Song } from '../song/song';
 import { User } from './../user/user';
 import { GrubState } from './store';
 
@@ -8,7 +9,9 @@ import { GrubState } from './store';
 
 export const initialState: GrubState = {
     user: new User(),
-    loginUser: new User()
+    loginUser: new User(),
+    songs: [],
+    song: new Song(),
 
 }
 

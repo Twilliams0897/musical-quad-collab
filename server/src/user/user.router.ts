@@ -41,6 +41,18 @@ router.post('/', function(req: any, res) {
 });
 
 
+/* using just temmporalily to logout */
+router.get('/logout', (req, res, next) => {
+  req.session.destroy((err)=> logger.error(err));
+  res.redirect('/');
+});
+// Much more restful
+router.delete('/', (req, res, next) => {
+  req.session.destroy((err) => logger.error(err));
+  res.sendStatus(204);
+})
+
+
 router.delete('/:username', function(req: any, res: any){
   const username = req.params.username;
   if( req.session && req.session.user && req.session.user.role === 'employee'){
@@ -64,6 +76,16 @@ router.post('/register', function(req: any, res: any){
 
 })
 
+router.post('/', function(req: any, res, next) {
+  logger.debug(req.body);
+  user.login(req.body.username, req.body.password).then((user) => {
+    if(user === null) {
+      res.sendStatus(401);
+    }
+    req.session.user = user;
+    res.send(JSON.stringify(user))
+  });
+});
 
 
 export default router;

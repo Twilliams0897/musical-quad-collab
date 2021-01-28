@@ -82,25 +82,5 @@ function quit() {
 }
 
 
-// testing from Employee table in pg
-function employee(id: number, cb: Function){
-  const q = `select * from "Employee" where "EmployeeId"=$1::integer`;
-  const args= [id];
-  cb(q, args);
-}
-
-router.get('/employee/:id', function(req: any, res: any){
-
-  let id = Number(req.params.id);
-  console.log(id);
-  employee(id, async (q: string, args: number[]) => {
-    const resp = await pool.query(q, args);
-    console.log(resp.rows, 'from aws rds postgres');
-    res.send(JSON.stringify(resp.rows));
-  });
- 
-})
-
-
 
 export default router;

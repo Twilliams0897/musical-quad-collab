@@ -21,6 +21,11 @@ class UserService {
     logout(): Promise<null> {
         return axios.delete(this.URI, {withCredentials: true}).then(result => null);
     }
+
+    deleteByUsername(username: string): Promise<null> {
+        return axios.delete(this.URI + '/' + username, {withCredentials: true}).then(result => null)
+        .catch(err => err);
+    }
 }
 
 export default new UserService();

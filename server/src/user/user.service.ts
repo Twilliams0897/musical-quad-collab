@@ -56,6 +56,29 @@ class UserService {
         });
     }
 
+    async updateUser(user: User) {
+        const params = {
+            TableName: 'users',
+            Key: {
+                'name': user.username
+            },
+            UpdateExpression: 'set password = :pa, credits = :cr, favorites = :fa, playlist: =pl',
+            ExpressionAttributeValues: {
+                'cr': user.credits,
+                'fa': user.favorites,
+                'pl': user.playlist,
+                ':pa': user.password
+            },
+            ReturnValues: 'UPDATED_NEW'
+        };
+        return await this.doc.update(params).promise().then((data) => {
+            logger.debug(data);
+            return true;
+        }).catch(error => {
+            logger.error(error);
+            return false;
+        });
+    }
     async deleteUser(username: string): Promise<boolean> {
         const params = {
             TableName: 'users',

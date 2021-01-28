@@ -30,13 +30,19 @@ function LoginComponent({navigation}: LoginProp) {
     function submitForm() {
         userService.login(user).then((user) => {
             console.log(user);
+            if( user.role=== 'admin'){
+                console.log('admin');
+                navigation.navigate('Songs');  //*
+            }
             dispatch(getUser(user));
             
+         
             
         });
     }
     return (
         <View style={[style.container, style.login]}>
+            
             <Text>Username: </Text>
             <TextInput
                 style={style.input}
