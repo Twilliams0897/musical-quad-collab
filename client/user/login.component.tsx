@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import userService from './user.service';
 import { UserState } from '../store/store';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector } from 'react-redux';
+//import {useHistory} from 'react-router-dom';
 import { getUser, loginAction } from '../store/actions';
 import { Button, TextInput, Text, View } from 'react-native';
 import style from '../global-styles';
@@ -15,12 +16,12 @@ function LoginComponent({navigation}: LoginProp) {
     const user = useSelector(userSelector);
     const actualUser = useSelector((state: UserState) => state.user);
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         // Check to see if we're already logged in. Redirect if we are.
         userService.getLogin().then((loggedUser)=>{
             dispatch(getUser(loggedUser));
-            
+            navigation.navigate('Home')
 
         }).catch((err)=>{
             console.error(err);
@@ -31,9 +32,9 @@ function LoginComponent({navigation}: LoginProp) {
         userService.login(user).then((user) => {
             console.log(user);
             dispatch(getUser(user));
-            
-            
+            navigation.navigate('Home');
         });
+
     }
     return (
         <View style={[style.container, style.login]}>

@@ -5,7 +5,8 @@ import {User} from './../user/user';
 
 export enum UserActions {
     GetUser = 'GET_USER',
-    LoginChange = 'CHANGE_LOGIN'
+    LoginChange = 'CHANGE_LOGIN',
+    UpdateUser = 'UPDATE_USER'
 }
 
 export interface AppAction {
@@ -33,6 +34,14 @@ export function getUser(user: User): UserAction {
 export function loginAction(user: User): UserAction {
     const action: UserAction = {
         type: UserActions.LoginChange,
+        payload: user
+    }
+    return action;
+}
+
+export function updateUser (user: User): UserAction {
+    const action: UserAction = {
+        type: UserActions.UpdateUser,
         payload: user
     }
     return action;

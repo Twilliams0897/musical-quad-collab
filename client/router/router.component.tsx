@@ -4,15 +4,17 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginComponent from '../user/login.component';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import NavBarComponent from './navbar.component';
+import UserComponent from '../user/user.component';
+import AddEmpComponent from '../user/add_emp.component';
 
 import { GrubState } from '../store/store';
 import { useSelector } from 'react-redux';
 import { MyScreen } from '../screens/my.screen';
+import { HomeScreen } from '../screens/home.screen';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
     Login: undefined;
-
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -30,13 +32,19 @@ function RouterComponent(props: any) {
                 options={headerOptions}
             />
             <Stack.Screen
-                name='MyScreen'
-                component={MyScreen}
+                name= 'Home'
+                component={UserComponent}
                 options={headerOptions}
             />
+            <Stack.Screen
+                name='AddEmp'
+                component={AddEmpComponent}
+                options={headerOptions}
+                />
          
         </Stack.Navigator>
     );
 }
 
 export default RouterComponent;
+

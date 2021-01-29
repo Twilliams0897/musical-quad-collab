@@ -21,6 +21,12 @@ class UserService {
     logout(): Promise<null> {
         return axios.delete(this.URI, {withCredentials: true}).then(result => null);
     }
+    updateUser(u: User): Promise<null> {
+        return axios.put(this.URI, u).then(result => null);
+    }
+    addUser(u: User): Promise<null> {
+        return axios.post(this.URI, u).then(result => null);
+    }
 }
 
 export default new UserService();
