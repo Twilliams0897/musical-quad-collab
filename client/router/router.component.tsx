@@ -6,7 +6,7 @@ import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/t
 import NavBarComponent from './navbar.component';
 import SongDetailComponent from '../song/song.detail.component';
 import TableComponent from '../song/table.component';
-import AddDeleteUserComponent from '../user/add.delete.component';
+import RemoveUserComponent from '../user/addRemoveUser.component';
 import { Song } from '../song/song';
 import { GrubState } from '../store/store';
 import { useSelector } from 'react-redux';
@@ -51,7 +51,7 @@ function RouterComponent(props: any) {
             />
             <Stack.Screen
             name='EditUser'
-            component={AddDeleteUserComponent}
+            component={RemoveUserComponent}
             options={headerOptions}
             />
         </Stack.Navigator>
