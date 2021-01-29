@@ -4,27 +4,33 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginComponent from '../user/login.component';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import NavBarComponent from './navbar.component';
-
+import SongDetailComponent from '../song/song.detail.component';
+import TableComponent from '../song/table.component';
+import AddDeleteUserComponent from '../user/add.delete.component';
+import { Song } from '../song/song';
 import { GrubState } from '../store/store';
 import { useSelector } from 'react-redux';
-import { MyScreen } from '../screens/my.screen';
-import { HomeScreen } from '../screens/home.screen';
-import { UserState } from '../store/store';
+import { State } from 'react-native-gesture-handler';
 import { User } from '../user/user';
-import SongComponent from '../song/song.component';
+
+
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
-    //Login: undefined;
-    Login: User;
+    Login: undefined;
+    GetUsers: undefined;
+    SongDetail: Song;
+    Songs: undefined;
+    EditUser: undefined;
+
 };
 
 const Stack = createStackNavigator<StackParams>();
 const headerOptions: StackHeaderOptions = {
-    headerTitle: () => <Text>Musical Quad Maniac</Text>,
+    headerTitle: () => <Text>Musical Quad Collab</Text>,
     headerRight: () => <NavBarComponent />,
 };
 function RouterComponent(props: any) {
-
+    const song = useSelector((state: GrubState) => state.song);
     return (
         <Stack.Navigator initialRouteName='Login'>
             <Stack.Screen
@@ -32,16 +38,22 @@ function RouterComponent(props: any) {
                 component={LoginComponent}
                 options={headerOptions}
             />
-            {SongComponent}
             <Stack.Screen
-                name='SongComponent'
-                component={SongComponent}
+                name='SongDetail'
+                component={SongDetailComponent}
                 options={headerOptions}
+                initialParams = { song }
             />
-            <>
-                
-            </>
-         
+            <Stack.Screen
+            name='Songs'
+            component={TableComponent}
+            options={headerOptions}
+            />
+            <Stack.Screen
+            name='EditUser'
+            component={AddDeleteUserComponent}
+            options={headerOptions}
+            />
         </Stack.Navigator>
     );
 }

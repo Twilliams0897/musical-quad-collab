@@ -45,9 +45,17 @@ insert into user_account (user_id, username, password, role, credits, favorites,
 insert into song (song_id, clicked)
 	values (1, 5);
 insert into song (song_id, clicked)
-	values (2);
+	values (2, 0);
 insert into song (song_id, clicked)
 	values (3, 1);
+	insert into song (song_id, clicked)
+	values (4, 5);
+insert into song (song_id, clicked)
+	values (5, 0);
+insert into song (song_id, clicked)
+	values (6, 1);
+
+
 
 insert into playlist (playlist_id, song_id, user_id)
 	values (1, 2, 3);
@@ -55,6 +63,25 @@ insert into playlist (playlist_id, song_id, user_id)
 	values (2, 1, 3);
 insert into playlist (playlist_id, song_id, user_id)
 	values (3, 2, 1);
+
+
+
+create table mw-song
+(
+    song_id integer,
+	clicked integer not null,
+	name text,
+	genre text not null,
+    CONSTRAINT pk_mw-song PRIMARY KEY  (song_id)
+);
+
+
+insert into mw_song (song_id, clicked, name, genre) 
+	values (1, 5, 'Why do we do what we do?', 'classic'),
+			 (2, 5, 'I need Mercede Benz', 'soul'),
+			 (3, 5, 'the best jazz song ever existed', 'jazz'),
+			 (4, 5, 'Sonata', 'classic')
+  
 
 
 select * from user_account;

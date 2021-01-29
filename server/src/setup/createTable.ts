@@ -1,7 +1,6 @@
 import * as AWS from 'aws-sdk';
 import userService from '../user/user.service';
 
-
 // Set the region
 AWS.config.update({ region: 'us-west-2' });
 
@@ -12,6 +11,7 @@ const ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 const removeUsers = {
     TableName: 'users'
 }
+
 
 const userSchema = {
     AttributeDefinitions: [
@@ -37,7 +37,6 @@ const userSchema = {
 };
 
 
-
 ddb.deleteTable(removeUsers, function (err, data) {
     if (err) {
         console.error('Unable to delete table. Error JSON:', JSON.stringify(err, null, 2));
@@ -60,8 +59,13 @@ ddb.deleteTable(removeUsers, function (err, data) {
     }, 5000);
 });
 
+
+
+
 function populateUserTable() {
     userService.addUser({userId: 1, username: 'Cus', password: 'pass', credits: 10, role: 'customer', favorites: [1,2],  playlist: [1, 4]}).then(()=>{});
     userService.addUser({userId: 11, username: 'Emp', password: 'pass', credits: 10, role: 'employee', favorites: [2,3],  playlist: [2, 3]}).then(()=>{});
     userService.addUser({userId: 21, username: 'Adm', password: 'pass', credits: 10, role: 'admin', favorites: [2,3],  playlist: [2, 3]}).then(()=>{});
 }
+
+

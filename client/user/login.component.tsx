@@ -15,15 +15,16 @@ interface LoginProp {
 function LoginComponent({navigation}: LoginProp) {
     const userSelector = (state: UserState) => state.loginUser;
     const user = useSelector(userSelector);
-    // const actualUser = useSelector((state: UserState) => state.user);
+    const actualUser = useSelector((state: UserState) => state.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
         // Check to see if we're already logged in. Redirect if we are.
         userService.getLogin().then((loggedUser)=>{
             dispatch(getUser(loggedUser));
-            navigation.navigate('SongComponent')
-
+            console.log(loggedUser.role, 'logged');
+            console.log(actualUser.username, 'actual user');
+            navigation.navigate('Songs');
         }).catch((err)=>{
             console.error(err);
         });
@@ -37,12 +38,14 @@ function LoginComponent({navigation}: LoginProp) {
             newUser.password = user.password;
             newUser.role = user.role;
             dispatch(getUser(newUser));
-            navigation.navigate('SongComponent');
-        });
-
+            //dispatch(getUser(user));
+            navigation.navigate('Songs');  //*
+        });      
+         
     }
     return (
         <View style={[style.container, style.login]}>
+            
             <Text>Username: </Text>
             <TextInput
                 style={style.input}
