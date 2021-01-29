@@ -9,10 +9,13 @@ import { GrubState } from '../store/store';
 import { useSelector } from 'react-redux';
 import { MyScreen } from '../screens/my.screen';
 import { HomeScreen } from '../screens/home.screen';
-
+import { UserState } from '../store/store';
+import { User } from '../user/user';
+import SongComponent from '../song/song.component';
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
-    Login: undefined;
+    //Login: undefined;
+    Login: User;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -29,11 +32,15 @@ function RouterComponent(props: any) {
                 component={LoginComponent}
                 options={headerOptions}
             />
+            {SongComponent}
             <Stack.Screen
-                name='Home'
-                component={NavBarComponent}
+                name='SongComponent'
+                component={SongComponent}
                 options={headerOptions}
             />
+            <>
+                
+            </>
          
         </Stack.Navigator>
     );
