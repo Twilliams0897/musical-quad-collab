@@ -2,6 +2,7 @@ import express from 'express';
 import * as user from './user';
 import logger from '../log';
 import userService from './user.service';
+import publicDir from '../constant';
 
 const router = express.Router();
 
@@ -35,56 +36,75 @@ router.post('/', function(req: any, res) {
     }
     else{
       req.session.user = user;
-      res.send(JSON.stringify(user) + ' from /users/dydb with post method and data from dynamoDb');
+      res.send(JSON.stringify(user));
     }
   });
 });
 
 
-/* using just temmporalily to logout */
-router.get('/logout', (req, res, next) => {
-  req.session.destroy((err)=> logger.error(err));
-  res.redirect('/');
+router.delete('/:username', function(req: any, res: any){
+  const username = req.params.username;
+  if( req.session && req.session.user && req.session.user.role === 'employee'){
+    userService.deleteUser(username).then((data: any) => {
+      logger.debug(username, ' : delete a user');
+      res.send(JSON.stringify(data));
+    }).catch((err: any) => res.send(JSON.stringify(err)) )
+
+  }
+  else {
+    console.log('You are not authorized to delete ' + username);
+    res.send('You are not authorized to delete ' + username);
+  }
 });
+
+
 // Much more restful
 router.delete('/', (req, res, next) => {
   req.session.destroy((err) => logger.error(err));
   res.sendStatus(204);
 })
 
-
-router.delete('/:username', function(req: any, res: any){
-  const username = req.params.username;
-  if( req.session && req.session.user && req.session.user.role === 'employee'){
-    userService.deleteUser(username).then((data) => {
-      logger.debug(username, ' : delete a user');
-      res.send(JSON.stringify(data));
-    }).catch((err) => res.send(JSON.stringify(err)) )
-
-  }
-  else {
-    res.send('You are not authorized to delete ' + username);
-  }
-});
-
+// bad practice, let user register
 router.post('/register', function(req: any, res: any){
 
   const username = req.body.username;
   const password = req.body.password;
-  user.register(username, password).then(data => res.send(JSON.stringify(data)))
-  .catch(err => res.send(JSON.stringify(err)))
+  if(username && password){
+    user.register(username, password).then(data => res.send(JSON.stringify(data)))
+    .catch(err => res.send(JSON.stringify(err)));
+  }
+  else {
+    res.sendFile('error.html', {root: publicDir});
+  }
 
 })
 
-router.post('/', function(req: any, res, next) {
-  logger.debug(req.body);
-  user.login(req.body.username, req.body.password).then((user) => {
-    if(user === null) {
-      res.sendStatus(401);
-    }
-    req.session.user = user;
-    res.send(JSON.stringify(user))
-  });
+// bad practice, let user log in
+router.post('/login', function(req: any, res: any){
+
+  const username = req.body.username;
+  const password = req.body.password;
+  user.login(username, password).then(newUser =>  { 
+    req.session.user = newUser;
+    res.send(JSON.stringify(newUser))})
+  .catch(err => res.send(JSON.stringify(err)));
+
+})
+
+// bad practice, check if the  user logged in 
+router.get('/login', function(req: any, res, next) {
+  if(req.session.user) {
+    console.debug(req.session.user);
+    res.redirect('/');
+  }
+  console.log('not logged in');
+  res.sendFile('not logged in');
+});
+
+// let userlogout
+router.get('/logout', (req, res, next) => {
+  req.session.destroy((err)=> logger.error(err));
+  res.redirect('/');
 });
 
 

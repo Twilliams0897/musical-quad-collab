@@ -1,66 +1,86 @@
-import { Song } from '../song/song';
-import {User} from './../user/user';
-
-export enum SongActions {
-    GetSongs ='GET_SONGS',
-    ChangeSong = 'CHANGE_SONG'
-}
-
-
-
+import { User } from './../user/user';
+import { Song } from './../song/song';
 
 export enum UserActions {
-    GetUser = 'GET_USER',
-    LoginChange = 'CHANGE_LOGIN',
-    ChangeLocale = "ChangeLocale"
+	GetUser = 'GET_USER',
+	LoginChange = 'CHANGE_LOGIN',
+}
+
+export enum SongActions {
+	GetSongs = 'GET_SONGS',
+	SongChange = 'CHANGE_SONG',
+	SongInputAction = 'SONG_INPUT_ACTION',
+	PlaylistChange = 'PLAYLIST_CHANGE',
+	FavoritesChange = 'FAVORITES_CHANGE',
 }
 
 export interface AppAction {
-    type: string;
-    payload: any;
+	type: string;
+	payload: any;
 }
 
-export interface UserAction<P> extends AppAction {
-    type: UserActions;
-    payload: P;
+export interface UserAction extends AppAction {
+	type: UserActions;
+	payload: User;
 }
 
 export interface SongAction extends AppAction {
-    type: SongActions;
-    payload: Song | Song[];
+	type: SongActions;
+	payload: Song | Song[];
 }
 
-export function getSongs (songs: Song[]): SongAction {
-    const action: SongAction = {
-        type: SongActions.GetSongs,
-        payload: songs
-    }
-    return action;
+export function getUser(user: User): UserAction {
+	const action: UserAction = {
+		type: UserActions.GetUser,
+		payload: user,
+	};
+	return action;
+}
+
+export function loginAction(user: User): UserAction {
+	const action: UserAction = {
+		type: UserActions.LoginChange,
+		payload: user,
+	};
+	return action;
+}
+
+export function getSongs(songs: Song[]): SongAction {
+	const action: SongAction = {
+		type: SongActions.GetSongs,
+		payload: songs,
+	};
+	return action;
 }
 
 export function changeSong(song: Song): SongAction {
-    const action: SongAction = {
-        type: SongActions.ChangeSong,
-        payload: song
-    }
-    return action;
+	const action: SongAction = {
+		type: SongActions.SongChange,
+		payload: song,
+	};
+	return action;
 }
 
-
-
-export function getUser(user: User): UserAction<User> {
-    const action: UserAction<User> = {
-        type: UserActions.GetUser,
-        payload: user
-    }
-    return action;
+export function songInputAction(song: Song): SongAction {
+	const action: SongAction = {
+		type: SongActions.SongInputAction,
+		payload: song,
+	};
+	return action;
 }
 
-export function loginAction(user: User): UserAction<User> {
-    const action: UserAction<User> = {
-        type: UserActions.LoginChange,
-        payload: user
-    }
-    return action;
+export function playlistChange(songs: Song[]): SongAction {
+	const action: SongAction = {
+		type: SongActions.PlaylistChange,
+		payload: songs,
+	};
+	return action;
 }
 
+export function favoritesChange(songs: Song[]): SongAction {
+	const action: SongAction = {
+		type: SongActions.FavoritesChange,
+		payload: songs,
+	};
+	return action;
+}

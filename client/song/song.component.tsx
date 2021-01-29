@@ -1,39 +1,131 @@
-import React from 'react';
-import { Song } from './song';
-import { View, Text, Button, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import styles from '../global-styles';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { View, Text, StyleSheet, Button, Linking } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeSong } from '../store/actions';
+import { UserState } from '../store/store';
+import { thunkGetSongs } from '../store/thunks';
+import { Song } from './song';
+import songService from './song.service';
 
+const { create } = require('react-native-pixel-perfect');
+const designResolution = {
+	width: 1125,
+	height: 2436,
+}; // what we're designing for
+const perfectSize = create(designResolution);
 
-// Define the properties that are being passed to this component
-interface SongProps {
-    data: Song;
+function SongComponent(props: any) {
+	const nav = useNavigation();
+
+	const userContext = useSelector((state: UserState) => state.user);
+	const dispatch = useDispatch();
+
+	const openURL = (url: string) => {
+		Linking.openURL(url).catch((err) =>
+			console.error('An error occurred', err)
+		);
+	};
+
+	function handleDelete() {
+		if (props.data.song_id) {
+			songService.deleteSong(props.data.song_id).then(() => {
+				dispatch(changeSong(new Song()));
+				dispatch(thunkGetSongs());
+				nav.navigate('Songs');
+			});
+		}
+	}
+
+	return (
+		<View style={styles.container}>
+			<Text style={styles.title}>{props.data.title}</Text>
+			<Text style={styles.artist}>{props.data.artist}</Text>
+			<Text style={styles.year}>{props.data.year}</Text>
+			<Text style={styles.year}>Clicks: {props.data.clicks}</Text>
+			<Text
+				style={styles.url}
+				onPress={() => {
+					openURL(props.data.web_url);
+				}}
+			>
+				Learn More
+			</Text>
+			<View style={styles.buttons}>
+				<Button
+					title="Play"
+					onPress={() => {
+						console.log(`playing ${props.data.title} by ${props.data.artist}`);
+					}}
+				/>
+				<Button
+					title="Favorite"
+					onPress={() => {
+						console.log(
+							`favorited ${props.data.title} by ${props.data.artist}`
+						);
+					}}
+				/>
+				<Button
+					title="Add to Playlist"
+					onPress={() => {
+						console.log(`go to added to playlist`);
+					}}
+				/>
+				{userContext.role === 'employee' && (
+					<>
+						<Button onPress={handleDelete} title="Delete Song" />
+					</>
+				)}
+			</View>
+		</View>
+	);
 }
-// View Component with only a little functionality
-function SongComponent({data}: SongProps) {
-    // Using the useNavigation hook to get access to the ReactNavigation component.
-    const nav = useNavigation();
-    const dispatch = useDispatch();
 
-    // callback function for our button.
-    function goToSong() {
-        // dispatch(changeSong(props.data));
-        // passing our restaurant to the RestaurantDetail screen and going there.
-        nav.navigate('SongDetail', data);
-    }
-
-    // The JSX we wish to render.
-    return (
-        <View style={styles.container}>
-              <View style={{ backgroundColor: 'red', width: 100, height: 100}}>
-                    <Text > Song ID: </Text>
-                </View>
-            <Text style={{ backgroundColor: 'red', width: 20, height: 20}}> Song ID: </Text>
-            <Text> Song Clicked</Text>
-            <Button title='songdetail' onPress={goToSong} />
-        </View>
-    );
-}
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		margin: 10,
+		textAlign: 'center',
+		borderColor: '#4BA3C3',
+		borderStyle: 'solid',
+		borderWidth: 1,
+		backgroundColor: '#0F4C5C',
+		padding: 10,
+		fontSize: 16,
+		fontWeight: '400',
+		width: perfectSize(500),
+	},
+	title: {
+		color: '#b3ffb3',
+		margin: 2,
+		fontSize: 20,
+	},
+	artist: {
+		margin: 2,
+		fontSize: 16,
+		fontWeight: '600',
+		color: '#b3ffb3',
+	},
+	year: {
+		margin: 2,
+		fontSize: 16,
+		color: '#b3ffb3',
+	},
+	url: {
+		margin: 5,
+		fontStyle: 'italic',
+		color: '#fef9ff',
+	},
+	buttons: {
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+	},
+	button: {
+		margin: 2,
+	},
+});
 
 export default SongComponent;

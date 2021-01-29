@@ -7,6 +7,7 @@
     "setup": "npx tsc && node ./build/setup/createTable.js"
   },
   "dependencies": {
+    "@types/aws-sdk": "^2.7.0",
     "aws-sdk": "^2.830.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",

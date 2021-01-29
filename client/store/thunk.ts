@@ -1,7 +1,7 @@
 import { AppState } from './store';
 import { AppAction, getSongs } from './actions';
 import { ThunkAction } from 'redux-thunk';
-import songService from '../song/song.service';
+import SongService from '../song/song.service';
 
 export type AppThunk<ReturnType = void> = ThunkAction<
 	ReturnType,
@@ -10,8 +10,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 	AppAction
 >;
 
-export const thunkGetSongs = (): AppThunk => async (dispatch) => {
-	const asyncResp = await songService.getSongs();
-	console.log('before thunk dispatch');
+export const thunkGetHomeSongs = (): AppThunk => async (dispatch) => {
+	const asyncResp = await SongService.getHomeSongs();
 	dispatch(getSongs(asyncResp));
 };
