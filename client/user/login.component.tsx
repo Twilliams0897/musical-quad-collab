@@ -6,7 +6,11 @@ import {useDispatch, useSelector } from 'react-redux';
 import { getUser, loginAction } from '../store/actions';
 import { Button, TextInput, Text, View } from 'react-native';
 import style from '../global-styles';
+<<<<<<< Updated upstream
 import { User } from './user';
+=======
+import {User} from './user';
+>>>>>>> Stashed changes
 
 // Function Component
 interface LoginProp {
@@ -31,16 +35,23 @@ function LoginComponent({navigation}: LoginProp) {
     function submitForm() {
         userService.login(user).then((user) => {
             console.log(user);
+<<<<<<< Updated upstream
             /*
                 When logged in, a new user with the same credentials is created. 
                 That way, when we click the back to the home page, the previous user is no longer logged in.
             */
+=======
+>>>>>>> Stashed changes
             let newUser = new User();
             newUser.username = user.username;
             newUser.password = user.password;
             newUser.role = user.role;
             dispatch(getUser(newUser));
+<<<<<<< Updated upstream
             navigation.navigate('Songs');  
+=======
+            navigation.navigate('Songs');  //*
+>>>>>>> Stashed changes
         });      
          
     }
@@ -50,7 +61,7 @@ function LoginComponent({navigation}: LoginProp) {
             <Text>Username: </Text>
             <TextInput
                 style={style.input}
-                onChangeText={(value) =>
+                onChangeText={(value: any) =>
                     dispatch(loginAction({ ...user, username: value }))
                 }
                 value={user.username}
@@ -59,7 +70,7 @@ function LoginComponent({navigation}: LoginProp) {
             <TextInput
                 secureTextEntry={true}
                 style={style.input}
-                onChangeText={(value) =>
+                onChangeText={(value: any) =>
                     dispatch(loginAction({ ...user, password: value }))
                 }
                 value={user.password}
