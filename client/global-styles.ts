@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 		color: '#4d243d',
 		padding: 10,
 		width: perfectSize(1125),
-		height: perfectSize(56),
+		height: 'fit-content',
 		fontSize: 24,
 		fontWeight: '700',
 	},
@@ -27,6 +27,10 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		fontSize: 16,
 		fontWeight: '400',
+	},
+	row: {
+		flex: 1,
+		flexDirection: 'row',
 	},
 	url: {
 		color: '#fef9ff',

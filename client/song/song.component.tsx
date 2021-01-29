@@ -1,5 +1,12 @@
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { View, Text, StyleSheet, Button, Linking } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeSong } from '../store/actions';
+import { UserState } from '../store/store';
+import { thunkGetSongs } from '../store/thunks';
+import { Song } from './song';
+import songService from './song.service';
 
 const { create } = require('react-native-pixel-perfect');
 const designResolution = {
@@ -9,17 +16,33 @@ const designResolution = {
 const perfectSize = create(designResolution);
 
 function SongComponent(props: any) {
+	const nav = useNavigation();
+
+	const userContext = useSelector((state: UserState) => state.user);
+	const dispatch = useDispatch();
+
 	const openURL = (url: string) => {
 		Linking.openURL(url).catch((err) =>
 			console.error('An error occurred', err)
 		);
 	};
 
+	function handleDelete() {
+		if (props.data.song_id) {
+			songService.deleteSong(props.data.song_id).then(() => {
+				dispatch(changeSong(new Song()));
+				dispatch(thunkGetSongs());
+				nav.navigate('Songs');
+			});
+		}
+	}
+
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>{props.data.title}</Text>
 			<Text style={styles.artist}>{props.data.artist}</Text>
 			<Text style={styles.year}>{props.data.year}</Text>
+			<Text style={styles.year}>Clicks: {props.data.clicks}</Text>
 			<Text
 				style={styles.url}
 				onPress={() => {
@@ -49,6 +72,11 @@ function SongComponent(props: any) {
 						console.log(`go to added to playlist`);
 					}}
 				/>
+				{userContext.role === 'employee' && (
+					<>
+						<Button onPress={handleDelete} title="Delete Song" />
+					</>
+				)}
 			</View>
 		</View>
 	);
