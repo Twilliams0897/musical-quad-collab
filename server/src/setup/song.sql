@@ -1,5 +1,5 @@
---drop table playlist;
---drop table user_account;
+drop table playlist;
+drop table user_account;
 drop table song;
 
 create table song(
