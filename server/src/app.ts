@@ -16,7 +16,6 @@ dotenv.config();
 // router setup
 import indexRouter from './staticrouter/index';
 import usersRouter from './user/user.router';
-import pgRouter from './pg/pg.router';
 import songRouter from './song/song.router';
 const app = express();
 app.use(cors({
@@ -35,10 +34,8 @@ app.use(session({
   store: new (MemoryStore(session))({checkPeriod: 86400000}),
   cookie: {}}));
 
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/pg', pgRouter);
 app.use('/songs', songRouter);
 
 // catch 404 and forward to error handler

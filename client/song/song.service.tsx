@@ -5,8 +5,8 @@ class SongService {
     private URI: any;
     constructor() {
         // URL of the express server
-        this.URI = 'http://localhost:3000/songs';
-       // this.URI = 'https://k8n63gmyw8.execute-api.us-west-2.amazonaws.com/default/restaurants';
+        this.URI = 'https://3qt05wpja8.execute-api.us-west-2.amazonaws.com/default/songs';
+       
     }
 
     getSongs(): Promise<Song []> {
