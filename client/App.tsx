@@ -9,38 +9,18 @@ import { LoginScreen} from './screens/login.screen'
 import { MyScreen} from './screens/my.screen'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import store from './store/store';
+import HomeScreen from './screens/home.screen';
+import RouterComponent from './router/router.component';
 
+export default function App() {
+	const Stack = createStackNavigator();
 
-const Stack = createStackNavigator();
-
-const App = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={MyScreen}
-          options={{ title: 'Welcome' }}
-        />
-        <Stack.Screen name="Login" component={ 
-              LoginScreen }
-         />
-         <Stack.Screen name="MyScreen" component={ 
-              MyScreen }
-         />
-          
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-};
-
-export default App; 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+	return (
+		<Provider store={store}>
+			<NavigationContainer>
+				<RouterComponent></RouterComponent>
+			</NavigationContainer>
+		</Provider>
+	);
+}
