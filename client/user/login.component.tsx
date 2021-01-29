@@ -20,8 +20,9 @@ function LoginComponent({navigation}: LoginProp) {
         // Check to see if we're already logged in. Redirect if we are.
         userService.getLogin().then((loggedUser)=>{
             dispatch(getUser(loggedUser));
-            
-
+            console.log(loggedUser.role, 'logged');
+            console.log(actualUser.username, 'actual user');
+            navigation.navigate('Songs');
         }).catch((err)=>{
             console.error(err);
         });
@@ -30,15 +31,10 @@ function LoginComponent({navigation}: LoginProp) {
     function submitForm() {
         userService.login(user).then((user) => {
             console.log(user);
-            if( user.role=== 'admin'){
-                console.log('admin');
-                navigation.navigate('Songs');  //*
-            }
             dispatch(getUser(user));
-            
+            navigation.navigate('Songs');  //*
+        });      
          
-            
-        });
     }
     return (
         <View style={[style.container, style.login]}>

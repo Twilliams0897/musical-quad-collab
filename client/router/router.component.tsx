@@ -6,17 +6,21 @@ import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/t
 import NavBarComponent from './navbar.component';
 import SongDetailComponent from '../song/song.detail.component';
 import TableComponent from '../song/table.component';
+import AddDeleteUserComponent from '../user/add.delete.component';
 import { Song } from '../song/song';
 import { GrubState } from '../store/store';
 import { useSelector } from 'react-redux';
 import { State } from 'react-native-gesture-handler';
+import { User } from '../user/user';
 
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
     Login: undefined;
+    GetUsers: undefined;
     SongDetail: Song;
     Songs: undefined;
+    EditUser: undefined;
 
 };
 
@@ -44,7 +48,13 @@ function RouterComponent(props: any) {
             name='Songs'
             component={TableComponent}
             options={headerOptions}
-        />
+            />
+            <Stack.Screen
+            name='EditUser'
+            component={AddDeleteUserComponent}
+            options={headerOptions}
+            />
+
         </Stack.Navigator>
     );
 }

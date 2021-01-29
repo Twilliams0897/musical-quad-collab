@@ -1,5 +1,5 @@
 import { Song } from '../song/song';
-import {User} from './../user/user';
+import {User} from '../user/user';
 
 export enum SongActions {
     GetSongs ='GET_SONGS',
@@ -7,12 +7,9 @@ export enum SongActions {
 }
 
 
-
-
 export enum UserActions {
     GetUser = 'GET_USER',
-    LoginChange = 'CHANGE_LOGIN',
-    ChangeLocale = "ChangeLocale"
+    LoginChange = 'CHANGE_LOGIN'
 }
 
 export interface AppAction {
@@ -24,6 +21,8 @@ export interface UserAction<P> extends AppAction {
     type: UserActions;
     payload: P;
 }
+
+
 
 export interface SongAction extends AppAction {
     type: SongActions;
@@ -47,9 +46,8 @@ export function changeSong(song: Song): SongAction {
 }
 
 
-
 export function getUser(user: User): UserAction<User> {
-    const action: UserAction<User> = {
+    const action: UserAction<User>= {
         type: UserActions.GetUser,
         payload: user
     }

@@ -14,7 +14,7 @@ class UserService {
             return result.data
         });
     }
-
+ 
     login(user: User): Promise<User> {
         return axios.post(this.URI, user, {withCredentials: true}).then(result => result.data).catch(err => err);
     }
@@ -26,6 +26,10 @@ class UserService {
         return axios.delete(this.URI + '/' + username, {withCredentials: true}).then(result => null)
         .catch(err => err);
     }
+
+
 }
+
+
 
 export default new UserService();

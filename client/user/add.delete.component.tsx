@@ -1,31 +1,35 @@
-import React, { useEffect } from 'react';
-import {View, Text, TextInput, Button} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {View, Text, TextInput, Button, Alert} from 'react-native';
 import userService from './user.service';
 import style from '../global-styles';
-import { useNavigation } from '@react-navigation/native';
+import { User } from './user';
 
-const nav = useNavigation();
-function addForm(){
 
-};
-
-function deleteForm(){
-    
-}
 
 function AddDeleteUserComponent(username: string){
+    let [value, setValue] =useState('');
+    const  AddForm= () => {
+        Alert.alert('add user')
+        return <View> <Text> add user</Text></View>
+    };
+    
+    const handleDelete = () => {
+        userService.deleteByUsername(value).then(()=>{  
+        })
+    }
 
-    userService.deleteByUsername(username);
-    nav.navigate('Songs');
 
     return (
-        <View style={[style.container, style.login]}>
-            <Text> Username: </Text>
-            <TextInput />
-            <Button onPress={deleteForm} title='Delete' color='#880022' />
-            <Button onPress ={addForm} title='Add' color='#880022' />
+        <View>
+        <TextInput
+            placeholder="add /remove username" value={value}  onChangeText={(value) => setValue(value)} />
+            <Text> {value}</Text>
+        <Button onPress={handleDelete} title='Delete' color='#880022' />
+            <Button onPress ={AddForm} title='Add' color='#880022' />
         </View>
-    );
+      
+  );
+            
 
 }
 export default AddDeleteUserComponent;

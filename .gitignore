@@ -6,3 +6,6 @@
 **/.env
 **/.eslintcache
 .vscode/
+**/setup/**
+lambda
+server-test

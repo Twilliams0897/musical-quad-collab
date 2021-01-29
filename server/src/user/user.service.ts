@@ -6,13 +6,20 @@ import { User } from './user';
 class UserService {
     private doc: DocumentClient;
     constructor() {
-        // The documentClient. This is our interface with DynamoDB
-        this.doc = dynamo; // We imported the DocumentClient from dyamo.ts
+        this.doc = dynamo; 
+    }
+
+    async getUsers(): Promise<User[]> {
+        const params = {
+            TableName: 'users'
+        };
+        return await this.doc.scan(params).promise().then((data) => {
+            return data.Items as User[];
+        })
     }
 
 
     async getUserByName(username: string): Promise<User | null> {
-        // GetItem api call allows us to get something by the key
         const params = {
             TableName: 'users',
             Key: {
@@ -96,7 +103,7 @@ class UserService {
 
     }
 
-
+ 
 
 
 

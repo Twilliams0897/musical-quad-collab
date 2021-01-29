@@ -16,7 +16,7 @@ export interface SongState {
 export interface UserState {
     user: User;
     loginUser: User;
-    locale?: string;
+
 }
 
 export interface GrubState extends UserState, SongState { }

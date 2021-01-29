@@ -12,16 +12,8 @@ function NavBarComponent() {
     const dispatch = useDispatch();
     return (
         <View style={styles.row}>
-        {user.username && <Text>Welcome {user.username} </Text>}
-        {user.role === 'employee' ? (
-          <Button onPress={()=> {
-             nav.navigate('AddSong');
-          }} 
-          title={`Welcome ${user.username}`  }
-          />
-        ) : (
-          <></>
-        )}
+   
+        { (user.role ==='employee') ?  <Button onPress = {() => nav.navigate('EditUser')}  title='Manage Users'/> : <></>}
         <Button onPress={()=> {nav.navigate('Songs'); }} title='Songs'/>
       </View>
     );

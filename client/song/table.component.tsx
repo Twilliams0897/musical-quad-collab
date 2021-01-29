@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import {View, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Song } from './song';
 import {SongState} from '../store/store';
@@ -11,6 +12,7 @@ export default function TableComponent() {
     const selectSong = (state: SongState) => state.songs;
     // Retrieve the restaurants array from redux.
     const songs = useSelector(selectSong);
+    
     // Get access to the dispatcher. Feed the dispatcher Actions for your Reducer.
     const dispatch = useDispatch();
 
@@ -19,6 +21,7 @@ export default function TableComponent() {
         dispatch(thunkGetSongs())
     }, [dispatch]);
 
+
     // FlatList is a list of objects that will render only when they're on screen.
     /* 
         data - The array of data we wish to render
@@ -26,9 +29,13 @@ export default function TableComponent() {
         keyExtractor - a callback function that assigns a key to each item in the list    
     */
     return (
+        <>
+        { songs && songs.length ? 
         <FlatList
             data={songs}
             renderItem={({item}) => (<SongComponent data={item}></SongComponent>)}
-            keyExtractor={(item)=>String(item.song_id) }/>
+            keyExtractor={(item)=>String(item.song_id)}/>
+        : <Text>Loading</Text>}
+        </>
     );
 }

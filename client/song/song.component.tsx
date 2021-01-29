@@ -26,13 +26,13 @@ function SongComponent({data}: SongProps) {
     // The JSX we wish to render.
     return (
         <View style={styles.container}>
-              <View style={{ backgroundColor: 'red', width: 100, height: 100}}>
-                    <Text > Song ID: </Text>
-                </View>
-            <Text style={{ backgroundColor: 'red', width: 20, height: 20}}> Song ID: </Text>
-            <Text> Song Clicked</Text>
-            <Button title='songdetail' onPress={goToSong} />
-        </View>
+        
+        <Text>{data.artist}</Text>
+      
+        <Text>Number of Clicks: {data.clicks}</Text>
+        <Text>{data.title}</Text>
+        <Button title='songdetail' onPress={goToSong} />
+    </View>
     );
 }
 

@@ -5,12 +5,16 @@ class SongService {
     private URI: any;
     constructor() {
         // URL of the express server
-        this.URI = process.env.SERVER + '/pg/songs';
-       // this.URI = 'https://k8n63gmyw8.execute-api.us-west-2.amazonaws.com/default/restaurants';
+        this.URI = 'https://3qt05wpja8.execute-api.us-west-2.amazonaws.com/default/songs';
+       
     }
 
     getSongs(): Promise<Song []> {
-        return axios.get(this.URI).then(result => result.data).catch((err) => {console.error(err)});
+        console.log(this.URI);
+        return axios.get(this.URI).then(result => {
+            console.log('r', result);
+          return  result.data;
+        }).catch((err) => {console.error(err)});
     }
 
     addSong(s: Song): Promise<null> {
