@@ -1,29 +1,27 @@
-import express from 'express';
 import { Client } from 'pg';
-import dotenv from 'dotenv';
+import createResponse from 'createresponse';
 
-dotenv.config();
-
-const router = express.Router();
-
-router.get('/', async (req, res, next) => {
+export async function handler() {
 	const client = new Client({
 		host: process.env.PGHOST,
-		user: 'RN2012michael',
+		user: process.env.PGUSER,
 		password: process.env.PGPASSWORD,
 		database: process.env.PGDATABASE,
 	});
+
 	client.connect();
+
 	const q = 'SELECT * from song LIMIT 20';
+
 	let result;
+
 	try {
 		result = await client.query(q);
-		res.status(200).send(result.rows);
+		client.end();
+		return createResponse(JSON.stringify(result.rows), 200);
 	} catch (error) {
 		console.log(error);
-		res.status(400).send(error.stack);
+		client.end();
+		return createResponse(JSON.stringify(error.stack), 400);
 	}
-	client.end();
-});
-
-export default router;
+}
