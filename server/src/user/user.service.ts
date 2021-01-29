@@ -6,17 +6,24 @@ import { User } from './user';
 class UserService {
     private doc: DocumentClient;
     constructor() {
-        // The documentClient. This is our interface with DynamoDB
-        this.doc = dynamo; // We imported the DocumentClient from dyamo.ts
+        this.doc = dynamo; 
+    }
+
+    async getUsers(): Promise<User[]> {
+        const params = {
+            TableName: 'users'
+        };
+        return await this.doc.scan(params).promise().then((data) => {
+            return data.Items as User[];
+        })
     }
 
 
-    async getUserByName(name: string): Promise<User | null> {
-        // GetItem api call allows us to get something by the key
+    async getUserByName(username: string): Promise<User | null> {
         const params = {
             TableName: 'users',
             Key: {
-                'name': name
+                'username': username
             }
         };
         return await this.doc.get(params).promise().then((data) => {
@@ -36,13 +43,13 @@ class UserService {
             TableName: 'users',
             // Item - the object we are sending
             Item: user,
-            ConditionExpression: '#name <> :name',
+            ConditionExpression: '#username <> :username',
             ExpressionAttributeNames: {
-                '#name': 'name',
+                '#username': 'username',
                 //'#role': 'role'
             },
             ExpressionAttributeValues: {
-                ':name': user.name,
+                ':username': user.username,
                 //':role': user.role
             }
         };
@@ -55,6 +62,49 @@ class UserService {
             return false;
         });
     }
+
+    async updateUser(user: User) {
+        const params = {
+            TableName: 'users',
+            Key: {
+                'name': user.username
+            },
+            UpdateExpression: 'set password = :pa, credits = :cr, favorites = :fa, playlist: =pl',
+            ExpressionAttributeValues: {
+                'cr': user.credits,
+                'fa': user.favorites,
+                'pl': user.playlist,
+                ':pa': user.password
+            },
+            ReturnValues: 'UPDATED_NEW'
+        };
+        return await this.doc.update(params).promise().then((data) => {
+            logger.debug(data);
+            return true;
+        }).catch(error => {
+            logger.error(error);
+            return false;
+        });
+    }
+    async deleteUser(username: string): Promise<boolean> {
+        const params = {
+            TableName: 'users',
+            Key: {
+                'username': username
+            }
+        }
+
+        return await this.doc.delete(params).promise().then((data) => {
+            return true;
+        }).catch(err => {
+            logger.error(err);
+            return false;
+        });
+
+    }
+
+ 
+
 
 
 

@@ -1,7 +1,6 @@
 import * as AWS from 'aws-sdk';
 import userService from '../user/user.service';
 
-
 // Set the region
 AWS.config.update({ region: 'us-west-2' });
 
@@ -13,16 +12,17 @@ const removeUsers = {
     TableName: 'users'
 }
 
+
 const userSchema = {
     AttributeDefinitions: [
         {
-            AttributeName: 'name',
+            AttributeName: 'username',
             AttributeType: 'S'
         }
     ],
     KeySchema: [
         {
-            AttributeName: 'name',
+            AttributeName: 'username',
             KeyType: 'HASH'
         }
     ],
@@ -35,7 +35,6 @@ const userSchema = {
         StreamEnabled: false
     }
 };
-
 
 
 ddb.deleteTable(removeUsers, function (err, data) {
@@ -60,7 +59,13 @@ ddb.deleteTable(removeUsers, function (err, data) {
     }, 5000);
 });
 
+
+
+
 function populateUserTable() {
-    userService.addUser({name: 'Bob', password: 'pass', credits: 10, role: 'customer', playlist: [{song_id: 5, clicked: 4}]}).then(()=>{});
-    userService.addUser({name: 'Kamila', password: 'pass', credits: 10, role: 'employee', playlist: [{song_id:3, clicked: 7 }]}).then(()=>{});
+    userService.addUser({userId: 1, username: 'Cus', password: 'pass', credits: 10, role: 'customer', favorites: [1,2],  playlist: [1, 4]}).then(()=>{});
+    userService.addUser({userId: 11, username: 'Emp', password: 'pass', credits: 10, role: 'employee', favorites: [2,3],  playlist: [2, 3]}).then(()=>{});
+    userService.addUser({userId: 21, username: 'Adm', password: 'pass', credits: 10, role: 'admin', favorites: [2,3],  playlist: [2, 3]}).then(()=>{});
 }
+
+
