@@ -6,7 +6,7 @@ import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/t
 import NavBarComponent from './navbar.component';
 import SongDetailComponent from '../song/song.detail.component';
 import TableComponent from '../song/table.component';
-import RemoveUserComponent from '../user/addRemoveUser.component';
+import AddRemoveUserComponent from '../user/addRemoveUser.component';
 import { Song } from '../song/song';
 import { GrubState } from '../store/store';
 import { useSelector } from 'react-redux';
@@ -49,11 +49,11 @@ function RouterComponent(props: any) {
             component={TableComponent}
             options={headerOptions}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
             name='EditUser'
-            component={RemoveUserComponent}
+            component={AddRemoveUserComponent}
             options={headerOptions}
-            />
+            /> */}
         </Stack.Navigator>
     );
 }
