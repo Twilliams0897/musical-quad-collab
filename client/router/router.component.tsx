@@ -32,7 +32,7 @@ function RouterComponent(props: any) {
                 options={headerOptions}
             />
             <Stack.Screen
-                name= 'Home'
+                name='Home'
                 component={UserComponent}
                 options={headerOptions}
             />
