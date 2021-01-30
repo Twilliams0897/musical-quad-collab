@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginComponent from '../user/login.component';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import NavBarComponent from './navbar.component';
-import TableComponent from '../song/table.component';
 import AddDeleteUserComponent from '../user/add.delete.component';
 import { Song } from '../song/song';
 import { AppState } from '../store/store';
@@ -38,11 +37,6 @@ function RouterComponent(props: any) {
 				options={headerOptions}
 			/>
 			<Stack.Screen
-				name="Songs"
-				component={TableComponent}
-				options={headerOptions}
-			/>
-			<Stack.Screen
 				name="EditUser"
 				component={AddDeleteUserComponent}
 				options={headerOptions}
@@ -50,6 +44,11 @@ function RouterComponent(props: any) {
 			<Stack.Screen
 				name="Home"
 				component={HomeScreen}
+				options={headerOptions}
+			/>
+			<Stack.Screen
+				name="EditUser"
+				component={AddDeleteUserComponent}
 				options={headerOptions}
 			/>
 		</Stack.Navigator>
