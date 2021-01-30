@@ -6,11 +6,7 @@ import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/t
 import NavBarComponent from './navbar.component';
 import SongDetailComponent from '../song/song.detail.component';
 import TableComponent from '../song/table.component';
-<<<<<<< HEAD
-import AddRemoveUserComponent from '../user/addRemoveUser.component';
-=======
 import AddDeleteUserComponent from '../user/add.delete.component';
->>>>>>> parent of 2d21ffd... No longer allows for previous user to remain logged in
 import { Song } from '../song/song';
 import { GrubState } from '../store/store';
 import { useSelector } from 'react-redux';
@@ -53,15 +49,16 @@ function RouterComponent(props: any) {
             component={TableComponent}
             options={headerOptions}
             />
-            {/* <Stack.Screen
+            <Stack.Screen
             name='EditUser'
-<<<<<<< HEAD
-            component={AddRemoveUserComponent}
-=======
             component={AddDeleteUserComponent}
->>>>>>> parent of 2d21ffd... No longer allows for previous user to remain logged in
             options={headerOptions}
-            /> */}
+            />
+            <>
+                
+            </>
+         
+
         </Stack.Navigator>
     );
 }
