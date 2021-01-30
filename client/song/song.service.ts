@@ -9,17 +9,6 @@ class SongService {
 			'https://3qt05wpja8.execute-api.us-west-2.amazonaws.com/default/songs';
 	}
 
-	async getHomeSongs(): Promise<Song[]> {
-		return axios
-			.get(
-				'https://v3gpanxg9k.execute-api.us-west-2.amazonaws.com/default/gethomesongs'
-			)
-			.then((result) => result.data)
-			.catch((err) => {
-				console.error(err);
-			});
-	}
-
 	getSongs(): Promise<Song[]> {
 		console.log(this.URI);
 		return axios

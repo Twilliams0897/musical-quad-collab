@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Text, View, FlatList, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { thunkGetHomeSongs } from '../store/thunk';
+import { thunkGetSongs } from '../store/thunks';
 import { SongState } from '../store/store';
 import SongComponent from '../song/song.component';
 import styles from '../global-styles';
@@ -13,7 +13,7 @@ const HomeScreen = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(thunkGetHomeSongs());
+		dispatch(thunkGetSongs());
 	}, []);
 
 	return (
