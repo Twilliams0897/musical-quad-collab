@@ -49,11 +49,16 @@ function RouterComponent(props: any) {
             component={TableComponent}
             options={headerOptions}
             />
-            {/* <Stack.Screen
+            <Stack.Screen
             name='EditUser'
             component={AddDeleteUserComponent}
             options={headerOptions}
-            /> */}
+            />
+            <>
+                
+            </>
+         
+
         </Stack.Navigator>
     );
 }

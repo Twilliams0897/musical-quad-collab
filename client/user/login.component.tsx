@@ -6,7 +6,7 @@ import {useDispatch, useSelector } from 'react-redux';
 import { getUser, loginAction } from '../store/actions';
 import { Button, TextInput, Text, View } from 'react-native';
 import style from '../global-styles';
-import {User} from './user';
+import { User } from './user';
 
 // Function Component
 interface LoginProp {
@@ -15,27 +15,22 @@ interface LoginProp {
 function LoginComponent({navigation}: LoginProp) {
     const userSelector = (state: UserState) => state.loginUser;
     const user = useSelector(userSelector);
-    const dispatch = useDispatch();
 
-    useEffect(() => {
-        // Check to see if we're already logged in. Redirect if we are.
-        userService.getLogin().then((loggedUser)=>{
-            dispatch(getUser(loggedUser));
-            console.log(loggedUser.role, 'logged');
-            navigation.navigate('Songs');
-        }).catch((err)=>{
-            console.error(err);
-        });
-    }, []);
+    const dispatch = useDispatch();
 
     function submitForm() {
         userService.login(user).then((user) => {
             console.log(user);
+            /*
+                When logged in, a new user with the same credentials is created. 
+                That way, when we click the back to the home page, the previous user is no longer logged in.
+            */
             let newUser = new User();
             newUser.username = user.username;
             newUser.password = user.password;
             newUser.role = user.role;
             dispatch(getUser(newUser));
+            console.log(newUser);
             navigation.navigate('Songs');  //*
         });      
          
