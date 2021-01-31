@@ -6,10 +6,6 @@ import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/t
 import NavBarComponent from './navbar.component';
 import AddDeleteUserComponent from '../user/add.delete.component';
 import { Song } from '../song/song';
-import { AppState } from '../store/store';
-import { useSelector } from 'react-redux';
-import { State } from 'react-native-gesture-handler';
-import { User } from '../user/user';
 import HomeScreen from '../screens/home.screen';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
@@ -27,8 +23,7 @@ const headerOptions: StackHeaderOptions = {
 	headerTitle: () => <Text>Musical Quad Collab</Text>,
 	headerRight: () => <NavBarComponent />,
 };
-function RouterComponent(props: any) {
-	const song = useSelector((state: AppState) => state.song);
+function RouterComponent() {
 	return (
 		<Stack.Navigator initialRouteName="Login">
 			<Stack.Screen
