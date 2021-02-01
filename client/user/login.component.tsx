@@ -41,7 +41,7 @@ function LoginComponent({navigation}: LoginProp) {
             <Text>Username: </Text>
             <TextInput
                 style={style.input}
-                onChangeText={(value) =>
+                onChangeText={(value:any) =>
                     dispatch(loginAction({ ...user, username: value }))
                 }
                 value={user.username}
@@ -50,7 +50,7 @@ function LoginComponent({navigation}: LoginProp) {
             <TextInput
                 secureTextEntry={true}
                 style={style.input}
-                onChangeText={(value) =>
+                onChangeText={(value:any) =>
                     dispatch(loginAction({ ...user, password: value }))
                 }
                 value={user.password}
