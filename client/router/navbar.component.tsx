@@ -12,7 +12,8 @@ function NavBarComponent() {
     return (
         <View style={styles.row}>
    
-        { (user.role ==='employee') ?  <Button onPress = {() => nav.navigate('EditUser')}  title='Manage Users'/> : <></>}
+        { (user.role ==='employee') || (user.role === 'admin') ?  <Button onPress = {() => nav.navigate('EditUser')}  title='Manage Users'/> : <></>}
+        {(user.role === 'admin')? <Button onPress = {() => nav.navigate('AddEmployee')} title='Add New Employee' /> : <></>}
         <Button onPress={()=> {nav.navigate('Songs'); }} title='Songs'/>
       </View>
     );

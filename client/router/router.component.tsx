@@ -6,7 +6,8 @@ import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/t
 import NavBarComponent from './navbar.component';
 import SongDetailComponent from '../song/song.detail.component';
 import TableComponent from '../song/table.component';
-import AddDeleteUserComponent from '../user/add.delete.component';
+import AddDeleteUserComponent from '../user/add.user.component';
+import AddEmpComponent from '../user/add.user.component';
 import { Song } from '../song/song';
 import { GrubState } from '../store/store';
 import { useSelector } from 'react-redux';
@@ -54,9 +55,11 @@ function RouterComponent(props: any) {
             component={AddDeleteUserComponent}
             options={headerOptions}
             />
-            <>
-                
-            </>
+            <Stack.Screen
+            name='AddEmployee'
+            component={AddEmpComponent}
+            options={headerOptions}
+            />
          
 
         </Stack.Navigator>

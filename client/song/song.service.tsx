@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { Song } from './song';
 
+/*
+getSongs   https://socqhojy48.execute-api.us-west-2.amazonaws.com/dev/songs
+
+*/
 class SongService {
     private URI: any;
     constructor() {

@@ -9,7 +9,9 @@ export enum SongActions {
 
 export enum UserActions {
     GetUser = 'GET_USER',
-    LoginChange = 'CHANGE_LOGIN'
+    LoginChange = 'CHANGE_LOGIN',
+    UpdateUser = 'UPDATE_USER'
+
 }
 
 export interface AppAction {
@@ -62,3 +64,10 @@ export function loginAction(user: User): UserAction<User> {
     return action;
 }
 
+export function updateUser (user: User): UserAction<User> {
+    const action: UserAction<User> = {
+        type: UserActions.UpdateUser,
+        payload: user
+    }
+    return action;
+}

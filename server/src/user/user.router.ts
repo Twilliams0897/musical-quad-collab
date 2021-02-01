@@ -59,8 +59,8 @@ router.delete('/:username', function(req: any, res: any){
 
 
 // Much more restful
-router.delete('/', (req, res, next) => {
-  req.session.destroy((err) => logger.error(err));
+router.delete('/', (req: any, res, next) => {
+  req.session.destroy((err: any) => logger.error(err));
   res.sendStatus(204);
 })
 
@@ -102,8 +102,8 @@ router.get('/login', function(req: any, res, next) {
 });
 
 // let userlogout
-router.get('/logout', (req, res, next) => {
-  req.session.destroy((err)=> logger.error(err));
+router.get('/logout', (req: any, res, next) => {
+  req.session.destroy((err: any)=> logger.error(err));
   res.redirect('/');
 });
 
