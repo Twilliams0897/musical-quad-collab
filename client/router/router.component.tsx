@@ -41,11 +41,6 @@ function RouterComponent() {
 				component={HomeScreen}
 				options={headerOptions}
 			/>
-			<Stack.Screen
-				name="EditUser"
-				component={AddDeleteUserComponent}
-				options={headerOptions}
-			/>
 		</Stack.Navigator>
 	);
 }
