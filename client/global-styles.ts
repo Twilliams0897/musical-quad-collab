@@ -21,6 +21,12 @@ const styles = StyleSheet.create({
 		fontSize: 24,
 		fontWeight: '700',
 	},
+	input: {
+		backgroundColor: '#b3ffb3',
+	},
+	label: {
+		color: '#b3ffb3',
+	},
 	container: {
 		color: '#b3ffb3',
 		backgroundColor: '#0F4C5C',
