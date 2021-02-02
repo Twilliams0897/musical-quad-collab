@@ -4,8 +4,8 @@ import { SyntheticEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //import { useHistory } from 'react-router-dom';
 import userService from './user.service';
-import { getUser, updateUser} from '../store/actions';
-import { GrubState } from '../store/store';
+import { getUser} from '../store/actions';
+import { UserState } from '../store/store';
 import { useNavigation } from '@react-navigation/native';
 import { User } from "./user";
 
@@ -29,9 +29,9 @@ const styles = StyleSheet.create({
   
   
   function AddEmpComponent() {
-    const selectUser = (state: GrubState) => state.user;
+    const selectUser = (state: UserState) => state.user;
     const user = useSelector(selectUser);
-    const 
+
    // const [user] = useState(new User());
     const dispatch = useDispatch();
     const nav = useNavigation();
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     //Take out ID input for new user
     //check your function for adding a new claim from p1
     function handleFormInput(e: SyntheticEvent) {
-        //let u: any = { ...user };
+        let u: any = { ...user };
         switch ((e.target as HTMLInputElement).name) {
             case 'userId':
                 u.userId = ((e.target as HTMLInputElement).value);
@@ -83,13 +83,13 @@ const styles = StyleSheet.create({
                 u.favorites = (e.target as HTMLInputElement).value;
                 break;
         }
-        dispatch(updateUser(u));
+        dispatch(userService.updateUser(u));
     }
   
     function submitForm() {
         let u = { ...user };
         userService.addUser(u).then(() => {
-            dispatch(updateUser(user));
+            dispatch(userService.updateUser(user));
             nav.navigate('SongDetails');
         });
     }

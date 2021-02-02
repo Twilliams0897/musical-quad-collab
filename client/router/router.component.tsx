@@ -4,66 +4,45 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginComponent from '../user/login.component';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import NavBarComponent from './navbar.component';
-import SongDetailComponent from '../song/song.detail.component';
-import TableComponent from '../song/table.component';
-import AddDeleteUserComponent from '../user/add.user.component';
-import AddEmpComponent from '../user/add.user.component';
+import AddDeleteUserComponent from '../user/add.delete.component';
 import { Song } from '../song/song';
-import { GrubState } from '../store/store';
-import { useSelector } from 'react-redux';
-import { State } from 'react-native-gesture-handler';
-import { User } from '../user/user';
-
+import HomeScreen from '../screens/home.screen';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
-    Login: undefined;
-    GetUsers: undefined;
-    SongDetail: Song;
-    Songs: undefined;
-    EditUser: undefined;
-
+	Login: undefined;
+	GetUsers: undefined;
+	SongDetail: Song;
+	Songs: undefined;
+	EditUser: undefined;
+	Home: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
 const headerOptions: StackHeaderOptions = {
-    headerTitle: () => <Text>Musical Quad Collab</Text>,
-    headerRight: () => <NavBarComponent />,
+	headerTitle: () => <Text>Musical Quad Collab</Text>,
+	headerRight: () => <NavBarComponent />,
 };
-function RouterComponent(props: any) {
-    const song = useSelector((state: GrubState) => state.song);
-    return (
-        <Stack.Navigator initialRouteName='Login'>
-            <Stack.Screen
-                name='Login'
-                component={LoginComponent}
-                options={headerOptions}
-            />
-            <Stack.Screen
-                name='SongDetail'
-                component={SongDetailComponent}
-                options={headerOptions}
-                initialParams = { song }
-            />
-            <Stack.Screen
-            name='Songs'
-            component={TableComponent}
-            options={headerOptions}
-            />
-            <Stack.Screen
-            name='EditUser'
-            component={AddDeleteUserComponent}
-            options={headerOptions}
-            />
-            <Stack.Screen
-            name='AddEmployee'
-            component={AddEmpComponent}
-            options={headerOptions}
-            />
-         
-
-        </Stack.Navigator>
-    );
+function RouterComponent() {
+	return (
+		<Stack.Navigator initialRouteName="Login">
+			<Stack.Screen
+				name="Login"
+				component={LoginComponent}
+				options={headerOptions}
+			/>
+			<Stack.Screen
+				name="EditUser"
+				component={AddDeleteUserComponent}
+				options={headerOptions}
+			/>
+			<Stack.Screen
+				name="Home"
+				component={HomeScreen}
+				options={headerOptions}
+			/>
+		</Stack.Navigator>
+	);
 }
 
 export default RouterComponent;

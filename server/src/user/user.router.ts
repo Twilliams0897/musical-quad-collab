@@ -45,10 +45,10 @@ router.post('/', function(req: any, res) {
 router.delete('/:username', function(req: any, res: any){
   const username = req.params.username;
   if( req.session && req.session.user && req.session.user.role === 'employee'){
-    userService.deleteUser(username).then((data) => {
+    userService.deleteUser(username).then((data: any) => {
       logger.debug(username, ' : delete a user');
       res.send(JSON.stringify(data));
-    }).catch((err) => res.send(JSON.stringify(err)) )
+    }).catch((err: any) => res.send(JSON.stringify(err)) )
 
   }
   else {
