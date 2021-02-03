@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { Song } from './song';
 
+require('dotenv').config()
+
 class SongService {
 	private URI: any;
 	constructor() {
 		// URL of the express server
+
 		this.URI =
-			'https://socqhojy48.execute-api.us-west-2.amazonaws.com/dev/songs';
+			' https://socqhojy48.execute-api.us-west-2.amazonaws.com/dev/songs';
 	}
 
 	getSongs(): Promise<Song[]> {

@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, Alert } from 'react-native';
 import userService from './user.service';
 import style from '../global-styles';
 import { User } from './user';
+import styles from '../global-styles';
 
 function AddDeleteUserComponent(username: string) {
 	let [value, setValue] = useState('');
@@ -21,14 +22,14 @@ function AddDeleteUserComponent(username: string) {
 	};
 
 	return (
-		<View>
-			<TextInput
+		<View  style={ styles.input}>
+			<TextInput 
 				placeholder="add /remove username"
 				value={value}
 				onChangeText={(value) => setValue(value)}
 			/>
-			<Text> {value}</Text>
-			<Button onPress={handleDelete} title="Delete" color="#880022" />
+		
+			<Button onPress={handleDelete} title="Delete" color="#880022"   />
 			<Button onPress={AddForm} title="Add" color="#880022" />
 		</View>
 	);

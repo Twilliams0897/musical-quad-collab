@@ -31,13 +31,14 @@ function songs(cb: Function){
 
 router.get('/', function(req: any, res: any){
     
-  songs( async (q: string) => {
-    const resp = await pool.query(q);
-    console.log(resp.rows[0]);
-    // pool.end();
-    res.send(resp.rows);
+  // songs( async (q: string) => {
+  //   const resp = await pool.query(q);
+  //   console.log(resp.rows[0]);
+  //   // pool.end();
+  //   res.send(resp.rows);
   
-  });
+  // });
+  res.send('test songs from api gateway ip address');
 })
 
 // get song by song_id or by artist return only one song
@@ -55,37 +56,38 @@ const getSongByArtist = (artist: string, cb: Function) => {
   cb(q, args);
 
 }
-router.get('/:name',  function(req: any, res: any, next: Function){
 
-  const name = req.params.name;
+// router.get('/:name',  function(req: any, res: any, next: Function){
 
-  if( Number(name) || name == 0 ){
-      getSongById(name, async (q: string, args: string[] )=>{
+//   const name = req.params.name;
+
+//   if( Number(name) || name == 0 ){
+//       getSongById(name, async (q: string, args: string[] )=>{
       
-        const resp = await pool.query(q, args);
+//         const resp = await pool.query(q, args);
     
-        console.log(resp.rows);
+//         console.log(resp.rows);
       
-        res.send(JSON.stringify(resp.rows[0]));
-      });
-  }
-  else if(typeof(name) === 'string'){
+//         res.send(JSON.stringify(resp.rows[0]));
+//       });
+//   }
+//   else if(typeof(name) === 'string'){
 
-    getSongByArtist(name, async (q: string, args: string[] )=>{
+//     getSongByArtist(name, async (q: string, args: string[] )=>{
       
-      const resp = await pool.query(q, args);
+//       const resp = await pool.query(q, args);
   
-      console.log(resp.rows);
+//       console.log(resp.rows);
     
-      res.send(JSON.stringify(resp.rows[0]));
-    });
-  }
- else {
-  res.send("error.html", {root: publicDir});
- }
+//       res.send(JSON.stringify(resp.rows[0]));
+//     });
+//   }
+//  else {
+//   res.send("error.html", {root: publicDir});
+//  }
 
 
-})
+// })
  
 // or we can do /songs/artist/:name  
 
