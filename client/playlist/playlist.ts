@@ -1,6 +1,6 @@
 export class Playlist {
-    playlist_id?: number;
-    song_id?: number;
-    user_id?: number;
+    playlist_id: number=0;
+    song_id: number=0;
+    user_id: number=0;
  
 } 

@@ -6,13 +6,20 @@ import { User } from './user';
 class UserService {
     private doc: DocumentClient;
     constructor() {
-        // The documentClient. This is our interface with DynamoDB
-        this.doc = dynamo; // We imported the DocumentClient from dyamo.ts
+        this.doc = dynamo; 
+    }
+
+    async getUsers(): Promise<User[]> {
+        const params = {
+            TableName: 'users'
+        };
+        return await this.doc.scan(params).promise().then((data) => {
+            return data.Items as User[];
+        })
     }
 
 
     async getUserByName(username: string): Promise<User | null> {
-        // GetItem api call allows us to get something by the key
         const params = {
             TableName: 'p1users',
             Key: {
@@ -56,6 +63,29 @@ class UserService {
         });
     }
 
+    async updateUser(user: User) {
+        const params = {
+            TableName: 'users',
+            Key: {
+                'name': user.username
+            },
+            UpdateExpression: 'set password = :pa, credits = :cr, favorites = :fa, playlist: =pl',
+            ExpressionAttributeValues: {
+                'cr': user.credits,
+                'fa': user.favorites,
+                'pl': user.playlist,
+                ':pa': user.password
+            },
+            ReturnValues: 'UPDATED_NEW'
+        };
+        return await this.doc.update(params).promise().then((data) => {
+            logger.debug(data);
+            return true;
+        }).catch(error => {
+            logger.error(error);
+            return false;
+        });
+    }
     async deleteUser(username: string): Promise<boolean> {
         const params = {
             TableName: 'p1users',
@@ -72,6 +102,15 @@ class UserService {
         });
 
     }
+<<<<<<< HEAD
+=======
+
+ 
+
+
+
+
+>>>>>>> 555b52cd1175f70f1e666113c52ac64f8f372636
 } //end of UserService
 
 const userService = new UserService();

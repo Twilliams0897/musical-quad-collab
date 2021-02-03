@@ -1,21 +1,32 @@
-import { applyMiddleware, createStore, Store } from "redux";
-import thunk from "redux-thunk";
-import { User } from "../user/user";
-import { AppAction } from "./actions";
-import reducer from "./reducer";
-
-
+import { applyMiddleware, createStore, Store } from 'redux';
+import thunk from 'redux-thunk';
+import { User } from '../user/user';
+import { Song } from '../song/song';
+import { AppAction } from './actions';
+import reducer from './reducer';
 
 // Define the items that are in our state
 
 export interface UserState {
-    user: User;
-    loginUser: User;
-    locale?: string;
+	user: User;
+	loginUser: User;
+	locale?: string;
 }
-export interface GrubState extends UserState { }
+
+export interface SongState {
+	songlist: Song[];
+	song: Song;
+	songInput: Song;
+	playlist: Song[];
+	favorites: Song[];
+}
+
+export interface AppState extends UserState, SongState {}
 // <> is generics: Generic arguments allow us to define the type of a thing at runtime instead of when we write it,
 // creating a reusable object.
-const store: Store<GrubState, AppAction> = createStore(reducer, applyMiddleware(thunk));
+const store: Store<AppState, AppAction> = createStore(
+	reducer,
+	applyMiddleware(thunk)
+);
 
 export default store;

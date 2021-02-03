@@ -1,7 +1,6 @@
 import * as AWS from 'aws-sdk';
 import userService from '../user/user.service';
 
-
 // Set the region
 AWS.config.update({ region: 'us-west-2' });
 
@@ -13,7 +12,12 @@ const removep1Users = {
     TableName: 'p1users'
 }
 
+<<<<<<< HEAD
 const p1userSchema = {
+=======
+
+const userSchema = {
+>>>>>>> 555b52cd1175f70f1e666113c52ac64f8f372636
     AttributeDefinitions: [
         {
             AttributeName: 'username',
@@ -37,8 +41,12 @@ const p1userSchema = {
 };
 
 
+<<<<<<< HEAD
 
 ddb.deleteTable(removep1Users, function (err, data) {
+=======
+ddb.deleteTable(removeUsers, function (err, data) {
+>>>>>>> 555b52cd1175f70f1e666113c52ac64f8f372636
     if (err) {
         console.error('Unable to delete table. Error JSON:', JSON.stringify(err, null, 2));
     } else {
@@ -60,8 +68,13 @@ ddb.deleteTable(removep1Users, function (err, data) {
     }, 5000);
 });
 
+
+
+
 function populateUserTable() {
     userService.addUser({userId: 1, username: 'Cus', password: 'pass', credits: 10, role: 'customer', favorites: [1,2],  playlist: [1, 4]}).then(()=>{});
     userService.addUser({userId: 11, username: 'Emp', password: 'pass', credits: 10, role: 'employee', favorites: [2,3],  playlist: [2, 3]}).then(()=>{});
     userService.addUser({userId: 21, username: 'Adm', password: 'pass', credits: 10, role: 'admin', favorites: [2,3],  playlist: [2, 3]}).then(()=>{});
 }
+
+
