@@ -102,15 +102,12 @@ class UserService {
         });
 
     }
-<<<<<<< HEAD
-=======
 
  
 
 
 
 
->>>>>>> 555b52cd1175f70f1e666113c52ac64f8f372636
 } //end of UserService
 
 const userService = new UserService();

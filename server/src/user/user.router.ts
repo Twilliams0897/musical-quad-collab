@@ -44,13 +44,8 @@ router.post('/', function(req: any, res) {
 
 router.delete('/:username', function(req: any, res: any){
   const username = req.params.username;
-<<<<<<< HEAD
-  if( req.session && req.session.user && req.session.user.role === 'admin'){
-    userService.deleteUser(username).then((data) => {
-=======
   if( req.session && req.session.user && req.session.user.role === 'employee'){
     userService.deleteUser(username).then((data: any) => {
->>>>>>> 555b52cd1175f70f1e666113c52ac64f8f372636
       logger.debug(username, ' : delete a user');
       res.send(JSON.stringify(data));
     }).catch((err: any) => res.send(JSON.stringify(err)) )
@@ -63,8 +58,6 @@ router.delete('/:username', function(req: any, res: any){
 });
 
 
-<<<<<<< HEAD
-=======
 // Much more restful
 router.delete('/', (req, res, next) => {
   req.session.destroy((err) => logger.error(err));
@@ -72,27 +65,16 @@ router.delete('/', (req, res, next) => {
 })
 
 // bad practice, let user register
->>>>>>> 555b52cd1175f70f1e666113c52ac64f8f372636
 router.post('/register', function(req: any, res: any){
 
   const username = req.body.username;
   const password = req.body.password;
-<<<<<<< HEAD
-  if (req.session && req.session.user.role == 'admin'){
-    user.registerEmp(username, password).then(data => res.send(JSON.stringify(data)))
-  .catch(err => res.send(JSON.stringify(err)))
-  }
-  else{
-    user.register(username, password).then(data => res.send(JSON.stringify(data)))
-  .catch(err => res.send(JSON.stringify(err)))
-=======
   if(username && password){
     user.register(username, password).then(data => res.send(JSON.stringify(data)))
     .catch(err => res.send(JSON.stringify(err)));
   }
   else {
     res.sendFile('error.html', {root: publicDir});
->>>>>>> 555b52cd1175f70f1e666113c52ac64f8f372636
   }
 
 })
