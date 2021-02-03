@@ -7,6 +7,10 @@ import NavBarComponent from './navbar.component';
 import AddDeleteUserComponent from '../user/add.delete.component';
 import { Song } from '../song/song';
 import HomeScreen from '../screens/home.screen';
+import SongDetailComponent from '../song/song.detail.component';
+import TableComponent from '../song/table.component';
+import {SongState} from '../store/store';
+import { useSelector } from 'react-redux';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -23,7 +27,8 @@ const headerOptions: StackHeaderOptions = {
 	headerTitle: () => <Text>Musical Quad Collab</Text>,
 	headerRight: () => <NavBarComponent />,
 };
-function RouterComponent() {
+function RouterComponent(props: any) {
+	const song = useSelector((state: SongState) => state.song);
 	return (
 		<Stack.Navigator initialRouteName="Login">
 			<Stack.Screen
@@ -31,6 +36,12 @@ function RouterComponent() {
 				component={LoginComponent}
 				options={headerOptions}
 			/>
+			 <Stack.Screen
+                name='SongDetail'
+                component={SongDetailComponent}
+                options={headerOptions}
+                initialParams={song}
+            />
 			<Stack.Screen
 				name="EditUser"
 				component={AddDeleteUserComponent}
@@ -41,6 +52,13 @@ function RouterComponent() {
 				component={HomeScreen}
 				options={headerOptions}
 			/>
+			<Stack.Screen
+                name='Songs'
+                component={TableComponent}
+                options={headerOptions}
+            />
+				
+
 		</Stack.Navigator>
 	);
 }
