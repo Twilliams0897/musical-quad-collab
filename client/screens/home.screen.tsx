@@ -19,7 +19,7 @@ const HomeScreen = () => {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.header}>Welcome to Music Mania</Text>
-			{songs && songs.length ? (
+			{songs && songs.length  ? (
 				<FlatList
 					data={songs}
 					renderItem={({ item }) => <SongComponent data={item}></SongComponent>}

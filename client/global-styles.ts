@@ -23,6 +23,8 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		backgroundColor: '#b3ffb3',
+		margin: 5,
+		justifyContent: 'space-around'
 	},
 	label: {
 		color: '#b3ffb3',
@@ -37,6 +39,10 @@ const styles = StyleSheet.create({
 	row: {
 		flex: 1,
 		flexDirection: 'row',
+	},
+	image: {
+		width: 200,
+		height: 200
 	},
 	url: {
 		color: '#fef9ff',
