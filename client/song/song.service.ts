@@ -1,24 +1,15 @@
 import axios from 'axios';
 import { Song } from './song';
 
-
 require('dotenv').config()
 
 class SongService {
 	private URI: any;
 	constructor() {
 		// URL of the express server
-		this.URI = process.env.SONGSERVER + '/songs';
-	}
 
-	async getHomeSongs(): Promise<Song[]> {
-		return axios
-			.get(process.env.SONGSERVER +'/gethomesongs'
-			)
-			.then((result) => result.data)
-			.catch((err) => {
-				console.error(err);
-			});
+		this.URI =
+			' https://socqhojy48.execute-api.us-west-2.amazonaws.com/dev/songs';
 	}
 
 	getSongs(): Promise<Song[]> {

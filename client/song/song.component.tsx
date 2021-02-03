@@ -1,35 +1,48 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
-import { View, Text, StyleSheet, Button, Linking } from 'react-native';
+import { View, Text, StyleSheet, Button, Linking, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeSong } from '../store/actions';
 import { UserState } from '../store/store';
 import { thunkGetSongs } from '../store/thunks';
 import { Song } from './song';
 import songService from './song.service';
+import images from '../images';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import SongDetailComponent from './song.detail.component';
 
 const { create } = require('react-native-pixel-perfect');
+
+const onPress = (props: any) => {
+	alert('you pressed');
+	return (<View>pressed </View>);
+}
 const designResolution = {
 	width: 1125,
 	height: 2436,
 }; // what we're designing for
 const perfectSize = create(designResolution);
 
-function SongComponent(props: any) {
+interface SongProps {
+    data: Song;
+}
+
+function SongComponent({data}: SongProps) {
 	const nav = useNavigation();
 
 	const userContext = useSelector((state: UserState) => state.user);
 	const dispatch = useDispatch();
 
-	const openURL = (url: string) => {
-		Linking.openURL(url).catch((err) =>
-			console.error('An error occurred', err)
-		);
-	};
+	function goToSong() {
+        // dispatch(changeSong(props.data));
+        // passing our song to the SongDetail screen and going there.
+        nav.navigate('SongDetail', data);
+	}
+	
 
 	function handleDelete() {
-		if (props.data.song_id) {
-			songService.deleteSong(props.data.song_id).then(() => {
+		if (data.song_id) {
+			songService.deleteSong(data.song_id).then(() => {
 				dispatch(changeSong(new Song()));
 				dispatch(thunkGetSongs());
 				nav.navigate('Songs');
@@ -37,47 +50,20 @@ function SongComponent(props: any) {
 		}
 	}
 
+
+
+
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>{props.data.title}</Text>
-			<Text style={styles.artist}>{props.data.artist}</Text>
-			<Text style={styles.year}>{props.data.year}</Text>
-			<Text style={styles.year}>Clicks: {props.data.clicks}</Text>
-			<Text
-				style={styles.url}
-				onPress={() => {
-					openURL(props.data.web_url);
-				}}
-			>
-				Learn More
-			</Text>
-			<View style={styles.buttons}>
-				<Button
-					title="Play"
-					onPress={() => {
-						console.log(`playing ${props.data.title} by ${props.data.artist}`);
-					}}
+		<View style={styles.container} >
+		
+				<Image  
+					source={{ uri:  images[data.artist.length % 10]}} 
+					style={styles.image }
 				/>
-				<Button
-					title="Favorite"
-					onPress={() => {
-						console.log(
-							`favorited ${props.data.title} by ${props.data.artist}`
-						);
-					}}
-				/>
-				<Button
-					title="Add to Playlist"
-					onPress={() => {
-						console.log(`go to added to playlist`);
-					}}
-				/>
-				{userContext.role === 'employee' && (
-					<>
-						<Button onPress={handleDelete} title="Delete Song" />
-					</>
-				)}
-			</View>
+				<Text style={styles.artist}>{data.artist}</Text>
+				<Text style={styles.title}>{data.title}</Text>
+				<Button title='songdetail' onPress ={ goToSong } />
+			
 		</View>
 	);
 }
@@ -113,6 +99,10 @@ const styles = StyleSheet.create({
 		margin: 2,
 		fontSize: 16,
 		color: '#b3ffb3',
+	},
+	image: {
+		width: 200,
+		height: 200
 	},
 	url: {
 		margin: 5,

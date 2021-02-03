@@ -4,14 +4,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginComponent from '../user/login.component';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import NavBarComponent from './navbar.component';
-import TableComponent from '../song/table.component';
 import AddDeleteUserComponent from '../user/add.delete.component';
 import { Song } from '../song/song';
-import { AppState } from '../store/store';
-import { useSelector } from 'react-redux';
-import { State } from 'react-native-gesture-handler';
-import { User } from '../user/user';
 import HomeScreen from '../screens/home.screen';
+import SongDetailComponent from '../song/song.detail.component';
+import TableComponent from '../song/table.component';
+import {SongState} from '../store/store';
+import { useSelector } from 'react-redux';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -29,7 +28,7 @@ const headerOptions: StackHeaderOptions = {
 	headerRight: () => <NavBarComponent />,
 };
 function RouterComponent(props: any) {
-	const song = useSelector((state: AppState) => state.song);
+	const song = useSelector((state: SongState) => state.song);
 	return (
 		<Stack.Navigator initialRouteName="Login">
 			<Stack.Screen
@@ -37,11 +36,12 @@ function RouterComponent(props: any) {
 				component={LoginComponent}
 				options={headerOptions}
 			/>
-			<Stack.Screen
-				name="Songs"
-				component={TableComponent}
-				options={headerOptions}
-			/>
+			 <Stack.Screen
+                name='SongDetail'
+                component={SongDetailComponent}
+                options={headerOptions}
+                initialParams={song}
+            />
 			<Stack.Screen
 				name="EditUser"
 				component={AddDeleteUserComponent}
@@ -52,6 +52,13 @@ function RouterComponent(props: any) {
 				component={HomeScreen}
 				options={headerOptions}
 			/>
+			<Stack.Screen
+                name='Songs'
+                component={TableComponent}
+                options={headerOptions}
+            />
+				
+
 		</Stack.Navigator>
 	);
 }

@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Text, View } from 'react-native';
+import { Alert, Button, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../store/store';
 import styles from '../global-styles';
+import userService from '../user/user.service';
 
 function NavBarComponent() {
 	const nav = useNavigation();
@@ -15,13 +16,17 @@ function NavBarComponent() {
 				<Button onPress={() => nav.navigate('EditUser')} title="Manage Users" />
 			) : (
 				<></>
-			)}
-			<Button
-				onPress={() => {
-					nav.navigate('Home');
-				}}
-				title="Songs"
-			/>
+			)} 
+			{ user.role ? (
+			
+				<Button   onPress={() => {   nav.navigate('Home');
+					}}   title="Songs"   />
+				) : 
+				(
+					<View> {user.role} </View> 
+				)
+			}
+		
 		</View>
 	);
 }
