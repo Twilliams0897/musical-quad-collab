@@ -11,7 +11,7 @@ function NavBarComponent() {
 	const dispatch = useDispatch();
 	return (
 		<View style={styles.row}>
-			{user.role === 'employee' ? (
+			{user.role === 'employee' || user.role === 'admin' ? (
 				<Button onPress={() => nav.navigate('EditUser')} title="Manage Users" />
 			) : (
 				<></>

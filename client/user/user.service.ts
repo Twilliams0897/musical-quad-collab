@@ -45,7 +45,16 @@ class UserService {
         return axios
             .put(this.URI, user, {withCredentials: true})
             .then(result => null);
-    }
+	}
+	
+	getUsers(): Promise<User []> {
+		return axios
+		.get(this.URI)
+		.then(result => result.data)
+		.catch((err) => {
+			console.error(err)
+		})
+	}
 }
 
 export default new UserService();
