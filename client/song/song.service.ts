@@ -1,6 +1,11 @@
 import axios from 'axios';
 import { Song } from './song';
 
+interface Query {
+	artist?: string;
+	title?: string;
+}
+
 class SongService {
 	private URI: any;
 	constructor() {
@@ -29,11 +34,19 @@ class SongService {
 		return axios.put(this.URI, s).then((result) => null);
 	}
 
-	deleteSong(song_id: number): Promise<null> {
+	deleteSong(song_id: Number): Promise<null> {
 		console.log(song_id);
 		return axios
 			.delete(this.URI + '/' + song_id, { withCredentials: true })
 			.then((result) => null);
+	}
+	searchSongs(query: Query): Promise<Song[]> {
+		return axios
+			.post(
+				'https://1bt2tfiy3m.execute-api.us-west-2.amazonaws.com/dev/search/',
+				query
+			)
+			.then((result) => result.data);
 	}
 } // end of SongService
 

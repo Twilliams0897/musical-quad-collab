@@ -10,7 +10,7 @@ function NavBarComponent() {
 	const user = useSelector((state: AppState) => state.user);
 	const dispatch = useDispatch();
 	return (
-		<View style={styles.row}>
+		<View style={{ flex: 1, flexDirection: 'row' }}>
 			{user.role === 'employee' ? (
 				<Button onPress={() => nav.navigate('EditUser')} title="Manage Users" />
 			) : (

@@ -9,29 +9,31 @@ class UserService {
 	}
 	getLogin(): Promise<User> {
 		// withCredentials sends our cookies with the request.
-		return axios.get(this.URI, { withCredentials: true }).then((result) => {
-			console.log(result);
-			return result.data;
-		});
+		return axios
+			.get(this.URI, { withCredentials: true })
+			.then((result: any) => {
+				console.log(result);
+				return result.data;
+			});
 	}
 
 	login(user: User): Promise<User> {
 		return axios
 			.post(this.URI, user, { withCredentials: true })
-			.then((result) => result.data)
-			.catch((err) => err);
+			.then((result: any) => result.data)
+			.catch((err: any) => err);
 	}
 	logout(): Promise<null> {
 		return axios
 			.delete(this.URI, { withCredentials: true })
-			.then((result) => null);
+			.then((result: any) => null);
 	}
 
 	deleteByUsername(username: string): Promise<null> {
 		return axios
 			.delete(this.URI + '/' + username, { withCredentials: true })
-			.then((result) => null)
-			.catch((err) => err);
+			.then((result: any) => null)
+			.catch((err: any) => err);
 	}
 }
 
