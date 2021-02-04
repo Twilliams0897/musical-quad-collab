@@ -10,6 +10,7 @@ export const initialState: AppState = {
 	user: new User(),
 	loginUser: new User(),
 	songlist: [],
+	songs: [],
 	song: new Song(),
 	songInput: new Song(),
 	playlist: [],

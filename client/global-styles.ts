@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
 	row: {
 		flex: 1,
 		flexDirection: 'row',
+		justifyContent: 'space-around'
 	},
 	image: {
 		width: 200,
@@ -47,6 +48,8 @@ const styles = StyleSheet.create({
 	url: {
 		color: '#fef9ff',
 	},
+	text: { padding: 10},
+	icon: { padding: 10}
 });
 
 export default styles;

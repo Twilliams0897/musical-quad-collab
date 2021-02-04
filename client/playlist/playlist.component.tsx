@@ -2,14 +2,10 @@ import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { View, Text, StyleSheet, Button, Linking, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeSong } from '../store/actions';
+import { playlistChange } from '../store/actions';
 import { UserState } from '../store/store';
-import { thunkGetSongs } from '../store/thunks';
-import { Song } from './song';
-import songService from './song.service';
-import images from '../images';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import SongDetailComponent from './song.detail.component';
+import  Playlist  from './playlist';
+import playlistService from './playlist.service';
 
 const { create } = require('react-native-pixel-perfect');
 
@@ -23,49 +19,29 @@ const designResolution = {
 }; // what we're designing for
 const perfectSize = create(designResolution);
 
-interface SongProps {
-    data: Song;
+interface PlaylistProps {
+    data: Playlist;
 }
 
-function SongComponent({data}: SongProps) {
+function PlaylistComponent({data}: PlaylistProps) {
 	const nav = useNavigation();
 
 	const userContext = useSelector((state: UserState) => state.user);
 	const dispatch = useDispatch();
 
-	function goToSong() {
+	function goToPlaylist() {
         // dispatch(changeSong(props.data));
         // passing our song to the SongDetail screen and going there.
-        nav.navigate('SongDetail', data);
+        nav.navigate('PlaylistDetail', data);
 	}
 	
 
-	function handleDelete() {
-		if (data.song_id) {
-			songService.deleteSong(data.song_id).then(() => {
-				dispatch(changeSong(new Song()));
-				dispatch(thunkGetSongs());
-				nav.navigate('Songs');
-			});
-		}
-	}
-
-
-
-
 	return (
 		<View style={styles.container} >
-			<TouchableOpacity onPress ={ goToSong}>
-				<Image  
-					source={{ uri:  images[data.artist.length % 10]}} 
-					style={styles.image }
-				/>
-				<Text style={styles.artist}>{data.artist}</Text>
-				<Text style={styles.title}>{data.title}</Text>
-				<Button title='songdetail' onPress ={ goToSong } />
-
-			</TouchableOpacity>
-			
+			{/* imaage */}
+			<Text>  {data.song_id} </Text>
+		
+			<Button title='playlistdetail' onPress ={ goToPlaylist } />
 			
 		</View>
 	);
@@ -121,4 +97,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default SongComponent;
+export default PlaylistComponent;
