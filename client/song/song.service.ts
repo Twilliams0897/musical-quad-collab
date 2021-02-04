@@ -15,11 +15,9 @@ class SongService {
 	}
 
 	getSongs(): Promise<Song[]> {
-		console.log(this.URI);
 		return axios
 			.get(this.URI)
 			.then((result) => {
-				console.log('r', result);
 				return result.data;
 			})
 			.catch((err) => {
@@ -35,7 +33,6 @@ class SongService {
 	}
 
 	deleteSong(song_id: Number): Promise<null> {
-		console.log(song_id);
 		return axios
 			.delete(this.URI + '/' + song_id, { withCredentials: true })
 			.then((result) => null);

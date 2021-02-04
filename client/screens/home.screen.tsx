@@ -19,6 +19,7 @@ interface Search {
 }
 
 const HomeScreen = () => {
+	const [error, setError] = useState({ message: '' });
 	const [query, setQuery] = useState('');
 	const [searchType, setSearch] = useState(null);
 	const selectSongs = (state: SongState) => state.songlist;
@@ -36,11 +37,12 @@ const HomeScreen = () => {
 		songService
 			.searchSongs(search)
 			.then((res) => dispatch(getSongs(res)))
-			.catch((err) => console.log(err.stack));
+			.catch((err) => setError({ message: err.stack }));
 	};
 
 	return (
 		<View style={styles.container}>
+			{error && error.message !== '' && <Text>error</Text>}
 			<Text style={styles.header}>Welcome to Music Mania</Text>
 			<View style={styles.row}>
 				<Text style={styles.label}>Search </Text>
