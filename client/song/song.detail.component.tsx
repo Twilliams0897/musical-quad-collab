@@ -10,6 +10,7 @@ import { StackParams } from '../router/router.component';
 import styles from '../global-styles';
 import { thunkGetSongs } from '../store/thunks';
 import images from '../images';
+import { MaterialIcons } from '@expo/vector-icons';
 
 interface Props {
     route: RouteProp<StackParams, 'SongDetail'>;
@@ -32,6 +33,29 @@ export default function SongDetailComponent(props: Props) {
             nav.navigate('Songs');
         });
     }
+    function addToFavorite(){
+        return(
+            <View>
+                <Text>
+                    add to favorite
+                </Text>
+            </View>
+        )
+    }
+
+    function addToPlayList(){
+        return(
+            <View>
+                <Text>
+                    add to Playlist
+                </Text> 
+                {'userId: ' + userContext.userId}
+                {
+                'song_id ' + song
+                 }
+            </View>
+        )
+    }
 
     return (
         <View style={styles.container}>
@@ -41,7 +65,15 @@ export default function SongDetailComponent(props: Props) {
             <Text>{song.artist}</Text>
             <Text>{song.year}</Text>
             <Text>{song.price}</Text>
-           
+            
+            <MaterialIcons name="favorite-outline" size={24} color="black" onPress ={
+                addToFavorite
+            } />
+            
+            
+            <Button onPress={addToPlayList} title='Add to playlist' />
+            
+
             {userContext.role === 'employee' && (
                 <>
                     <Button onPress={handleDelete} title='Delete Song' />

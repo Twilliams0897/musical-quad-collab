@@ -55,14 +55,13 @@ function SongComponent({data}: SongProps) {
 
 	return (
 		<View style={styles.container} >
-		
-				<Image  
-					source={{ uri:  images[data.artist.length % 10]}} 
-					style={styles.image }
-				/>
-				<Text style={styles.artist}>{data.artist}</Text>
-				<Text style={styles.title}>{data.title}</Text>
-				<Button title='songdetail' onPress ={ goToSong } />
+			<Image  
+				source={{ uri:  images[data.artist.length % 10]}} 
+				style={styles.image }
+			/>
+			<Text style={styles.artist}>{data.artist}</Text>
+			<Text style={styles.title}>{data.title}</Text>
+			<Button title='songdetail' onPress ={ goToSong } />
 			
 		</View>
 	);
