@@ -31,7 +31,11 @@ const reducer = (
 			newState.loginUser = new User();
 			return newState;
 		case Actions.UserActions.LoginChange:
-			newState.loginUser = action.payload as User;
+			newState.user = action.payload as User;
+			newState.loginUser = new User();
+			return newState;
+		case Actions.UserActions.AddUser:
+			newState.user = action.payload as User;
 			return newState;
 		case Actions.SongActions.GetSongs:
 			newState.songlist = action.payload as Song[];

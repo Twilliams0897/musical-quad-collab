@@ -5,7 +5,7 @@ import style from '../global-styles';
 import { User } from './user';
 import {useDispatch, useSelector} from 'react-redux';
 import { UserState } from '../store/store';
-import {getUser} from '../store/actions'
+import {addUser} from '../store/actions'
 
 function AddDeleteUserComponent(username: string) {
 	let [value, setValue] = useState('');
@@ -21,7 +21,7 @@ function AddDeleteUserComponent(username: string) {
 				<TextInput
 					style={style.input}
 					onChangeText={(value) =>
-						dispatch(userService.addUser({ ...user, username: value }))
+						dispatch(addUser({ ...user, username: value }))
 					}
 					value={user.username}
 				/>
@@ -30,7 +30,7 @@ function AddDeleteUserComponent(username: string) {
 					secureTextEntry={true}
 					style={style.input}
 					onChangeText={(value) =>
-						dispatch(userService.addUser({ ...user, password: value }))
+						dispatch(addUser({ ...user, password: value }))
 					}
 					value={user.password}
 				/>
@@ -39,7 +39,7 @@ function AddDeleteUserComponent(username: string) {
 					secureTextEntry={true}
 					style={style.input}
 					onChangeText={(value) =>
-						dispatch(userService.addUser({ ...user, role: value }))
+						dispatch(addUser({ ...user, role: value }))
 					}
 					value={user.role}
 				/>
@@ -57,7 +57,7 @@ function AddDeleteUserComponent(username: string) {
 			<TextInput
 				style={style.input}
 				onChangeText={(value: any) =>
-					dispatch(getUser({ ...user, username: value }))
+					dispatch(addUser({ ...user, username: value }))
 				}
 				value={user.username}
 			/>
@@ -66,7 +66,7 @@ function AddDeleteUserComponent(username: string) {
 				secureTextEntry={true}
 				style={style.input}
 				onChangeText={(value: any) =>
-					dispatch(getUser({ ...user, password: value }))
+					dispatch(addUser({ ...user, password: value }))
 				}
 				value={user.password}
 			/>
@@ -74,7 +74,7 @@ function AddDeleteUserComponent(username: string) {
 			<TextInput
 				style={style.input}
 				onChangeText={(value) =>
-					dispatch(getUser({ ...user, role: value }))
+					dispatch(addUser({ ...user, role: value }))
 				}
 				value={user.role}
 			/>
