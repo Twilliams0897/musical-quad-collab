@@ -24,7 +24,7 @@ create table user_account(
 
 create table playlist
 (
-    playlist_id serial primary key,
+    playlist_id serial primary key not null,
     song_id integer,
 	user_id integer,
 	playlist_name text 

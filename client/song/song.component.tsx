@@ -36,7 +36,8 @@ function SongComponent({data}: SongProps) {
 	function goToSong() {
         // dispatch(changeSong(props.data));
         // passing our song to the SongDetail screen and going there.
-        nav.navigate('SongDetail', data);
+		nav.navigate('SongDetail', data);
+		 console.log(data);
 	}
 	
 
