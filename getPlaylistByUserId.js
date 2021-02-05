@@ -38,25 +38,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.handler = void 0;
 var pg_1 = require("pg");
-function handler() {
+function handler(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var client, q, res;
+        var userId, stripped, client, q, res, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    userId = event.path.substring(event.path.lastIndexOf('/' + 1, event.path.length));
+                    stripped = userId.replace(/[^0-9]/g, '');
+                    console.log(Number(stripped), '------');
                     client = new pg_1.Client();
                     return [4 /*yield*/, client.connect()];
                 case 1:
                     _a.sent();
-                    q = 'SELECT * from song order by clicks desc';
-                    return [4 /*yield*/, client.query(q)];
+                    q = 'SELECT * from playlist where user_id = $1;';
+                    return [4 /*yield*/, client.query(q, [Number(stripped)])];
                 case 2:
                     res = _a.sent();
                     console.log(res.rows[0]);
                     return [4 /*yield*/, client.end()];
                 case 3:
                     _a.sent();
-                    return [2 /*return*/, res.rows];
+                    response = {
+                        "statusCode": 200,
+                        "body": res.rows
+                    };
+                    return [2 /*return*/, response];
             }
         });
     });

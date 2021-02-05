@@ -38,25 +38,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.handler = void 0;
 var pg_1 = require("pg");
-function handler() {
+function handler(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var client, q, res;
+        var song_id, client, q, result, resultString, response;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    song_id = Number(event.path.substring(event.path.lastIndexOf('/') + 1, event.path.length));
                     client = new pg_1.Client();
+                    q = 'delete from song where song_id = $1;';
                     return [4 /*yield*/, client.connect()];
                 case 1:
                     _a.sent();
-                    q = 'SELECT * from song order by clicks desc';
-                    return [4 /*yield*/, client.query(q)];
+                    return [4 /*yield*/, client.query(q, [song_id])];
                 case 2:
-                    res = _a.sent();
-                    console.log(res.rows[0]);
-                    return [4 /*yield*/, client.end()];
-                case 3:
-                    _a.sent();
-                    return [2 /*return*/, res.rows];
+                    result = _a.sent();
+                    console.log(song_id);
+                    resultString = JSON.stringify(result);
+                    client.end();
+                    response = {
+                        "statusCode": 200,
+                        "body": resultString
+                    };
+                    return [2 /*return*/, response];
             }
         });
     });

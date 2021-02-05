@@ -2,15 +2,15 @@ import { Client } from 'pg';
 
 export async function handler(event: any){
 
+    let song_id = Number(event.path.substring(event.path.lastIndexOf('/')+1, event.path.length));
     const client = new Client();
     
-    const data = JSON.parse(event.body);
-    const { song_id, user_id, playlist_name } = data;
+    let q= 'delete from song where song_id = $1;';
   
-    let q = 'insert into playlist ("song_id", "user_id", "playlist_name") values ($1, $2, $3::text)'
     await client.connect();
-    
-        const result = await client.query(q, [song_id, user_id, playlist_name]);       
+        
+        const result = await client.query(q, [song_id]);  
+        console.log(song_id);     
         const resultString = JSON.stringify(result);   
         client.end();
         
@@ -23,6 +23,3 @@ export async function handler(event: any){
         return response;
 
 }
-
-
-

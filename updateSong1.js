@@ -38,25 +38,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.handler = void 0;
 var pg_1 = require("pg");
-function handler() {
+var createresponse_1 = require("createresponse");
+function handler(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var client, q, res;
+        var body, clicks, song_id, client, result, q, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    client = new pg_1.Client();
-                    return [4 /*yield*/, client.connect()];
+                    body = JSON.parse(event.body);
+                    clicks = body.clicks;
+                    song_id = body.song_id;
+                    client = new pg_1.Client({});
+                    client.connect();
+                    q = 'update song set clicks = $1::integer where song_id = $2::integer;';
+                    _a.label = 1;
                 case 1:
-                    _a.sent();
-                    q = 'SELECT * from song order by clicks desc';
-                    return [4 /*yield*/, client.query(q)];
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, client.query(q, [clicks, song_id])];
                 case 2:
-                    res = _a.sent();
-                    console.log(res.rows[0]);
-                    return [4 /*yield*/, client.end()];
+                    result = _a.sent();
+                    client.end();
+                    return [2 /*return*/, createresponse_1["default"](JSON.stringify(result.rows), 200)];
                 case 3:
-                    _a.sent();
-                    return [2 /*return*/, res.rows];
+                    error_1 = _a.sent();
+                    console.log(error_1);
+                    client.end();
+                    return [2 /*return*/, createresponse_1["default"](JSON.stringify(error_1.stack), 400)];
+                case 4: return [2 /*return*/];
             }
         });
     });
