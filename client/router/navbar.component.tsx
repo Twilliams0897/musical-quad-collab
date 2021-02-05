@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../store/store';
 import styles from '../global-styles';
+import { thunkGetSongs } from '../store/thunks';
 
 function NavBarComponent() {
 	const nav = useNavigation();
@@ -18,6 +19,7 @@ function NavBarComponent() {
 			)}
 			<Button
 				onPress={() => {
+					dispatch(thunkGetSongs);
 					nav.navigate('Home');
 				}}
 				title="Songs"

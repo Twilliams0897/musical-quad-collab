@@ -29,8 +29,16 @@ function SongComponent(props: any) {
 				<Button
 					title="Details"
 					onPress={() => {
-						handlePlay();
-						nav.navigate('SongDetail');
+						nav.navigate('SongDetail', {
+							song_id: props.data.song_id,
+							title: props.data.title,
+							artist: props.data.artist,
+							year: props.data.year,
+							web_url: props.data.web_url,
+							img_url: props.data.img_url,
+							clicks: props.data.clicks,
+							price: props.data.price,
+						});
 					}}
 				/>
 			</View>

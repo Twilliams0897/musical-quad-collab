@@ -36,7 +36,11 @@ const HomeScreen = () => {
 		search[searchType as any] = query;
 		songService
 			.searchSongs(search)
-			.then((res) => dispatch(getSongs(res)))
+			.then((res) => {
+				dispatch(getSongs(res));
+				setQuery('');
+				setSearch(null);
+			})
 			.catch((err) => setError({ message: err.stack }));
 	};
 
@@ -101,6 +105,7 @@ const HomeScreen = () => {
 							backgroundColor: 'rgb(0, 151, 240)',
 							borderRadius: 5,
 						}}
+						accessibilityLabel="Submit Search"
 						source={require('../assets/search_icon.png')}
 					/>
 				</Pressable>
@@ -113,7 +118,7 @@ const HomeScreen = () => {
 					keyExtractor={(item) => `${item.song_id}`}
 				/>
 			) : (
-				<Text>Loading</Text>
+				<Text style={{ fontSize: 24, color: '#b3ffb3' }}>Nothing to see</Text>
 			)}
 		</View>
 	);

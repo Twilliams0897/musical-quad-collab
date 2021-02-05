@@ -1,12 +1,12 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
-import { Button, Linking, Text, View, StyleSheet } from 'react-native';
+import { Button, Image, Linking, Text, View, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeSong } from '../store/actions';
 import { SongState, UserState } from '../store/store';
 import { thunkGetSongs } from '../store/thunks';
-import { Song } from './song';
-import songService from './song.service';
+import { Song } from '../song/song';
+import songService from '../song/song.service';
 
 const { create } = require('react-native-pixel-perfect');
 const designResolution = {
@@ -15,10 +15,25 @@ const designResolution = {
 }; // what we're designing for
 const perfectSize = create(designResolution);
 
-function SongDetail(props: any) {
-	const nav = useNavigation();
+interface Props {
+	data: Song;
+	route: any;
+	navigation: any;
+}
 
-	const song = useSelector((state: SongState) => state.song);
+function SongDetail({ data, route, navigation }: Props) {
+	const nav = useNavigation();
+	const {
+		song_id,
+		artist,
+		title,
+		year,
+		web_url,
+		img_url,
+		clicks,
+		price,
+	} = route.params;
+
 	const userContext = useSelector((state: UserState) => state.user);
 	const dispatch = useDispatch();
 
@@ -29,8 +44,8 @@ function SongDetail(props: any) {
 	};
 
 	function handleDelete() {
-		if (song.song_id) {
-			songService.deleteSong(song.song_id).then(() => {
+		if (song_id) {
+			songService.deleteSong(song_id).then(() => {
 				dispatch(changeSong(new Song()));
 				dispatch(thunkGetSongs());
 				nav.navigate('Home');
@@ -40,15 +55,16 @@ function SongDetail(props: any) {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>{song.title}</Text>
-			<Text style={styles.artist}>{song.artist}</Text>
-			<Text style={styles.year}>{song.year}</Text>
-			<Text style={styles.year}>Clicks: {song.clicks}</Text>
-			<Text style={styles.year}>{song.price}Credit(s)</Text>
+			<Image source={{ uri: img_url }} accessibilityLabel={`${artist} Image`} />
+			<Text style={styles.title}>{title}</Text>
+			<Text style={styles.artist}>{artist}</Text>
+			<Text style={styles.year}>{year}</Text>
+			<Text style={styles.year}>Clicks: {clicks}</Text>
+			<Text style={styles.year}>{price}Credit(s)</Text>
 			<Text
 				style={styles.url}
 				onPress={() => {
-					openURL(song.web_url);
+					openURL(web_url);
 				}}
 			>
 				Learn More
@@ -57,15 +73,24 @@ function SongDetail(props: any) {
 				<Button
 					title="Favorite"
 					onPress={() => {
-						console.log(`favorited ${song.title} by ${song.artist}`);
+						console.log(`favorited ${title} by ${artist}`);
 					}}
 				/>
 				<Text> </Text>
 				<Button
 					title="Add to Playlist"
-					onPress={() => {
-						console.log(`go to added to playlist`);
-					}}
+					onPress={() =>
+						nav.navigate('AddToPlaylist', {
+							song_id,
+							artist,
+							title,
+							year,
+							web_url,
+							img_url,
+							clicks,
+							price,
+						})
+					}
 				/>
 				<Text> </Text>
 				<Button

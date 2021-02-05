@@ -1,12 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Animated, Pressable, View, Image, StyleSheet } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+	Animated,
+	Text,
+	Pressable,
+	View,
+	Image,
+	StyleSheet,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import Playlist from '../playlist/playlist.component';
 import { changeSong } from '../store/actions';
 import { SongState } from '../store/store';
+import { thunkGetSongs } from '../store/thunks';
 import { Song } from './song';
+import songService from './song.service';
+import Playlist from '../playlist/playlist.component';
 
 function PlayerComponent() {
+	const [error, setError] = useState({ message: '' });
 	const [isPlaying, setPlay] = useState(false);
 	const [volume, setVolume] = useState(true);
 	const [playlistIndex, setIndex] = useState(0);
@@ -17,12 +27,48 @@ function PlayerComponent() {
 	const playlist = useSelector(selectPlaylist);
 	const dispatch = useDispatch();
 
+	//set up display animation
+
+	const flickerAnimation = useRef(new Animated.Value(0)).current;
+
+	// Will change blink display value to 1 in 3 seconds continuously
+
 	useEffect(() => {
-		if (song.title !== '') setPlay(true);
+		Animated.loop(
+			Animated.timing(flickerAnimation, {
+				toValue: 1,
+				duration: 1000,
+				useNativeDriver: true,
+			}),
+			{ iterations: -1 }
+		).start();
+	}, [flickerAnimation]);
+
+	const addClick = async () => {
+		let { clicks } = song;
+		let newClicks = { clicks: clicks + 1 };
+
+		if (song.song_id)
+			await songService
+				.updateClicks(song.song_id, newClicks)
+				.then(() => {
+					dispatch(thunkGetSongs);
+				})
+				.catch((err) => setError({ message: err.message }));
+	};
+
+	useEffect(() => {
+		if (song.title !== '') {
+			addClick();
+			setPlay(true);
+		}
 	}, [song]);
 
 	const play = () => {
 		setPlay(false);
+		if (playlist.length === 0) {
+			dispatch(changeSong(new Song()));
+		}
 		if (playlist.length) {
 			handleNext();
 		}
@@ -64,11 +110,25 @@ function PlayerComponent() {
 
 	return (
 		<View style={styles.border}>
-			<Animated.Text style={styles.display}>
-				{song.title !== ''
-					? `Playing: ${song.title} by ${song.artist}`
-					: 'Music Mania Player'}
-			</Animated.Text>
+			{error && error.message !== '' && (
+				<Text style={{ color: 'red', fontSize: 32 }}>
+					Something went wrong. Refresh the page.
+				</Text>
+			)}
+			{song.title !== '' ? (
+				<Animated.Text
+					style={[
+						styles.display,
+						{
+							opacity: flickerAnimation,
+						},
+					]}
+				>
+					{`Playing: ${song.title} by ${song.artist}`}
+				</Animated.Text>
+			) : (
+				<Text style={styles.nosong}>Music Mania Player</Text>
+			)}
 			<View style={styles.container}>
 				{isPlaying === false && (
 					<Pressable
@@ -81,14 +141,21 @@ function PlayerComponent() {
 						<Image
 							style={styles.stretch}
 							source={require('../assets/play_icon.png')}
+							accessibilityLabel="Play"
 						/>
 					</Pressable>
 				)}
 				{isPlaying && (
-					<Pressable onPress={() => setPlay(false)}>
+					<Pressable
+						onPress={() => {
+							clearTimeout(playTO);
+							setPlay(false);
+						}}
+					>
 						<Image
 							style={styles.stretch}
 							source={require('../assets/pause_icon.png')}
+							accessibilityLabel="Pause"
 						/>
 					</Pressable>
 				)}
@@ -102,24 +169,28 @@ function PlayerComponent() {
 					<Image
 						style={styles.stretch}
 						source={require('../assets/stop.png')}
+						accessibilityLabel="Stop"
 					/>
 				</Pressable>
 				<Pressable onPress={handlePrevious}>
 					<Image
 						style={styles.stretch}
 						source={require('../assets/previous.png')}
+						accessibilityLabel="Previous Song"
 					/>
 				</Pressable>
 				<Pressable onPress={handleNext}>
 					<Image
 						style={styles.stretch}
 						source={require('../assets/next.png')}
+						accessibilityLabel="Next Song"
 					/>
 				</Pressable>
 				<Pressable onPress={() => setShowPlaylist(!showPlaylist)}>
 					<Image
 						style={styles.stretch}
 						source={require('../assets/playlist_icon.png')}
+						accessibilityLabel="Show/Hide Playlist"
 					/>
 				</Pressable>
 				{volume && (
@@ -127,6 +198,7 @@ function PlayerComponent() {
 						<Image
 							style={styles.stretch}
 							source={require('../assets/volume_on.png')}
+							accessibilityLabel="Click to mute"
 						/>
 					</Pressable>
 				)}
@@ -135,6 +207,7 @@ function PlayerComponent() {
 						<Image
 							style={styles.stretch}
 							source={require('../assets/mute.png')}
+							accessibilityLabel="Click to turn on volume"
 						/>
 					</Pressable>
 				)}
@@ -150,6 +223,7 @@ const styles = StyleSheet.create({
 		borderStyle: 'solid',
 		borderWidth: 1,
 		margin: 50,
+		width: 500,
 	},
 	container: {
 		flexDirection: 'row',
@@ -158,6 +232,16 @@ const styles = StyleSheet.create({
 		padding: 20,
 	},
 	display: {
+		backgroundColor: '#4d243d',
+		color: '#b3ffb3',
+		borderBottomColor: '#b3ffb3',
+		borderStyle: 'solid',
+		borderWidth: 1,
+		fontSize: 24,
+		padding: 40,
+	},
+	nosong: {
+		textAlign: 'center',
 		backgroundColor: '#4d243d',
 		color: '#b3ffb3',
 		borderBottomColor: '#b3ffb3',

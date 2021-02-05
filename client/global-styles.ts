@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 		color: '#4d243d',
 		padding: 10,
-		width: perfectSize(1125),
+		width: '100%',
 		height: 'fit-content',
 		fontSize: 24,
 		fontWeight: '700',
@@ -38,6 +38,8 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		fontSize: 16,
 		fontWeight: '400',
+		width: '100%',
+		height: '100%',
 	},
 	row: {
 		flex: 1,

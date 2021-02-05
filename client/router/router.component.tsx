@@ -7,7 +7,8 @@ import NavBarComponent from './navbar.component';
 import AddDeleteUserComponent from '../user/add.delete.component';
 import { Song } from '../song/song';
 import HomeScreen from '../screens/home.screen';
-import SongDetail from '../song/songDetail.component';
+import SongDetail from '../screens/songDetail.screen';
+import AddToPlaylist from '../playlist/AddToPlaylist';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -17,6 +18,7 @@ export type StackParams = {
 	Songs: undefined;
 	EditUser: undefined;
 	Home: undefined;
+	AddToPlaylist: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -45,6 +47,11 @@ function RouterComponent() {
 			<Stack.Screen
 				name="SongDetail"
 				component={SongDetail}
+				options={headerOptions}
+			/>
+			<Stack.Screen
+				name="AddToPlaylist"
+				component={AddToPlaylist}
 				options={headerOptions}
 			/>
 		</Stack.Navigator>
