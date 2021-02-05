@@ -9,6 +9,8 @@ import { Song } from '../song/song';
 import HomeScreen from '../screens/home.screen';
 import SongDetail from '../screens/songDetail.screen';
 import AddToPlaylist from '../playlist/AddToPlaylist';
+import { SongState } from '../store/store';
+import { useSelector } from 'react-redux';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -26,7 +28,8 @@ const headerOptions: StackHeaderOptions = {
 	headerTitle: () => <Text>Musical Quad Collab</Text>,
 	headerRight: () => <NavBarComponent />,
 };
-function RouterComponent() {
+function RouterComponent(props: any) {
+	const song = useSelector((state: SongState) => state.song);
 	return (
 		<Stack.Navigator initialRouteName="Login">
 			<Stack.Screen
