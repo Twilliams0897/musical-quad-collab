@@ -37,6 +37,9 @@ const reducer = (
 		case Actions.UserActions.AddUser:
 			newState.userInput = action.payload as User;
 			return newState;
+		case Actions.UserActions.AddUser:
+			newState.userInput = action.payload as User;
+			return newState;
 		case Actions.SongActions.GetSongs:
 			newState.songlist = action.payload as Song[];
 			return newState;
