@@ -41,7 +41,7 @@ class UserService {
 	addUser(user: User): Promise<null> {
 		return axios
 			.put(this.URI, user, {withCredentials: true})
-			.then(result => null)
+			.then((result: any) => result.data)
 			.catch((err) => err);
     }
 }

@@ -34,6 +34,11 @@ function LoginComponent({ navigation }: LoginProp) {
 			navigation.navigate('Home');
 		});
 	}
+
+	function registerForm() {
+		navigation.navigate('Register');
+	}
+
 	return (
 		<View style={style.container}>
 			<Text style={style.label}>Username: </Text>
@@ -54,6 +59,7 @@ function LoginComponent({ navigation }: LoginProp) {
 				value={user.password}
 			/>
 			<Button onPress={submitForm} title="Login" />
+			<Button onPress={registerForm} title="Register"/>
 		</View>
 	);
 }

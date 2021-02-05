@@ -6,7 +6,6 @@ import { GrubState } from '../store/store';
 import styles from '../global-styles';
 import LoginComponent from './login.component';
 import { MyScreen } from '../screens/my.screen';
-import AddEmp from './add_emp.component';
 
 
 

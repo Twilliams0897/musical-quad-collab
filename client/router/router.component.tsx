@@ -2,6 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginComponent from '../user/login.component';
+import RegisterComponent from '../user/register.component';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import NavBarComponent from './navbar.component';
 import AddDeleteUserComponent from '../user/add.delete.component';
@@ -17,6 +18,7 @@ export type StackParams = {
 	Songs: undefined;
 	EditUser: undefined;
 	Home: undefined;
+	Register: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -47,6 +49,10 @@ function RouterComponent() {
 				component={SongDetail}
 				options={headerOptions}
 			/>
+			<Stack.Screen
+				name="Register"
+				component={RegisterComponent}
+				options={headerOptions}/>
 		</Stack.Navigator>
 	);
 }
