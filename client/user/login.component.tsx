@@ -31,7 +31,7 @@ function LoginComponent({ navigation }: LoginProp) {
 			newUser.role = user.role;
 			dispatch(getUser(newUser));
 			console.log(newUser);
-			navigation.navigate('Home'); //*
+			navigation.navigate('Home');
 		});
 	}
 	return (
