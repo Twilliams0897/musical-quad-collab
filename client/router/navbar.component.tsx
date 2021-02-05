@@ -20,12 +20,12 @@ function NavBarComponent() {
 				}}
 				title="Songs"
 			/>
-			<Button
+			{<Button
 				onPress={() => {
-					nav.navigate('Login');
+					nav.navigate('Logout');
 				}}
 				title="Logout"
-			/>
+			/>}
 			{user.role === 'employee' || user.role === 'admin' ? (
 				<Button
 					onPress={() => {
@@ -47,3 +47,14 @@ function NavBarComponent() {
 }
 
 export default NavBarComponent;
+
+/*
+{if (user) ? (
+	<Button onPress={() => {
+		nav.navigate('Logout');
+		}}
+		title="Logout"/>
+		) : (
+		<></>
+		)}
+*/

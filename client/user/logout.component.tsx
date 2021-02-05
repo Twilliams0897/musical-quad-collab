@@ -3,7 +3,7 @@ import userService from './user.service';
 import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 //import {useHistory} from 'react-router-dom';
-import { getUser, loginAction } from '../store/actions';
+import { changeUser, getUser, loginAction } from '../store/actions';
 import { Button, TextInput, Text, View, Alert } from 'react-native';
 import style from '../global-styles';
 import { User } from './user';
@@ -35,18 +35,32 @@ function LogoutComponent({ navigation }: LogoutProp) {
 		// 	navigation.navigate('Home'); //*
         // });
         userService.logout().then( (user) => {
-            console.log(user);
+            console.log(`user: ${user}`);
             navigation.navigate('Login')
-        })
-
-        const alert = () => {
-            Alert.alert('You have been logged out');
-        }
+		})
+		user.username = '';
+		user.password = '';
+		user.role = '';
+		user.credits = 0;
+		user.userId = 0;
+		user.playlist = undefined;
+		user.favorites = undefined;
+		console.log('Logged out');
+		dispatch(getUser(user));
 	}
+
+	function stayLoggedIn() {
+		navigation.navigate('Home');
+	}
+
 	return (
-        <TouchableOpacity onPress = {alert}>
-            <Text>Logout of Music Mania</Text>
-        </TouchableOpacity>
+        <View style={style.container}>
+			<h1>Are you sure you want to log out?</h1>
+			<Text></Text>
+			<Button onPress={submitForm} title="Logout" />
+			<br></br>
+			<Button onPress={stayLoggedIn} title="Cancel"/>
+		</View>
 	);
 }
 
