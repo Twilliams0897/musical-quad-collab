@@ -112,7 +112,7 @@ function AddEmpComponent() {
               <button onClick={cancel}>Cancel</button>
           </p>
       </div>
-  )
+    )
 }
 
 export default AddEmpComponent;

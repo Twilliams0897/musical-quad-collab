@@ -4,6 +4,7 @@ import { Song } from './../song/song';
 export enum UserActions {
 	GetUser = 'GET_USER',
 	LoginChange = 'CHANGE_LOGIN',
+	AddUser = 'ADD_USER'
 }
 
 export enum SongActions {
@@ -32,6 +33,14 @@ export interface SongAction extends AppAction {
 export function getUser(user: User): UserAction {
 	const action: UserAction = {
 		type: UserActions.GetUser,
+		payload: user,
+	};
+	return action;
+}
+
+export function addUser(user: User): UserAction {
+	const action: UserAction = {
+		type: UserActions.AddUser,
 		payload: user,
 	};
 	return action;

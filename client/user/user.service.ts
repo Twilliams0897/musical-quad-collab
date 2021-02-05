@@ -36,11 +36,11 @@ class UserService {
 
 	//Look here to updat and add user... guesstimate what you need from the above
 	//statements. BE WARNED
-	updateUser(u: User): Promise<null> {
-        return axios.put(this.URI, u).then(result => null);
-    }
-    addUser(u: User): Promise<null> {
-        return axios.post(this.URI, u).then(result => null);
+	addUser(user: User): Promise<null> {
+		return axios
+			.put(this.URI, user, {withCredentials: true})
+			.then(result => null)
+			.catch((err) => err);
     }
 }
 

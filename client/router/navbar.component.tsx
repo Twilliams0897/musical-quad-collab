@@ -11,17 +11,21 @@ function NavBarComponent() {
 	const dispatch = useDispatch();
 	return (
 		<View style={styles.row}>
-			{user.role === 'employee' ? (
-				<Button onPress={() => nav.navigate('EditUser')} title="Manage Users" />
-			) : (
-				<></>
-			)}
 			<Button
 				onPress={() => {
 					nav.navigate('Home');
 				}}
 				title="Songs"
 			/>
+			{user.role === 'employee' || user.role === 'admin' ? (
+				<Button onPress={() => {nav.navigate('EditUser')}} title="Manage Users" />
+			) : (
+				<></>
+			)}
+			<Button onPress={() => {
+					nav.navigate('EditUser');
+				}} 
+				title="Manage Users" />
 		</View>
 	);
 }
