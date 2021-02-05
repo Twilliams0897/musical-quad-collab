@@ -53,6 +53,23 @@ function AddDeleteUserComponent(username: string) {
 
 	return (
 		<View>
+			<Text>Username: </Text>
+			<TextInput
+				style={style.input}
+				onChangeText={(value: any) =>
+					dispatch(getUser({ ...user, username: value }))
+				}
+				value={user.username}
+			/>
+			<Text>Password: </Text>
+			<TextInput
+				secureTextEntry={true}
+				style={style.input}
+				onChangeText={(value: any) =>
+					dispatch(getUser({ ...user, password: value }))
+				}
+				value={user.password}
+			/>
 			<Text>Role: </Text>
 			<TextInput
 				style={style.input}
@@ -61,23 +78,6 @@ function AddDeleteUserComponent(username: string) {
 				}
 				value={user.role}
 			/>
-			<Text>Username: </Text>
-				<TextInput
-					style={style.input}
-					onChangeText={(value) =>
-						dispatch(userService.addUser({ ...user, username: value }))
-					}
-					value={user.username}
-				/>
-				<Text>Password: </Text>
-				<TextInput
-					secureTextEntry={true}
-					style={style.input}
-					onChangeText={(value) =>
-						dispatch(userService.addUser({ ...user, password: value }))
-					}
-					value={user.password}
-				/>
 
 			<Button onPress={handleDelete} title="Delete User" color="#880022" />
 			<Button onPress={AddForm} title="Add User" color="#880022" />
