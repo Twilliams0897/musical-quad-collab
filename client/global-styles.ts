@@ -23,9 +23,15 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		backgroundColor: '#b3ffb3',
+		height: 40,
+		width: 300,
+		margin: 10,
 	},
 	label: {
 		color: '#b3ffb3',
+		lineHeight: 40,
+		height: 40,
+		fontSize: 20,
 	},
 	container: {
 		color: '#b3ffb3',
@@ -37,6 +43,7 @@ const styles = StyleSheet.create({
 	row: {
 		flex: 1,
 		flexDirection: 'row',
+		margin: 40,
 	},
 	url: {
 		color: '#fef9ff',

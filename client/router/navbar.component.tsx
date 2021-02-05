@@ -10,7 +10,7 @@ function NavBarComponent() {
 	const user = useSelector((state: AppState) => state.user);
 	const dispatch = useDispatch();
 	return (
-		<View style={styles.row}>
+		<View style={{ flex: 1, flexDirection: 'row' }}>
 			<Button
 				onPress={() => {
 					nav.navigate('Home');
@@ -18,14 +18,15 @@ function NavBarComponent() {
 				title="Songs"
 			/>
 			{user.role === 'employee' || user.role === 'admin' ? (
-				<Button onPress={() => {nav.navigate('EditUser')}} title="Manage Users" />
+				<Button
+					onPress={() => {
+						nav.navigate('EditUser');
+					}}
+					title="Manage Users"
+				/>
 			) : (
 				<></>
 			)}
-			{/* <Button onPress={() => {
-					nav.navigate('EditUser');
-				}} 
-				title="Manage Users" /> */}
 		</View>
 	);
 }

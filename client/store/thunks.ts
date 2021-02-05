@@ -12,6 +12,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 
 export const thunkGetSongs = (): AppThunk => async (dispatch) => {
 	const asyncResp = await songService.getSongs();
-	console.log('before thunk dispatch');
 	dispatch(getSongs(asyncResp));
 };

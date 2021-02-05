@@ -95,6 +95,9 @@ with name LAMBDASONGAPI=ipaddress
 - 1.  https://v3gpanxg9k.execute-api.us-west-2.amazonaws.com/default/gethomesongs/
 - 1.  https://3qt05wpja8.execute-api.us-west-2.amazonaws.com/default/songs/
 
+- searchSongs POST request https://1bt2tfiy3m.execute-api.us-west-2.amazonaws.com/dev/search/
+- e.g. : req.body={ "artist": "sublime" } or { "title": "fish" } will return array (search results).
+
 # user strories:
 
 ## Product backlog

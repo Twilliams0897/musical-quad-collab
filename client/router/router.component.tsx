@@ -7,6 +7,7 @@ import NavBarComponent from './navbar.component';
 import AddDeleteUserComponent from '../user/add.delete.component';
 import { Song } from '../song/song';
 import HomeScreen from '../screens/home.screen';
+import SongDetail from '../song/songDetail.component';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -41,9 +42,13 @@ function RouterComponent() {
 				component={HomeScreen}
 				options={headerOptions}
 			/>
+			<Stack.Screen
+				name="SongDetail"
+				component={SongDetail}
+				options={headerOptions}
+			/>
 		</Stack.Navigator>
 	);
 }
 
 export default RouterComponent;
-
