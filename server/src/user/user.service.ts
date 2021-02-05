@@ -13,7 +13,7 @@ class UserService {
         const params = {
             TableName: 'users'
         };
-        return await this.doc.scan(params).promise().then((data: any) => {
+        return await this.doc.scan(params).promise().then((data) => {
             return data.Items as User[];
         })
     }
@@ -54,10 +54,10 @@ class UserService {
             }
         };
 
-        return await this.doc.put(params).promise().then((result:any) => {
+        return await this.doc.put(params).promise().then((result) => {
             logger.info('Successfully created user');
             return true;
-        }).catch((error:any) => {
+        }).catch((error) => {
             logger.error(error);
             return false;
         });
@@ -78,10 +78,10 @@ class UserService {
             },
             ReturnValues: 'UPDATED_NEW'
         };
-        return await this.doc.update(params).promise().then((data: any) => {
+        return await this.doc.update(params).promise().then((data) => {
             logger.debug(data);
             return true;
-        }).catch((error: any) => {
+        }).catch(error => {
             logger.error(error);
             return false;
         });
@@ -94,18 +94,14 @@ class UserService {
             }
         }
 
-        return await this.doc.delete(params).promise().then((data: any) => {
+        return await this.doc.delete(params).promise().then((data) => {
             return true;
-        }).catch((err: any) => {
+        }).catch(err => {
             logger.error(err);
             return false;
         });
 
     }
-
- 
-
-
 
 
 } //end of UserService

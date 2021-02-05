@@ -41,10 +41,20 @@ export async function register(username: string, password: string){
             })
         }
     });
-
-
-
- 
-   
 }
 
+
+export async function eregister(username: string){
+    userService.getUserByName(username).then(user => {
+        if(user){
+            logger.info(username + ' already exists');
+        }
+        else{
+            const user = new User(10, username, 'pass', 'employee', 100,  [], []);    
+            // problem with userId, credit set to 100
+            userService.addUser(user).then(data => data).catch(err => {
+                logger.debug(err);
+            })
+        }
+    });
+}
