@@ -4,17 +4,6 @@
 * GET  http://35.166.133.163:3000/users
 
 
-# postgres db connection:
-
--  PGUSER=RN2012michael
--  PGHOST=michaelwoo921.caja0iljeyww.us-west-2.rds.amazonaws.com
--  PGPASSWORD=awefcx34
--  PGDATABASE=RN2012
--  PGPORT=5432
-
-
-
-
 ## api gateway
 *  songs   https://socqhojy48.execute-api.us-west-2.amazonaws.com/dev/songs
 ```
@@ -47,8 +36,6 @@ POST  body: {
 }
 ```
 
-
-
 - searchSongs   https://1bt2tfiy3m.execute-api.us-west-2.amazonaws.com/dev/search
 ```
    body: { "artist": "sublime" }  
@@ -58,8 +45,6 @@ POST  body: {
 
 
 ## unfinished/unnecessary lambda function
-
-
 
 - getPlaylistByUser can be {"user_id": 10} or you can make the user_id a parameter
 - why error? 
