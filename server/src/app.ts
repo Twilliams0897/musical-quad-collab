@@ -16,7 +16,7 @@ dotenv.config();
 import indexRouter from './staticrouter/index';
 import usersRouter from './user/user.router';
 import pgRouter from './pg/pg.router';
-import songsRouter from './songs/songs.router';
+//import songsRouter from './songs/songs.router';
 
 const app = express();
 app.use(
@@ -49,7 +49,7 @@ app.use(
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/pg', pgRouter);
-app.use('/songs', songsRouter);
+//app.use('/songs', songsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

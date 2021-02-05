@@ -70,8 +70,12 @@ router.post('/register', function(req: any, res: any){
   const username = req.body.username;
   const password = req.body.password;
   if(username && password){
-    user.register(username, password).then(data => res.send(JSON.stringify(data)))
+    if (req.session.user.role === 'admin'){
+      user.registerEmp(username, password).then(data => res.send(JSON.stringify(data)))
     .catch(err => res.send(JSON.stringify(err)));
+    }else{
+    user.register(username, password).then(data => res.send(JSON.stringify(data)))
+    .catch(err => res.send(JSON.stringify(err)));}
   }
   else {
     res.sendFile('error.html', {root: publicDir});

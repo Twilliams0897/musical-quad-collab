@@ -43,10 +43,6 @@ export async function register(username: string, password: string){
         }
     });
 
-
-
- 
-   
 }
 
 export async function registerEmp(username: string, password: string){

@@ -11,6 +11,7 @@ export interface UserState {
 	user: User;
 	loginUser: User;
 	locale?: string;
+	userInput:User;
 }
 
 export interface SongState {

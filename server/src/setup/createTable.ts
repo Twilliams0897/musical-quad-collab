@@ -37,14 +37,14 @@ const userSchema = {
 
 
 
-ddb.deleteTable(removeUsers, function (err, data) {
+ddb.deleteTable(removeUsers, function (err: any, data: any) {
     if (err) {
         console.error('Unable to delete table. Error JSON:', JSON.stringify(err, null, 2));
     } else {
         console.log('Deleted table. Table description JSON:', JSON.stringify(data, null, 2));
     }
     setTimeout(()=>{
-        ddb.createTable(userSchema, (err, data) => {
+        ddb.createTable(userSchema, (err: any, data: any) => {
             if (err) {
                 // log the error
                 console.log('Error', err);

@@ -22,10 +22,10 @@ function NavBarComponent() {
 			) : (
 				<></>
 			)}
-			<Button onPress={() => {
+			{/* <Button onPress={() => {
 					nav.navigate('EditUser');
 				}} 
-				title="Manage Users" />
+				title="Manage Users" /> */}
 		</View>
 	);
 }
