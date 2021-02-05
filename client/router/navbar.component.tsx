@@ -12,7 +12,8 @@ function NavBarComponent() {
 	return (
 		<View style={styles.row}>
 			{user.role === 'employee' || user.role === 'admin' ? (
-				<Button onPress={() => nav.navigate('EditUser')} title="Manage Users" />
+			//	<Button onPress={() => nav.navigate('EditUser')} title="Manage Users" />
+				<Button onPress={() => nav.navigate('ViewUsers')} title="View Users" />
 			) : (
 				<></>
 			)}

@@ -8,6 +8,7 @@ import { AppState } from './store';
 
 export const initialState: AppState = {
 	user: new User(),
+	users: [],
 	loginUser: new User(),
 	songlist: [],
 	song: new Song(),
@@ -32,6 +33,15 @@ const reducer = (
 			return newState;
 		case Actions.UserActions.LoginChange:
 			newState.loginUser = action.payload as User;
+			return newState;
+		case Actions.UserActions.LoginChange:
+			newState.loginUser = action.payload as User;
+			return newState;
+		case Actions.UserActions.ChangeUser:
+			newState.loginUser = action.payload as User;
+			return newState;
+		case Actions.UserActions.GetAllUsers:
+			newState.users = action.payload as User[];
 			return newState;
 		case Actions.SongActions.GetSongs:
 			newState.songlist = action.payload as Song[];

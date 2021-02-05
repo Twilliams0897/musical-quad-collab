@@ -5,9 +5,11 @@ import LoginComponent from '../user/login.component';
 import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
 import NavBarComponent from './navbar.component';
 import AddDeleteUserComponent from '../user/add.delete.component';
+import AddEmpComponent from '../user/add.user.component';
 import { Song } from '../song/song';
 import HomeScreen from '../screens/home.screen';
-
+import ViewAllUsersComponent from '../user/get.users.component';
+import UserComponent from '../user/user.component'; 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
 	Login: undefined;
@@ -32,8 +34,8 @@ function RouterComponent() {
 				options={headerOptions}
 			/>
 			<Stack.Screen
-				name="EditUser"
-				component={AddDeleteUserComponent}
+				name="ViewUsers"
+				component={ViewAllUsersComponent}
 				options={headerOptions}
 			/>
 			<Stack.Screen

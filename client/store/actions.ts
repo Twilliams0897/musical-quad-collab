@@ -4,6 +4,8 @@ import { Song } from './../song/song';
 export enum UserActions {
 	GetUser = 'GET_USER',
 	LoginChange = 'CHANGE_LOGIN',
+	GetAllUsers = 'GET_ALL_USERS',
+	ChangeUser = 'CHANGE_USER'
 }
 
 export enum SongActions {
@@ -21,7 +23,7 @@ export interface AppAction {
 
 export interface UserAction extends AppAction {
 	type: UserActions;
-	payload: User;
+	payload: User | User[];
 }
 
 export interface SongAction extends AppAction {
@@ -40,6 +42,21 @@ export function getUser(user: User): UserAction {
 export function loginAction(user: User): UserAction {
 	const action: UserAction = {
 		type: UserActions.LoginChange,
+		payload: user,
+	};
+	return action;
+}
+
+export function getAllUsers(users: User[]): UserAction {
+	const action: UserAction = {
+		type: UserActions.GetAllUsers,
+		payload: users,
+	};
+	return action;
+}
+export function changeUser(user: User): UserAction {
+	const action: UserAction = {
+		type: UserActions.ChangeUser,
 		payload: user,
 	};
 	return action;

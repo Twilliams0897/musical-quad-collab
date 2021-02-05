@@ -5,8 +5,8 @@ class UserService {
 	private URI: string;
 	constructor() {
         // URL of the express server
-        //this.URI = 'http://localhost/users';
-		this.URI = 'http://35.166.133.163:3000/users';
+        this.URI = 'http://localhost/users';
+		//this.URI = 'http://35.166.133.163:3000/users';
 	}
 	getLogin(): Promise<User> {
 		// withCredentials sends our cookies with the request.
@@ -50,8 +50,10 @@ class UserService {
 	getUsers(): Promise<User []> {
 		return axios
 		.get(this.URI)
-		.then(result => result.data)
-		.catch((err) => {
+		.then((result) => {
+			console.log(result.data);
+			return result.data;
+		}).catch((err) => {
 			console.error(err)
 		})
 	}
