@@ -2,7 +2,9 @@ import { Client } from 'pg';
 import createResponse from 'createresponse';
 
 export async function handler(event: any) {
-	let query: string = event.body;
+	let body = JSON.parse(event.body);
+	let clicks = body.clicks;
+	let song_id = body.song_id;
 
 	const client = new Client({
 		host: process.env.PGHOST,
@@ -14,12 +16,11 @@ export async function handler(event: any) {
 	client.connect();
 
 	let result;
-	query = query.toLowerCase();
-	query = '%' + query + '%';
-	const q = 'select * from song where lower(title) like $1::text';
+
+	const q = 'update song set clicks = $1::integer where song_id = $2::integer;';
 
 	try {
-		result = await client.query(q, [query]);
+		result = await client.query(q, [clicks, song_id]);
 		client.end();
 		return createResponse(JSON.stringify(result.rows), 200);
 	} catch (error) {

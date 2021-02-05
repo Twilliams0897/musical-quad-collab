@@ -10,22 +10,26 @@ class UserService {
 	}
 	getLogin(): Promise<User> {
 		// withCredentials sends our cookies with the request.
-		return axios.get(this.URI, { withCredentials: true }).then((result) => {
-			console.log(result);
-			return result.data;
-		});
+		return axios
+			.get(this.URI, { withCredentials: true })
+			.then((result: any) => {
+				console.log(result);
+				return result.data;
+			}).catch ((err) => {
+				console.log(err);
+			});
 	}
 
 	login(user: User): Promise<User> {
 		return axios
 			.post(this.URI, user, { withCredentials: true })
-			.then((result) => result.data)
-			.catch((err) => err);
+			.then((result: any) => result.data)
+			.catch((err: any) => err);
 	}
 	logout(): Promise<null> {
 		return axios
 			.delete(this.URI, { withCredentials: true })
-			.then((result) => null);
+			.then((result: any) => null);
 	}
 
 	deleteByUsername(username: string): Promise<null> {
@@ -33,12 +37,6 @@ class UserService {
 			.delete(this.URI + '/' + username, { withCredentials: true })
 			.then((result) => null)
 			.catch((err) => err);
-    }
-    
-    addUser(user: User): Promise<null> {
-        return axios
-            .post(this.URI, user, {withCredentials: true})
-            .then(result => null);
     }
 
     updateUser(user: User): Promise<null> {
@@ -56,7 +54,18 @@ class UserService {
 		}).catch((err) => {
 			console.error(err)
 		})
+			.then((result: any) => null)
+			.catch((err: any) => err);
 	}
+
+	//Look here to updat and add user... guesstimate what you need from the above
+	//statements. BE WARNED
+	addUser(user: User): Promise<null> {
+		return axios
+			.put(this.URI, user, {withCredentials: true})
+			.then(result => null)
+			.catch((err) => err);
+    }
 }
 
 export default new UserService();

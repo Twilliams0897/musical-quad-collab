@@ -39,12 +39,14 @@ exports.__esModule = true;
 exports.handler = void 0;
 var pg_1 = require("pg");
 var createresponse_1 = require("createresponse");
-function handler() {
+function handler(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var client, q, result, error_1;
+        var body, user_id, client, result, q, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    body = JSON.parse(event.body);
+                    user_id = body.user_id;
                     client = new pg_1.Client({
                         host: process.env.PGHOST,
                         user: process.env.PGUSER,
@@ -52,11 +54,11 @@ function handler() {
                         database: process.env.PGDATABASE
                     });
                     client.connect();
-                    q = 'SELECT * from song LIMIT 20';
+                    q = 'select * from song s join playlist p on s.song_id = p.song_id where p.user_id = $1::integer order by p.user_id, p.playlist_name;';
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, client.query(q)];
+                    return [4 /*yield*/, client.query(q, [user_id])];
                 case 2:
                     result = _a.sent();
                     client.end();

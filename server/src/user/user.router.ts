@@ -24,7 +24,7 @@ router.get('/login', function(req: any, res, next) {
     console.log(req.session.user);
     res.redirect('/');
   }
-  res.send('<h1> Cannot login </h1>');
+  res.send('This is where the login page would be');
 });
 
 /* testing whether dynamo db connection works and set session*/
@@ -70,8 +70,12 @@ router.post('/register', function(req: any, res: any){
   const username = req.body.username;
   const password = req.body.password;
   if(username && password){
-    user.register(username, password).then(data => res.send(JSON.stringify(data)))
+    if (req.session.user.role === 'admin'){
+      user.registerEmp(username, password).then(data => res.send(JSON.stringify(data)))
     .catch(err => res.send(JSON.stringify(err)));
+    }else{
+    user.register(username, password).then(data => res.send(JSON.stringify(data)))
+    .catch(err => res.send(JSON.stringify(err)));}
   }
   else {
     res.sendFile('error.html', {root: publicDir});

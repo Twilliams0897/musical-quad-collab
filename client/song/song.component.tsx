@@ -1,12 +1,8 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
-import { View, Text, StyleSheet, Button, Linking } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { changeSong } from '../store/actions';
-import { UserState } from '../store/store';
-import { thunkGetSongs } from '../store/thunks';
-import { Song } from './song';
-import songService from './song.service';
 
 const { create } = require('react-native-pixel-perfect');
 const designResolution = {
@@ -17,66 +13,34 @@ const perfectSize = create(designResolution);
 
 function SongComponent(props: any) {
 	const nav = useNavigation();
-
-	const userContext = useSelector((state: UserState) => state.user);
 	const dispatch = useDispatch();
 
-	const openURL = (url: string) => {
-		Linking.openURL(url).catch((err) =>
-			console.error('An error occurred', err)
-		);
-	};
-
-	function handleDelete() {
-		if (props.data.song_id) {
-			songService.deleteSong(props.data.song_id).then(() => {
-				dispatch(changeSong(new Song()));
-				dispatch(thunkGetSongs());
-				nav.navigate('Songs');
-			});
-		}
+	function handlePlay() {
+		dispatch(changeSong(props.data));
 	}
 
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>{props.data.title}</Text>
 			<Text style={styles.artist}>{props.data.artist}</Text>
-			<Text style={styles.year}>{props.data.year}</Text>
-			<Text style={styles.year}>Clicks: {props.data.clicks}</Text>
-			<Text
-				style={styles.url}
-				onPress={() => {
-					openURL(props.data.web_url);
-				}}
-			>
-				Learn More
-			</Text>
 			<View style={styles.buttons}>
+				<Button title="Play" onPress={handlePlay} />
+				<Text> </Text>
 				<Button
-					title="Play"
+					title="Details"
 					onPress={() => {
-						console.log(`playing ${props.data.title} by ${props.data.artist}`);
+						nav.navigate('SongDetail', {
+							song_id: props.data.song_id,
+							title: props.data.title,
+							artist: props.data.artist,
+							year: props.data.year,
+							web_url: props.data.web_url,
+							img_url: props.data.img_url,
+							clicks: props.data.clicks,
+							price: props.data.price,
+						});
 					}}
 				/>
-				<Button
-					title="Favorite"
-					onPress={() => {
-						console.log(
-							`favorited ${props.data.title} by ${props.data.artist}`
-						);
-					}}
-				/>
-				<Button
-					title="Add to Playlist"
-					onPress={() => {
-						console.log(`go to added to playlist`);
-					}}
-				/>
-				{userContext.role === 'employee' && (
-					<>
-						<Button onPress={handleDelete} title="Delete Song" />
-					</>
-				)}
 			</View>
 		</View>
 	);
@@ -109,22 +73,9 @@ const styles = StyleSheet.create({
 		fontWeight: '600',
 		color: '#b3ffb3',
 	},
-	year: {
-		margin: 2,
-		fontSize: 16,
-		color: '#b3ffb3',
-	},
-	url: {
-		margin: 5,
-		fontStyle: 'italic',
-		color: '#fef9ff',
-	},
 	buttons: {
 		flexDirection: 'row',
 		justifyContent: 'space-around',
-	},
-	button: {
-		margin: 2,
 	},
 });
 

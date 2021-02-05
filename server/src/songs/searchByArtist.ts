@@ -2,7 +2,8 @@ import { Client } from 'pg';
 import createResponse from 'createresponse';
 
 export async function handler(event: any) {
-	let query: string = event.body;
+	let body = JSON.parse(event.body);
+	let artist = body.artist;
 
 	const client = new Client({
 		host: process.env.PGHOST,
@@ -14,12 +15,12 @@ export async function handler(event: any) {
 	client.connect();
 
 	let result;
-	query = query.toLowerCase();
-	query = '%' + query + '%';
+	artist = artist.toLowerCase();
+	artist = '%' + artist + '%';
 	const q = 'select * from song where lower(artist) like $1::text';
 
 	try {
-		result = await client.query(q, [query]);
+		result = await client.query(q, [artist]);
 		client.end();
 		return createResponse(JSON.stringify(result.rows), 200);
 	} catch (error) {

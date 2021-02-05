@@ -41,11 +41,13 @@ var pg_1 = require("pg");
 var createresponse_1 = require("createresponse");
 function handler(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var query, client, result, q, error_1;
+        var body, type, query, client, result, q, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    query = event.body;
+                    body = JSON.parse(event.body);
+                    type = body.type;
+                    query = body.query;
                     client = new pg_1.Client({
                         host: process.env.PGHOST,
                         user: process.env.PGUSER,
@@ -55,11 +57,11 @@ function handler(event) {
                     client.connect();
                     query = query.toLowerCase();
                     query = '%' + query + '%';
-                    q = 'select * from song where lower(artist) like $1::text';
+                    q = 'select * from song where lower($1::text) like $2::text';
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, client.query(q, [query])];
+                    return [4 /*yield*/, client.query(q, [type, query])];
                 case 2:
                     result = _a.sent();
                     client.end();

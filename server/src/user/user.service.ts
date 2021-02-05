@@ -13,7 +13,7 @@ class UserService {
         const params = {
             TableName: 'users'
         };
-        return await this.doc.scan(params).promise().then((data:any) => {
+        return await this.doc.scan(params).promise().then((data: { Items: User[]; }) => {
             return data.Items as User[];
         })
     }
@@ -21,12 +21,12 @@ class UserService {
 
     async getUserByName(username: string): Promise<User | null> {
         const params = {
-            TableName: 'users',
+            TableName: 'p1users',
             Key: {
                 'username': username
             }
         };
-        return await this.doc.get(params).promise().then((data:any) => {
+        return await this.doc.get(params).promise().then((data: { Item: User; }) => {
             if (data && data.Item) {
                 logger.debug(`data.Item: ${JSON.stringify(data.Item)}`);
                 return data.Item as User;
@@ -40,7 +40,7 @@ class UserService {
         // object to be sent to AWS.
         const params = {
             // TableName - the name of the table we are sending it to
-            TableName: 'users',
+            TableName: 'p1users',
             // Item - the object we are sending
             Item: user,
             ConditionExpression: '#username <> :username',
@@ -54,7 +54,7 @@ class UserService {
             }
         };
 
-        return await this.doc.put(params).promise().then(() => {
+        return await this.doc.put(params).promise().then((result: any) => {
             logger.info('Successfully created user');
             return true;
         }).catch((error: any) => {
@@ -88,15 +88,15 @@ class UserService {
     }
     async deleteUser(username: string): Promise<boolean> {
         const params = {
-            TableName: 'users',
+            TableName: 'p1users',
             Key: {
                 'username': username
             }
         }
 
-        return await this.doc.delete(params).promise().then(() => {
+        return await this.doc.delete(params).promise().then((data: any) => {
             return true;
-        }).catch((err:any) => {
+        }).catch((err: any) => {
             logger.error(err);
             return false;
         });
