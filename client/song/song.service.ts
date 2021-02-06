@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Playlist } from '../playlist/playlist';
 import { Song } from './song';
 
 interface Query {
@@ -7,7 +8,7 @@ interface Query {
 }
 
 interface Clicks {
-	clicks: Number;
+	clicks: number;
 }
 
 class SongService {
@@ -36,7 +37,7 @@ class SongService {
 	// 	return axios.put(this.URI + 'songs', s).then((result) => null);
 	// }
 
-	deleteSong(song_id: Number): Promise<null> {
+	deleteSong(song_id: number): Promise<null> {
 		return axios
 			.delete(this.URI + 'songs' + '/' + song_id)
 			.then((result) => null);
@@ -51,11 +52,14 @@ class SongService {
 			.then((result) => result.data);
 	}
 
-	updateClicks(song_id: Number, clicks: Clicks): Promise<null> {
+	updateClicks(song_id: number, clicks: Clicks): Promise<null> {
 		return axios
 			.put(this.URI + `clicks/${song_id}`, clicks)
 			.then((result) => null);
 	}
+
+	//for endpoint that adds playlist item to database
+	addToPlaylist(playlist: Playlist) {}
 } // end of SongService
 
 export default new SongService();

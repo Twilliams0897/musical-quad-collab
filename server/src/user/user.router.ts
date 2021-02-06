@@ -91,12 +91,13 @@ router.post('/register', function (req: any, res: any) {
 // how do we register employee as an admin? How does browser know I am admin?
 // the following route doesn't work at all.
 router.post('/eregister', function (req: any, res: any) {
-	let user: any = req.session.user;
-	if (user && user.role === 'adm') {
+	let loggedUser = req.session.user;
+	if (loggedUser && loggedUser.role === 'adm') {
 		const username = req.body.username;
+		const password = req.body.password;
 		if (username) {
 			user
-				.eregister(username)
+				.eregister(username, password)
 				.then((data: any) => res.status(200).send(JSON.stringify(data)))
 				.catch((err: any) => res.status(400).send(JSON.stringify(err)));
 		} else {

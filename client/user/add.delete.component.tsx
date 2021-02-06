@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import userService from './user.service';
 import style from '../global-styles';
-import { User } from './user';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserState } from '../store/store';
 import { addUser } from '../store/actions';
 
 function AddDeleteUserComponent(username: string) {
-	let [value, setValue] = useState('');
 	const userSelector = (state: UserState) => state.userInput;
 	const user = useSelector(userSelector);
 	const dispatch = useDispatch();
@@ -46,7 +44,7 @@ function AddDeleteUserComponent(username: string) {
 	};
 
 	const handleDelete = () => {
-		userService.deleteByUsername(value).then(() => {});
+		userService.deleteByUsername(user.username).then(() => {});
 	};
 
 	return (
