@@ -70,8 +70,9 @@ function PlayerComponent() {
 	useEffect(() => {
 		Animated.loop(
 			Animated.timing(flickerAnimation, {
-				toValue: 1,
-				duration: 1000,
+				toValue: 5,
+				duration: 3000,
+				delay: 1000,
 				useNativeDriver: true,
 			}),
 			{ iterations: -1 }
