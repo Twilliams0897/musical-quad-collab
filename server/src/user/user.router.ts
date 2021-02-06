@@ -24,7 +24,7 @@ router.get('/login', function(req: any, res, next) {
     console.log(req.session.user);
     res.redirect('/');
   }
-  res.send('This is where the login page would be');
+  res.send('<h1> Not logged in </h1>');
 });
 
 /* testing whether dynamo db connection works and set session*/
@@ -45,10 +45,17 @@ router.post('/', function(req: any, res) {
 router.delete('/:username', function(req: any, res: any){
   const username = req.params.username;
   if( req.session && req.session.user && req.session.user.role === 'employee'){
-    userService.deleteUser(username).then((data: any) => {
+    userService.deleteUser(username).then((data) => {
       logger.debug(username, ' : delete a user');
       res.send(JSON.stringify(data));
-    }).catch((err: any) => res.send(JSON.stringify(err)) )
+    }).catch((err) => res.send(JSON.stringify(err)) )
+
+  }
+  else if( req.session && req.session.user && req.session.user.role === 'admin'){
+    userService.deleteUser(username).then((data) => {
+      logger.debug(username, ' : delete an employee');
+      res.send(JSON.stringify(data));
+    }).catch((err) => res.send(JSON.stringify(err)) )
 
   }
   else {
@@ -70,18 +77,44 @@ router.post('/register', function(req: any, res: any){
   const username = req.body.username;
   const password = req.body.password;
   if(username && password){
-    if (req.session.user.role === 'admin'){
-      user.registerEmp(username, password).then(data => res.send(JSON.stringify(data)))
-    .catch(err => res.send(JSON.stringify(err)));
-    }else{
     user.register(username, password).then(data => res.send(JSON.stringify(data)))
-    .catch(err => res.send(JSON.stringify(err)));}
+    .catch(err => res.send(JSON.stringify(err)));
   }
   else {
     res.sendFile('error.html', {root: publicDir});
   }
 
 })
+
+// how do we register employee as an admin? How does browser know I am admin?
+// the following route doesn't work at all.
+router.post('/eregister', function(req: any, res: any){
+  let user: any = req.session.user;
+  if(user && user.role==='adm'){
+      const username = req.body.username;
+      if(username){
+        user.eregister(username).then((data: any) => res.send(JSON.stringify(data)))
+        .catch((err: any )=> res.send(JSON.stringify(err)));
+      }
+      else {
+        res.sendFile('error.html', {root: publicDir});
+      }
+  } else {
+
+    res.send('you are not authorized');
+  }
+  
+})
+
+function addEmployee(req: any, res: any, next: Function){
+  let u: any = req.session.user;
+  // only admin can go to the next step
+  if(u && u.role==='admin'){
+    return next;
+  }
+}
+
+
 
 // bad practice, let user log in
 router.post('/login', function(req: any, res: any){

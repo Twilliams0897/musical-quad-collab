@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Text, View } from 'react-native';
+import { Alert, Button, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../store/store';
 import styles from '../global-styles';
+import { thunkGetSongs } from '../store/thunks';
 
 function NavBarComponent() {
 	const nav = useNavigation();
@@ -13,6 +14,7 @@ function NavBarComponent() {
 		<View style={{ flex: 1, flexDirection: 'row' }}>
 			<Button
 				onPress={() => {
+					dispatch(thunkGetSongs);
 					nav.navigate('Home');
 				}}
 				title="Songs"

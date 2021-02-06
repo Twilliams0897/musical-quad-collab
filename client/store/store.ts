@@ -4,6 +4,7 @@ import { User } from '../user/user';
 import { Song } from '../song/song';
 import { AppAction } from './actions';
 import reducer from './reducer';
+import { Playlist } from '../playlist/playlist';
 
 // Define the items that are in our state
 
@@ -16,9 +17,11 @@ export interface UserState {
 
 export interface SongState {
 	songlist: Song[];
+	songs: Song[];
 	song: Song;
 	songInput: Song;
 	playlist: Song[];
+	playlists: Playlist[][];
 	favorites: Song[];
 }
 

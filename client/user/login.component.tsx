@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import userService from './user.service';
 import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-//import {useHistory} from 'react-router-dom';
 import { getUser, loginAction } from '../store/actions';
 import { Button, TextInput, Text, View } from 'react-native';
-import style from '../global-styles';
+import styles from '../global-styles';
 import { User } from './user';
 
 // Function Component
@@ -40,25 +39,25 @@ function LoginComponent({ navigation }: LoginProp) {
 	}
 
 	return (
-		<View style={style.container}>
-			<Text style={style.label}>Username: </Text>
+		<View style={styles.container}>
 			<TextInput
-				style={style.input}
+				style={styles.input}
+				placeholder ='username'
 				onChangeText={(value: any) =>
 					dispatch(loginAction({ ...user, username: value }))
 				}
 				value={user.username}
 			/>
-			<Text style={style.label}>Password: </Text>
 			<TextInput
+				placeholder='password'
 				secureTextEntry={true}
-				style={style.input}
+				style={styles.input}
 				onChangeText={(value: any) =>
 					dispatch(loginAction({ ...user, password: value }))
 				}
 				value={user.password}
 			/>
-			<Button onPress={submitForm} title="Login" />
+			<Button onPress={submitForm} title="Login"  />
 			<Button onPress={registerForm} title="Register"/>
 		</View>
 	);

@@ -18,9 +18,9 @@ function RegisterComponent({navigation}:RegisterProp) {
 	const dispatch = useDispatch();
 
 	const registrationForm = () => {
-        user.role = 'customer';
+        //user.role = 'customer';
         navigation.navigate('Login');
-        console.log(user);
+        //console.log(user);
         return (
             <View>
                 <Text>Username: </Text>

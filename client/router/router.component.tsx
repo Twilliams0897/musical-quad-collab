@@ -8,7 +8,10 @@ import NavBarComponent from './navbar.component';
 import AddDeleteUserComponent from '../user/add.delete.component';
 import { Song } from '../song/song';
 import HomeScreen from '../screens/home.screen';
-import SongDetail from '../song/songDetail.component';
+import SongDetail from '../screens/songDetail.screen';
+import AddToPlaylist from '../playlist/AddToPlaylist';
+import { SongState } from '../store/store';
+import { useSelector } from 'react-redux';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -19,6 +22,7 @@ export type StackParams = {
 	EditUser: undefined;
 	Home: undefined;
 	Register: undefined;
+	AddToPlaylist: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -26,7 +30,8 @@ const headerOptions: StackHeaderOptions = {
 	headerTitle: () => <Text>Musical Quad Collab</Text>,
 	headerRight: () => <NavBarComponent />,
 };
-function RouterComponent() {
+function RouterComponent(props: any) {
+	const song = useSelector((state: SongState) => state.song);
 	return (
 		<Stack.Navigator initialRouteName="Login">
 			<Stack.Screen
@@ -52,7 +57,13 @@ function RouterComponent() {
 			<Stack.Screen
 				name="Register"
 				component={RegisterComponent}
-				options={headerOptions}/>
+				options={headerOptions}
+			/>
+			<Stack.Screen
+				name="AddToPlaylist"
+				component={AddToPlaylist}
+				options={headerOptions}
+			/>
 		</Stack.Navigator>
 	);
 }
