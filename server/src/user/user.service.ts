@@ -11,7 +11,7 @@ class UserService {
 
 	async getUsers(): Promise<User[]> {
 		const params = {
-			TableName: 'users',
+			TableName: 'p1users',
 		};
 		return await this.doc
 			.scan(params)
@@ -74,7 +74,7 @@ class UserService {
 
 	async updateUser(user: User) {
 		const params = {
-			TableName: 'users',
+			TableName: 'p1users',
 			Key: {
 				name: user.username,
 			},
