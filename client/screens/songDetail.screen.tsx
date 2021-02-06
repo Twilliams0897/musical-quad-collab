@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { Button, Image, Linking, Text, View, StyleSheet } from 'react-native';
-import { MaterialIcons, AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeSong } from '../store/actions';
 import { UserState } from '../store/store';

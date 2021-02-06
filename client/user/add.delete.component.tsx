@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import userService from './user.service';
 import style from '../global-styles';

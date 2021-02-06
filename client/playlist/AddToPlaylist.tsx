@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { Button, Text, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -33,6 +32,7 @@ function AddToPlaylist({ route, navigation }: Props) {
 		let newPlaylist: Playlist = {
 			user_id: user.userId as number,
 			song_id,
+			playlist_name,
 		};
 
 		//add call to API

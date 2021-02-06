@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, FlatList, Image, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, Image, Pressable } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { useSelector, useDispatch } from 'react-redux';
-import { thunkGetSongs } from '../store/thunks';
-import { SongState } from '../store/store';
-import SongComponent from '../song/song.component';
+import { useDispatch } from 'react-redux';
 import styles from '../global-styles';
 import TableComponent from '../song/table.component';
 import PlayerComponent from '../song/player.component';
@@ -23,14 +20,8 @@ const HomeScreen = () => {
 	const [error, setError] = useState({ message: '' });
 	const [query, setQuery] = useState('');
 	const [searchType, setSearch] = useState(null);
-	const selectSongs = (state: SongState) => state.songlist;
-	const songs = useSelector(selectSongs);
 
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		dispatch(thunkGetSongs());
-	}, []);
 
 	const handleSearch = () => {
 		let search: any = {};
