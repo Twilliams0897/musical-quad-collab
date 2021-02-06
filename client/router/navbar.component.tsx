@@ -13,19 +13,23 @@ function NavBarComponent() {
 	return (
 
 		<View style={{ flex: 1, flexDirection: 'row' }}>
-			<Button
+			{ user.username !== '' ? (<Button
 				onPress={() => {
 					dispatch(thunkGetSongs);
 					nav.navigate('Home');
 				}}
 				title="Songs"
-			/>
-			{<Button
+			/>) : (
+				<></>
+			)}
+			{user.username !== '' ? (<Button
 				onPress={() => {
 					nav.navigate('Logout');
 				}}
 				title="Logout"
-			/>}
+			/>): (
+				<></>
+			)}
 			{user.role === 'employee' || user.role === 'admin' ? (
 				<Button
 					onPress={() => {
