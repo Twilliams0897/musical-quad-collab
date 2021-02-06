@@ -69,7 +69,8 @@ function AddDeleteUserComponent(username: string) {
 			<Text>Role: </Text>
 			<TextInput
 				style={style.input}
-				onChangeText={(value) => dispatch(addUser({ ...user, role: value }))}
+				onChangeText={(value) => 
+					dispatch(addUser({ ...user, role: value }))}
 				value={user.role}
 			/>
 

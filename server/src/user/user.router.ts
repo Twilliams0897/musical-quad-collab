@@ -81,8 +81,8 @@ router.post('/register', function (req: any, res: any) {
 	if (username && password) {
 		user
 			.register(username, password)
-			.then((data) => res.send(JSON.stringify(data)))
-			.catch((err) => res.send(JSON.stringify(err)));
+			.then((data) => res.status(200).send(JSON.stringify(data)))
+			.catch((err) => res.status(400).send(JSON.stringify(err)));
 	} else {
 		res.sendFile('error.html', { root: publicDir });
 	}
@@ -98,8 +98,8 @@ router.post('/eregister', function (req: any, res: any) {
 		if (username) {
 			user
 				.eregister(username, password)
-				.then((data: any) => res.send(JSON.stringify(data)))
-				.catch((err: any) => res.send(JSON.stringify(err)));
+				.then((data: any) => res.status(200).send(JSON.stringify(data)))
+				.catch((err: any) => res.status(400).send(JSON.stringify(err)));
 		} else {
 			res.sendFile('error.html', { root: publicDir });
 		}
