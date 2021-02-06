@@ -6,31 +6,39 @@ import { TextInput } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { UserState } from '../store/store';
 import styles from '../global-styles';
+import songService from '../song/song.service';
+import { Playlist } from './playlist';
 
 interface Props {
 	route: any;
 	navigation: any;
 }
 
-interface Select {
-	selection: string | null;
-}
-
 function AddToPlaylist({ route, navigation }: Props) {
-	const [selection, setSelection] = useState(null);
+	const [selection, setSelection] = useState<unknown>(null);
 	const [textInput, setTextInput] = useState('');
 	const user = useSelector((state: UserState) => state.user);
-	const nav = useNavigation();
+
 	const { song_id } = route.params;
 
 	const handleSubmit = () => {
-		const newPlaylist = {
-			user_id: user.userId,
+		let playlist_name;
+
+		if (selection && (selection as unknown) === 'createnew') {
+			playlist_name = textInput;
+		} else {
+			playlist_name = selection as unknown;
+		}
+
+		let newPlaylist: Playlist = {
+			user_id: user.userId as number,
 			song_id,
-			playlist_name: selection === 'createnew' ? textInput : selection,
 		};
 
 		//add call to API
+		songService.addToPlaylist(newPlaylist);
+		//in .then use to go back to home
+		navigation.navigate('PlaylistDetails');
 	};
 
 	return (
@@ -81,7 +89,7 @@ function AddToPlaylist({ route, navigation }: Props) {
 					onChangeItem={(item) => setSelection(item.value)}
 				/>
 			</View>
-			{selection === 'createnew' && (
+			{(selection as unknown) === 'createnew' && (
 				<View style={styles.row}>
 					<Text style={styles.label}>Playlist Name: </Text>
 					<TextInput

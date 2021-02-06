@@ -6,6 +6,7 @@ import { thunkGetSongs } from '../store/thunks';
 import { SongState } from '../store/store';
 import SongComponent from '../song/song.component';
 import styles from '../global-styles';
+import TableComponent from '../song/table.component';
 import PlayerComponent from '../song/player.component';
 import { TextInput } from 'react-native-gesture-handler';
 import songService from '../song/song.service';
@@ -111,15 +112,7 @@ const HomeScreen = () => {
 				</Pressable>
 			</View>
 			<PlayerComponent />
-			{songs && songs.length ? (
-				<FlatList
-					data={songs}
-					renderItem={({ item }) => <SongComponent data={item}></SongComponent>}
-					keyExtractor={(item) => `${item.song_id}`}
-				/>
-			) : (
-				<Text style={{ fontSize: 24, color: '#b3ffb3' }}>Nothing to see</Text>
-			)}
+			<TableComponent />
 		</View>
 	);
 };

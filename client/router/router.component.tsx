@@ -29,7 +29,6 @@ const headerOptions: StackHeaderOptions = {
 	headerRight: () => <NavBarComponent />,
 };
 function RouterComponent(props: any) {
-	const song = useSelector((state: SongState) => state.song);
 	return (
 		<Stack.Navigator initialRouteName="Login">
 			<Stack.Screen
