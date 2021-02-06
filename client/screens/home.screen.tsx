@@ -21,6 +21,7 @@ const HomeScreen = () => {
 	const [query, setQuery] = useState('');
 	const [searchType, setSearch] = useState(null);
 
+	// Get access to the dispatcher. Feed the dispatcher Actions for your Reducer.
 	const dispatch = useDispatch();
 
 	const handleSearch = () => {
@@ -89,7 +90,10 @@ const HomeScreen = () => {
 					onChangeItem={(item) => setSearch(item.value)}
 				/>
 				<Text> </Text>
-				<Pressable onPress={() => handleSearch()}>
+				<Pressable
+					style={{ alignSelf: 'center', marginLeft: 10 }}
+					onPress={() => handleSearch()}
+				>
 					<Image
 						style={{
 							height: 40,

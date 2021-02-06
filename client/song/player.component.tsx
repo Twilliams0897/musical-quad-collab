@@ -18,14 +18,48 @@ import Playlist from '../playlist/playlist.component';
 function PlayerComponent() {
 	const [error, setError] = useState({ message: '' });
 	const [isPlaying, setPlay] = useState(false);
+	const [isStopped, setStop] = useState(false);
 	const [volume, setVolume] = useState(true);
 	const [playlistIndex, setIndex] = useState(0);
 	const [showPlaylist, setShowPlaylist] = useState(false);
 	const selectSong = (state: SongState) => state.song;
 	const song = useSelector(selectSong);
-	const selectPlaylist = (state: SongState) => state.playlist;
-	const playlist = useSelector(selectPlaylist);
+	// const selectPlaylist = (state: SongState) => state.playlist;
+	// const playlist = useSelector(selectPlaylist);
 	const dispatch = useDispatch();
+
+	const playlist = [
+		{
+			playlist_id: 1,
+			playlist_name: 'Example',
+			user_id: 1,
+			song_id: 185,
+			title: 'You Belong With Me',
+			artist: 'Taylor Swift',
+			year: '2008',
+			web_url:
+				'http://www.songnotes.cc/songs/44-taylor-swift-you-belong-with-me',
+			img_url:
+				'http://fireflygrove.com/songnotes/images/artists/TaylorSwift.png',
+			clicks: 0,
+			price: 1,
+		},
+		{
+			playlist_id: 12,
+			playlist_name: 'Example',
+			user_id: 1,
+			song_id: 180,
+			title: 'Were Going To Be Friends',
+			artist: 'The White Stripes',
+			year: '2001',
+			web_url:
+				'http://www.songnotes.cc/songs/118-the-white-stripes-we-are-going-to-be-friends',
+			img_url:
+				'http://fireflygrove.com/songnotes/images/artists/TheWhiteStripes.jpg',
+			clicks: 28,
+			price: 1,
+		},
+	];
 
 	//set up display animation
 
@@ -46,9 +80,10 @@ function PlayerComponent() {
 
 	const addClick = async () => {
 		let { clicks } = song;
-		let newClicks = { clicks: clicks + 1 };
+		let newClicks;
+		if (clicks) newClicks = { clicks: clicks + 1 };
 
-		if (song.song_id)
+		if (song.song_id && newClicks)
 			await songService
 				.updateClicks(song.song_id, newClicks)
 				.then(() => {
@@ -66,7 +101,7 @@ function PlayerComponent() {
 
 	const play = () => {
 		setPlay(false);
-		if (playlist.length === 0) {
+		if (playlist.length === 0 || isStopped) {
 			dispatch(changeSong(new Song()));
 		}
 		if (playlist.length) {
@@ -135,6 +170,7 @@ function PlayerComponent() {
 						onPress={() => {
 							if (song.title !== '') {
 								setPlay(true);
+								setStop(false);
 							}
 						}}
 					>
@@ -162,6 +198,7 @@ function PlayerComponent() {
 				<Pressable
 					onPress={() => {
 						clearTimeout(playTO);
+						setStop(true);
 						setPlay(false);
 						dispatch(changeSong(new Song()));
 					}}

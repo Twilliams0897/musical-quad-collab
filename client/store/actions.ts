@@ -5,7 +5,7 @@ import { Playlist } from '../playlist/playlist';
 export enum UserActions {
 	GetUser = 'GET_USER',
 	LoginChange = 'CHANGE_LOGIN',
-	AddUser = 'ADD_USER'
+	AddUser = 'ADD_USER',
 }
 
 export enum SongActions {
@@ -29,7 +29,7 @@ export interface UserAction extends AppAction {
 
 export interface SongAction extends AppAction {
 	type: SongActions;
-	payload: Song | Song[] | Playlist[][];
+	payload: Song | Song[] | Playlist | Playlist[][];
 }
 
 export function getUser(user: User): UserAction {
@@ -64,7 +64,7 @@ export function getSongs(songs: Song[]): SongAction {
 	return action;
 }
 
-export function changeSong(song: Song): SongAction {
+export function changeSong(song: Song | Playlist): SongAction {
 	const action: SongAction = {
 		type: SongActions.SongChange,
 		payload: song,

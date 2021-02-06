@@ -35,16 +35,18 @@ function LoginComponent({ navigation }: LoginProp) {
 	}
 	return (
 		<View style={styles.container}>
+			<Text style={styles.label}>Username:</Text>
 			<TextInput
 				style={styles.input}
-				placeholder ='username'
+				placeholder="username"
 				onChangeText={(value: any) =>
 					dispatch(loginAction({ ...user, username: value }))
 				}
 				value={user.username}
 			/>
+			<Text style={styles.label}>Password:</Text>
 			<TextInput
-				placeholder='password'
+				placeholder="password"
 				secureTextEntry={true}
 				style={styles.input}
 				onChangeText={(value: any) =>
@@ -52,7 +54,7 @@ function LoginComponent({ navigation }: LoginProp) {
 				}
 				value={user.password}
 			/>
-			<Button onPress={submitForm} title="Login"  />
+			<Button onPress={submitForm} title="Login" />
 		</View>
 	);
 }

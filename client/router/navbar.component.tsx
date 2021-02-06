@@ -21,7 +21,7 @@ function NavBarComponent() {
 			/>
 			<Button
 				onPress={() => {
-					nav.navigate('Playlists');
+					nav.navigate('ViewPlaylists');
 				}}
 				title="Playlists"
 			/>

@@ -6,13 +6,10 @@ import { changeSong } from '../store/actions';
 import images from '../images';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Song } from './song';
+import { Playlist } from '../playlist/playlist';
 
 const { create } = require('react-native-pixel-perfect');
 
-const onPress = (props: any) => {
-	alert('you pressed');
-	return <View>pressed </View>;
-};
 const designResolution = {
 	width: 1125,
 	height: 2436,
@@ -20,7 +17,7 @@ const designResolution = {
 const perfectSize = create(designResolution);
 
 interface SongProps {
-	data: Song;
+	data: Song | Playlist;
 }
 
 function SongComponent({ data }: SongProps) {
@@ -47,7 +44,7 @@ function SongComponent({ data }: SongProps) {
 		<View style={styles.container}>
 			<TouchableOpacity onPress={goToSong}>
 				<Image
-					source={{ uri: images[data.artist.length % 10] }}
+					source={{ uri: data.artist && images[data.artist.length % 10] }}
 					style={styles.image}
 				/>
 			</TouchableOpacity>

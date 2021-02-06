@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
 	row: {
 		flex: 1,
 		flexDirection: 'row',
+		alignItems: 'baseline',
 	},
 	image: {
 		width: 200,

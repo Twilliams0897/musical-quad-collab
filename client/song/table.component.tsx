@@ -8,10 +8,10 @@ import { Text } from 'react-native';
 
 export default function TableComponent() {
 	// Create a constant that is of the type of state.restaurants
-	const selectSong = (state: SongState) => state.songs;
+	const selectSong = (state: SongState) => state.songlist;
 	// Retrieve the restaurants array from redux.
 	const songs = useSelector(selectSong);
-	// Get access to the dispatcher. Feed the dispatcher Actions for your Reducer.
+
 	const dispatch = useDispatch();
 
 	// retrieve the initial state  from the server
