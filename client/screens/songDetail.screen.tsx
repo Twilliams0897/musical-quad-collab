@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Image, Linking, Text, View, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeSong } from '../store/actions';
-import { SongState, UserState } from '../store/store';
+import { UserState } from '../store/store';
 import { thunkGetSongs } from '../store/thunks';
 import { Song } from '../song/song';
 import songService from '../song/song.service';

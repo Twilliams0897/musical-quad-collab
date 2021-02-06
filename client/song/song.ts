@@ -7,6 +7,6 @@ export class Song {
 		public img_url: string = '',
 		public clicks: number = 0,
 		public price: number = 1,
-		public song_id: number =0
+		public song_id: number = 0
 	) {}
 }
