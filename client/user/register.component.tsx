@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import userService from './user.service';
 import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,46 +6,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUser, loginAction } from '../store/actions';
 import { Button, TextInput, Text, View } from 'react-native';
 import style from '../global-styles';
-import {addUser} from '../store/actions';
+import { addUser } from '../store/actions';
 
-interface RegisterProp{
-    navigation: any;
+interface RegisterProp {
+	navigation: any;
 }
-function RegisterComponent({navigation}:RegisterProp) {
-    let [value, setValue] = useState('');
+function RegisterComponent({ navigation }: RegisterProp) {
+	let [error, setError] = useState({ message: '' });
 	const userSelector = (state: UserState) => state.userInput;
 	const user = useSelector(userSelector);
 	const dispatch = useDispatch();
 
 	const registrationForm = () => {
-        //user.role = 'customer';
-        navigation.navigate('Login');
-        //console.log(user);
-        return (
-            <View>
-                <Text>Username: </Text>
-                <TextInput
-                    style={style.input}
-                    onChangeText={(value) =>
-                        dispatch(addUser({ ...user, username: value }))
-                    }
-                    value={user.username}
-                />
-                <Text>Password: </Text>
-                <TextInput
-                    secureTextEntry={true}
-                    style={style.input}
-                    onChangeText={(value) =>
-                        dispatch(addUser({ ...user, password: value }))
-                    }
-                    value={user.password}
-                />
-            </View>
-        );
-	}
+		userService
+			.addUser({ username: user.username, password: user.password })
+			.then((res) => navigation.navigate('Login'))
+			.catch((err) => setError({ message: err.message }));
+	};
 
 	return (
 		<View style={style.container}>
+			{error.message !== '' && (
+				<Text style={{ color: 'red' }}>{error.message}</Text>
+			)}
 			<Text style={style.label}>Username: </Text>
 			<TextInput
 				style={style.input}
