@@ -10,8 +10,8 @@ export class User {
 		public password: string,
 		public role: string, // "customer", "employee", "admin"
 		public credits: number,
-		public favorites: number[],
-		public playlist: number[],
+		public favorites: Song[],
+		public playlist: string[],
 		public bought: Song[]
 	) {}
 }
