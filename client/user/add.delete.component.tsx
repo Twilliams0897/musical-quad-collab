@@ -11,36 +11,8 @@ function AddDeleteUserComponent(username: string) {
 	const user = useSelector(userSelector);
 	const dispatch = useDispatch();
 
-	const AddForm = () => {
-		Alert.alert('add user');
-		return (
-			<View>
-				<Text>Username: </Text>
-				<TextInput
-					style={style.input}
-					onChangeText={(value) =>
-						dispatch(addUser({ ...user, username: value }))
-					}
-					value={user.username}
-				/>
-				<Text>Password: </Text>
-				<TextInput
-					secureTextEntry={true}
-					style={style.input}
-					onChangeText={(value) =>
-						dispatch(addUser({ ...user, password: value }))
-					}
-					value={user.password}
-				/>
-				<Text>Role: </Text>
-				<TextInput
-					secureTextEntry={true}
-					style={style.input}
-					onChangeText={(value) => dispatch(addUser({ ...user, role: value }))}
-					value={user.role}
-				/>
-			</View>
-		);
+	const handleAdd = () => {
+		userService.addUser(user).then(user => {});
 	};
 
 	const handleDelete = () => {
@@ -75,7 +47,7 @@ function AddDeleteUserComponent(username: string) {
 			/>
 
 			<Button onPress={handleDelete} title="Delete User" color="#880022" />
-			<Button onPress={AddForm} title="Add User" color="#880022" />
+			<Button onPress={handleAdd} title="Add User" color="#880022" />
 		</View>
 	);
 }
