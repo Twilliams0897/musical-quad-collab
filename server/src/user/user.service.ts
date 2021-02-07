@@ -23,7 +23,7 @@ class UserService {
 
 	async getUserByName(username: string): Promise<User | null> {
 		const params = {
-			TableName: 'p1users',
+			TableName: 'users',
 			Key: {
 				username: username,
 			},
@@ -45,7 +45,7 @@ class UserService {
 		// object to be sent to AWS.
 		const params = {
 			// TableName - the name of the table we are sending it to
-			TableName: 'p1users',
+			TableName: 'users',
 			// Item - the object we are sending
 			Item: user,
 			ConditionExpression: '#username <> :username',
@@ -102,7 +102,7 @@ class UserService {
 	}
 	async deleteUser(username: string): Promise<boolean> {
 		const params = {
-			TableName: 'p1users',
+			TableName: 'users',
 			Key: {
 				username: username,
 			},
