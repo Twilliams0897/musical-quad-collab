@@ -16,8 +16,6 @@ dotenv.config();
 // router setup
 import indexRouter from './staticrouter/index';
 import usersRouter from './user/user.router';
-import pgRouter from './pg/pg.router';
-
 
 const app = express();
 app.use(cors({
@@ -36,10 +34,8 @@ app.use(session({
   store: new (MemoryStore(session))({checkPeriod: 86400000}),
   cookie: {}}));
 
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/pg', pgRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -52,7 +48,7 @@ app.use(function(err: any, req: any, res: any, next: Function) {
 
   // send error file
   res.status(err.status || 500);
-  res.sendFile('/error.html', {root: publicDir})
+  res.sendFile('error.html', {root: publicDir})
 });
 
 module.exports = app;
