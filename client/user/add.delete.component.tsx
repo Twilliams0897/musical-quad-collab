@@ -12,7 +12,7 @@ function AddDeleteUserComponent(username: string) {
 	const dispatch = useDispatch();
 
 	const handleAdd = () => {
-		userService.addUser(user).then(user => {});
+		userService.addUser(user).then(() => {});
 	};
 
 	const handleDelete = () => {
