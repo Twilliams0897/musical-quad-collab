@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
 		borderColor: '#b3ffb3',
 		borderStyle: 'solid',
 		borderWidth: Platform.OS === 'web' ? perfectSize(1) : perfectSize(2),
-		margin: Platform.OS === 'web' ? perfectSize(50) : perfectSize(100),
+		margin: Platform.OS === 'web' ? perfectSize(50) : 0,
 		width: Platform.OS === 'web' ? perfectSize(900) : perfectSize(1125),
 	},
 	container: {
@@ -272,8 +272,8 @@ const styles = StyleSheet.create({
 		padding: Platform.OS === 'web' ? perfectSize(40) : perfectSize(80),
 	},
 	stretch: {
-		width: Platform.OS === 'web' ? perfectSize(100) : perfectSize(240),
-		height: Platform.OS === 'web' ? perfectSize(100) : perfectSize(240),
+		width: Platform.OS === 'web' ? perfectSize(100) : perfectSize(150),
+		height: Platform.OS === 'web' ? perfectSize(100) : perfectSize(150),
 	},
 });
 
