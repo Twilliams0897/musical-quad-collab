@@ -72,6 +72,7 @@ function populateUserTable() {
 			role: 'customer',
 			favorites: [1, 2],
 			playlist: [1, 4],
+			bought: [],
 		})
 		.then(() => {});
 	userService
@@ -83,6 +84,7 @@ function populateUserTable() {
 			role: 'employee',
 			favorites: [2, 3],
 			playlist: [2, 3],
+			bought: [],
 		})
 		.then(() => {});
 	userService
@@ -94,6 +96,7 @@ function populateUserTable() {
 			role: 'admin',
 			favorites: [2, 3],
 			playlist: [2, 3],
+			bought: [],
 		})
 		.then(() => {});
 }

@@ -6,14 +6,22 @@ import {
 	View,
 	Image,
 	StyleSheet,
+	Platform,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeSong } from '../store/actions';
+import { changeSong, getSongs } from '../store/actions';
 import { SongState } from '../store/store';
 import { thunkGetSongs } from '../store/thunks';
 import { Song } from './song';
 import songService from './song.service';
 import Playlist from '../playlist/playlist.component';
+
+const { create } = require('react-native-pixel-perfect');
+const designResolution = {
+	width: 1125,
+	height: 2436,
+}; // what we're designing for
+const perfectSize = create(designResolution);
 
 function PlayerComponent() {
 	const [error, setError] = useState({ message: '' });
@@ -24,42 +32,9 @@ function PlayerComponent() {
 	const [showPlaylist, setShowPlaylist] = useState(false);
 	const selectSong = (state: SongState) => state.song;
 	const song = useSelector(selectSong);
-	// const selectPlaylist = (state: SongState) => state.playlist;
-	// const playlist = useSelector(selectPlaylist);
+	const selectPlaylist = (state: SongState) => state.playlist;
+	const playlist = useSelector(selectPlaylist);
 	const dispatch = useDispatch();
-
-	const playlist = [
-		{
-			playlist_id: 1,
-			playlist_name: 'Example',
-			user_id: 1,
-			song_id: 185,
-			title: 'You Belong With Me',
-			artist: 'Taylor Swift',
-			year: '2008',
-			web_url:
-				'http://www.songnotes.cc/songs/44-taylor-swift-you-belong-with-me',
-			img_url:
-				'http://fireflygrove.com/songnotes/images/artists/TaylorSwift.png',
-			clicks: 0,
-			price: 1,
-		},
-		{
-			playlist_id: 12,
-			playlist_name: 'Example',
-			user_id: 1,
-			song_id: 180,
-			title: 'Were Going To Be Friends',
-			artist: 'The White Stripes',
-			year: '2001',
-			web_url:
-				'http://www.songnotes.cc/songs/118-the-white-stripes-we-are-going-to-be-friends',
-			img_url:
-				'http://fireflygrove.com/songnotes/images/artists/TheWhiteStripes.jpg',
-			clicks: 28,
-			price: 1,
-		},
-	];
 
 	//set up display animation
 
@@ -71,9 +46,9 @@ function PlayerComponent() {
 		Animated.loop(
 			Animated.timing(flickerAnimation, {
 				toValue: 5,
-				duration: 3000,
+				duration: 1000,
 				delay: 1000,
-				useNativeDriver: true,
+				useNativeDriver: Platform.OS === 'web' ? false : true,
 			}),
 			{ iterations: -1 }
 		).start();
@@ -84,13 +59,14 @@ function PlayerComponent() {
 		let newClicks;
 		if (clicks) newClicks = { clicks: clicks + 1 };
 
-		if (song.song_id && newClicks)
+		if (song.song_id && newClicks) {
 			await songService
 				.updateClicks(song.song_id, newClicks)
-				.then(() => {
-					dispatch(thunkGetSongs);
-				})
 				.catch((err) => setError({ message: err.message }));
+			await songService.getSongs().then((res) => {
+				dispatch(getSongs(res));
+			});
+		}
 	};
 
 	useEffect(() => {
@@ -147,7 +123,12 @@ function PlayerComponent() {
 	return (
 		<View style={styles.border}>
 			{error && error.message !== '' && (
-				<Text style={{ color: 'red', fontSize: 32 }}>
+				<Text
+					style={{
+						color: 'red',
+						fontSize: Platform.OS === 'web' ? perfectSize(16) : perfectSize(32),
+					}}
+				>
 					Something went wrong. Refresh the page.
 				</Text>
 			)}
@@ -259,24 +240,26 @@ const styles = StyleSheet.create({
 	border: {
 		borderColor: '#b3ffb3',
 		borderStyle: 'solid',
-		borderWidth: 1,
-		margin: 50,
-		width: 500,
+		borderWidth: Platform.OS === 'web' ? perfectSize(1) : perfectSize(2),
+		margin: Platform.OS === 'web' ? perfectSize(50) : perfectSize(100),
+		width: Platform.OS === 'web' ? perfectSize(900) : perfectSize(1125),
 	},
 	container: {
 		flexDirection: 'row',
 		justifyContent: 'center',
 		backgroundColor: '#4BA3C3',
-		padding: 20,
+		padding: Platform.OS === 'web' ? perfectSize(20) : perfectSize(40),
 	},
 	display: {
 		backgroundColor: '#4d243d',
 		color: '#b3ffb3',
+		fontStyle: 'italic',
+		fontWeight: '500',
 		borderBottomColor: '#b3ffb3',
 		borderStyle: 'solid',
-		borderWidth: 1,
-		fontSize: 24,
-		padding: 40,
+		borderWidth: Platform.OS === 'web' ? perfectSize(1) : perfectSize(2),
+		fontSize: Platform.OS === 'web' ? perfectSize(60) : perfectSize(120),
+		padding: Platform.OS === 'web' ? perfectSize(40) : perfectSize(80),
 	},
 	nosong: {
 		textAlign: 'center',
@@ -284,13 +267,13 @@ const styles = StyleSheet.create({
 		color: '#b3ffb3',
 		borderBottomColor: '#b3ffb3',
 		borderStyle: 'solid',
-		borderWidth: 1,
-		fontSize: 24,
-		padding: 40,
+		borderWidth: Platform.OS === 'web' ? perfectSize(1) : perfectSize(2),
+		fontSize: Platform.OS === 'web' ? perfectSize(72) : perfectSize(154),
+		padding: Platform.OS === 'web' ? perfectSize(40) : perfectSize(80),
 	},
 	stretch: {
-		width: 40,
-		height: 40,
+		width: Platform.OS === 'web' ? perfectSize(100) : perfectSize(240),
+		height: Platform.OS === 'web' ? perfectSize(100) : perfectSize(240),
 	},
 });
 

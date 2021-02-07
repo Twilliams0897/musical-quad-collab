@@ -4,7 +4,14 @@ import { SongState } from '../store/store';
 import { FlatList } from 'react-native-gesture-handler';
 import SongComponent from './song.component';
 import { thunkGetSongs } from '../store/thunks';
-import { Text } from 'react-native';
+import { Platform, Text } from 'react-native';
+
+const { create } = require('react-native-pixel-perfect');
+const designResolution = {
+	width: 1125,
+	height: 2436,
+}; // what we're designing for
+const perfectSize = create(designResolution);
 
 export default function TableComponent() {
 	// Create a constant that is of the type of state.restaurants
@@ -34,7 +41,14 @@ export default function TableComponent() {
 					keyExtractor={(item) => `${item.song_id}`}
 				/>
 			) : (
-				<Text style={{ fontSize: 24, color: '#b3ffb3' }}>Nothing to see</Text>
+				<Text
+					style={{
+						fontSize: Platform.OS === 'web' ? perfectSize(24) : perfectSize(48),
+						color: '#b3ffb3',
+					}}
+				>
+					Nothing to see
+				</Text>
 			)}
 		</>
 	);

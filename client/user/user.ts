@@ -1,3 +1,10 @@
+import { Song } from '../song/song';
+
+interface Favorite {
+	song_id: number;
+	user_id: number;
+}
+
 export class User {
 	constructor(
 		public userId?: number,
@@ -6,7 +13,8 @@ export class User {
 		public role?: string, // "Customer", "Employee", "Admin"
 		public credits?: number,
 		public playlist?: string[],
-		public favorites?: number[]
+		public favorites?: Song[],
+		public bought?: Song[]
 	) {}
 }
 
