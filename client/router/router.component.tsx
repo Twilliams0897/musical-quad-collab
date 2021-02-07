@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react';
 import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
+import { useDispatch } from 'react-redux';
+import { getUser } from '../store/actions';
+import { Song } from '../song/song';
+import userService from '../user/user.service';
+import NavBarComponent from './navbar.component';
 import LoginComponent from '../user/login.component';
 import RegisterComponent from '../user/register.component';
-import { StackHeaderOptions } from '@react-navigation/stack/lib/typescript/src/types';
-import NavBarComponent from './navbar.component';
-import AddDeleteUserComponent from '../user/add.delete.component';
-import { Song } from '../song/song';
 import HomeScreen from '../screens/home.screen';
 import SongDetail from '../screens/songDetail.screen';
 import AddToPlaylist from '../playlist/AddToPlaylist';
 import PlaylistScreen from '../screens/playlist.screen';
 import PlaylistDetail from '../screens/playlistDetail.component';
-import { useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/core';
-import userService from '../user/user.service';
-import { getUser } from '../store/actions';
+import AddDeleteUserComponent from '../user/add.delete.component';
+import Piano from '../screens/piano.screen';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -29,6 +29,7 @@ export type StackParams = {
 	AddToPlaylist: undefined;
 	ViewPlaylists: undefined;
 	PlaylistDetail: undefined;
+	Piano: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -89,6 +90,7 @@ function RouterComponent(props: any) {
 				component={PlaylistDetail}
 				options={headerOptions}
 			/>
+			<Stack.Screen name="Piano" component={Piano} options={headerOptions} />
 		</Stack.Navigator>
 	);
 }

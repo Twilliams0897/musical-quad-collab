@@ -5,7 +5,6 @@ import userService from './user.service';
 // add more codes below. Testing dynamodb connection purpose only.
 export class User {
 	constructor(
-		public userId: number,
 		public username: string,
 		public password: string,
 		public role: string, // "customer", "employee", "admin"
@@ -35,17 +34,8 @@ export async function register(username: string, password: string) {
 		if (user) {
 			logger.info(username + ' already exists');
 		} else {
-			const newUser = new User(
-				10,
-				username,
-				password,
-				'customer',
-				100,
-				[],
-				[],
-				[]
-			);
-			// problem with userId, credit set to 100
+			const newUser = new User(username, password, 'customer', 100, [], [], []);
+			// credit set to 100
 			userService
 				.addUser(newUser)
 				.then((data) => data)
@@ -61,17 +51,8 @@ export async function eregister(username: string, password: string) {
 		if (user) {
 			logger.info(username + ' already exists');
 		} else {
-			const newUser = new User(
-				10,
-				username,
-				password,
-				'employee',
-				100,
-				[],
-				[],
-				[]
-			);
-			// problem with userId, credit set to 100
+			const newUser = new User(username, password, 'employee', 100, [], [], []);
+			// credit set to 100
 			userService
 				.addUser(newUser)
 				.then((data) => data)

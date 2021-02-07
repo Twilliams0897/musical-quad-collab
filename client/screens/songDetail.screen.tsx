@@ -59,36 +59,29 @@ function SongDetail({ data, route, navigation }: Props) {
 		if (user.favorites)
 			found = user.favorites.find((fav) => fav.song_id === song_id);
 		if (!found) {
-			await songService
-				.addFavorite({ song_id, user_id: user.userId as number })
-				.catch((err) => setError({ message: err.message }));
-			if (error.message !== '') {
-				setError({ message: 'Song not favorited' });
-			} else {
-				let updatedUser = user;
-				if (updatedUser.favorites) {
-					updatedUser.favorites.push(
-						new Song(
-							title,
-							artist,
-							year,
-							web_url,
-							img_url,
-							clicks,
-							price,
-							song_id
-						)
-					);
-				}
-				await userService
-					.updateUser(updatedUser)
-					.then(() => {
-						setError({ message: `Song favorited` });
-					})
-					.catch(() => {
-						setError({ message: `Song not favorited` });
-					});
+			let updatedUser = user;
+			if (updatedUser.favorites) {
+				updatedUser.favorites.push(
+					new Song(
+						title,
+						artist,
+						year,
+						web_url,
+						img_url,
+						clicks,
+						price,
+						song_id
+					)
+				);
 			}
+			await userService
+				.updateUser(updatedUser)
+				.then(() => {
+					setError({ message: `Song favorited` });
+				})
+				.catch(() => {
+					setError({ message: `Song not favorited` });
+				});
 		}
 	};
 
@@ -98,6 +91,10 @@ function SongDetail({ data, route, navigation }: Props) {
 			updatedUser.credits -= price;
 		} else {
 			setError({ message: 'No credits' });
+			return;
+		}
+		if (updatedUser.credits < 0) {
+			setError({ message: 'Not enough credits' });
 			return;
 		}
 		if (updatedUser.credits && updatedUser.bought) {
@@ -148,7 +145,7 @@ function SongDetail({ data, route, navigation }: Props) {
 			<View style={styles.buttons}>
 				<Button title="Favorite" onPress={addFavorite} />
 				<Text> </Text>
-				{/* {Platform.OS === 'web' && (
+				{Platform.OS === 'web' && (
 					<Button
 						title="Add to Playlist"
 						onPress={() =>
@@ -164,7 +161,7 @@ function SongDetail({ data, route, navigation }: Props) {
 							})
 						}
 					/>
-				)} */}
+				)}
 				<Text> </Text>
 				<Button title="Buy Song" onPress={buySong} />
 				{user.role === 'employee' && (

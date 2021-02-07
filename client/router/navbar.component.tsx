@@ -24,6 +24,12 @@ function NavBarComponent() {
 				}}
 				title="Playlists"
 			/>
+			<Button
+				onPress={() => {
+					nav.navigate('Piano');
+				}}
+				title="Piano"
+			/>
 			{user.role === 'employee' || user.role === 'admin' ? (
 				<Button
 					onPress={() => {
