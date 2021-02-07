@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginComponent from '../user/login.component';
@@ -10,6 +10,12 @@ import { Song } from '../song/song';
 import HomeScreen from '../screens/home.screen';
 import SongDetail from '../screens/songDetail.screen';
 import AddToPlaylist from '../playlist/AddToPlaylist';
+import PlaylistScreen from '../screens/playlist.screen';
+import PlaylistDetail from '../screens/playlistDetail.component';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/core';
+import userService from '../user/user.service';
+import { getUser } from '../store/actions';
 
 /* Parameter list for RouteProp requires a field for the route that we're on. */
 export type StackParams = {
@@ -21,6 +27,8 @@ export type StackParams = {
 	Home: undefined;
 	Register: undefined;
 	AddToPlaylist: undefined;
+	ViewPlaylists: undefined;
+	PlaylistDetail: undefined;
 };
 
 const Stack = createStackNavigator<StackParams>();
@@ -29,6 +37,16 @@ const headerOptions: StackHeaderOptions = {
 	headerRight: () => <NavBarComponent />,
 };
 function RouterComponent(props: any) {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		userService
+			.getLogin()
+			.then((user) => {
+				console.log(user);
+				dispatch(getUser(user));
+			})
+			.catch((error) => console.log(error));
+	}, [dispatch, props.navigation]);
 	return (
 		<Stack.Navigator initialRouteName="Login">
 			<Stack.Screen
@@ -59,6 +77,16 @@ function RouterComponent(props: any) {
 			<Stack.Screen
 				name="AddToPlaylist"
 				component={AddToPlaylist}
+				options={headerOptions}
+			/>
+			<Stack.Screen
+				name="ViewPlaylists"
+				component={PlaylistScreen}
+				options={headerOptions}
+			/>
+			<Stack.Screen
+				name="PlaylistDetail"
+				component={PlaylistDetail}
 				options={headerOptions}
 			/>
 		</Stack.Navigator>

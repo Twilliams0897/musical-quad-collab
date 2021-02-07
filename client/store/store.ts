@@ -12,13 +12,13 @@ export interface UserState {
 	user: User;
 	loginUser: User;
 	locale?: string;
-	userInput:User;
+	userInput: User;
 }
 
 export interface SongState {
 	songlist: Song[];
 	songs: Song[];
-	song: Song;
+	song: Song | Playlist;
 	songInput: Song;
 	playlist: Song[];
 	playlists: Playlist[][];

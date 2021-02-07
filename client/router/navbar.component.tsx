@@ -15,13 +15,12 @@ function NavBarComponent() {
 				onPress={() => {
 					dispatch(thunkGetSongs);
 					nav.navigate('Home');
-					window.location.reload();
 				}}
 				title="Songs"
 			/>
 			<Button
 				onPress={() => {
-					nav.navigate('Playlists');
+					nav.navigate('ViewPlaylists');
 				}}
 				title="Playlists"
 			/>

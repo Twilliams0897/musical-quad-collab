@@ -12,7 +12,7 @@ interface RegisterProp {
 	navigation: any;
 }
 function RegisterComponent({ navigation }: RegisterProp) {
-	let [error, setError] = useState({ message: '' });
+	const [error, setError] = useState({ message: '' });
 	const userSelector = (state: UserState) => state.userInput;
 	const user = useSelector(userSelector);
 	const dispatch = useDispatch();
@@ -31,6 +31,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
 			)}
 			<Text style={style.label}>Username: </Text>
 			<TextInput
+				placeholder="Enter Username"
 				style={style.input}
 				onChangeText={(value: any) =>
 					dispatch(addUser({ ...user, username: value }))
@@ -39,6 +40,7 @@ function RegisterComponent({ navigation }: RegisterProp) {
 			/>
 			<Text style={style.label}>Password: </Text>
 			<TextInput
+				placeholder="Enter Password"
 				secureTextEntry={true}
 				style={style.input}
 				onChangeText={(value: any) =>

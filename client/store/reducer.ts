@@ -1,6 +1,6 @@
 import * as Actions from './actions';
 import { Song } from '../song/song';
-import { User } from './../user/user';
+import { User } from '../user/user';
 import { AppState } from './store';
 import { Playlist } from '../playlist/playlist';
 
@@ -41,6 +41,7 @@ const reducer = (
 			return newState;
 		case Actions.SongActions.GetSongs:
 			newState.songlist = action.payload as Song[];
+			console.log(newState);
 			return newState;
 		case Actions.SongActions.SongChange:
 			newState.song = action.payload as Song;
