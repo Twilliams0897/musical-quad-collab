@@ -33,6 +33,7 @@ class UserService {
 	}
 
 	deleteByUsername(username: string): Promise<null> {
+		console.log(`user: ${username} was deleted.`)
 		return axios
 			.delete(this.URI + '/' + username, { withCredentials: true })
 			.then((result) => null)
@@ -47,15 +48,11 @@ class UserService {
 	
 	getUsers(): Promise<User []> {
 		return axios
-		.get(this.URI)
-		.then((result) => {
-			console.log(result.data);
-			return result.data;
-		}).catch((err) => {
+		.get(this.URI, {withCredentials: true})
+		.then(result => result.data).
+		catch((err) => {
 			console.error(err)
 		})
-			.then((result: any) => null)
-			.catch((err: any) => err);
 	}
 
 	//Look here to updat and add user... guesstimate what you need from the above
