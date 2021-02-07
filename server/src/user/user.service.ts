@@ -17,6 +17,7 @@ class UserService {
 			.scan(params)
 			.promise()
 			.then((data) => {
+				logger.debug(`data Items: ${data.Items}`);
 				return data.Items as User[];
 			});
 	}
