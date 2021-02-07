@@ -4,9 +4,9 @@ import { User } from './user';
 class UserService {
 	private URI: string;
 	constructor() {
-        // URL of the express server
-        //this.URI = 'http://localhost/users';
-		this.URI = 'http://35.166.133.163:3000/users';
+		// URL of the express server
+		this.URI = 'http://localhost:3000/users/';
+		//this.URI = 'http://35.166.133.163:3000/users';
 	}
 	getLogin(): Promise<User> {
 		// withCredentials sends our cookies with the request.
@@ -33,6 +33,7 @@ class UserService {
 	}
 
 	deleteByUsername(username: string): Promise<null> {
+		console.log(`user: ${username} was deleted.`)
 		return axios
 			.delete(this.URI + '/' + username, { withCredentials: true })
 			.then((result) => null)
@@ -47,25 +48,21 @@ class UserService {
 	
 	getUsers(): Promise<User []> {
 		return axios
-		.get(this.URI)
-		.then((result) => {
-			console.log(result.data);
-			return result.data;
-		}).catch((err) => {
+		.get(this.URI, {withCredentials: true})
+		.then(result => result.data).
+		catch((err) => {
 			console.error(err)
 		})
-			.then((result: any) => null)
-			.catch((err: any) => err);
 	}
 
 	//Look here to updat and add user... guesstimate what you need from the above
 	//statements. BE WARNED
 	addUser(user: User): Promise<null> {
 		return axios
-			.put(this.URI, user, {withCredentials: true})
-			.then(result => null)
+			.post(this.URI + 'register', user, { withCredentials: true })
+			.then((result: any) => result.data)
 			.catch((err) => err);
-    }
+	}
 }
 
 export default new UserService();

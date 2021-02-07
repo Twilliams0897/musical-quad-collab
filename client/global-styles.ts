@@ -47,11 +47,16 @@ const styles = StyleSheet.create({
 	row: {
 		flex: 1,
 		flexDirection: 'row',
-		margin: 40,
+	},
+	image: {
+		width: 200,
+		height: 200,
 	},
 	url: {
 		color: '#fef9ff',
 	},
+	text: { padding: 10 },
+	icon: { padding: 10 },
 });
 
 export default styles;

@@ -3,37 +3,29 @@ drop table user_account;
 drop table song;
 
 create table song(
-	song_id serial primary key not null,
-	title text not null,
-	artist text not null,
-	year text not null,
-	web_url text not null,
-	img_url text not null,
-	clicked integer default 0 not null,
-	price integer DEFAULT 1 not null,
+	song_id int not null,
+	clicked integer not null, 
+	CONSTRAINT pk_song PRIMARY KEY  (song_id)
 );
 
 
 create table user_account(
-	user_id serial primary key not null,
+	user_id int not null,
 	username text unique not null,
 	password text not null,
 	role text not null,
-	credits int
+	credits int,
+	favorites integer[],
+	playlists integer[],
+	constraint pk_user primary key (user_id)
 );
 
 create table playlist
 (
-    playlist_id serial primary key not null,
+    playlist_id integer not null,
     song_id integer,
-	user_id integer
-);
-
-create table favorites
-(
-    favorite_id serial primary key not null,
-    song_id integer,
-	user_id integer
+	user_id integer,
+    CONSTRAINT pk_playlist PRIMARY KEY  (playlist_id)
 );
 
 
@@ -41,11 +33,51 @@ alter table playlist add constraint fk_playlistsongid
 	foreign key (song_id) references song (song_id) on delete no action on update no action;
 alter table playlist add constraint fk_playlistuserid
 	foreign key (user_id) references user_account (user_id) on delete no action on update no action;
-alter table favorites add constraint fk_favoritesongid
-	foreign key (song_id) references song (song_id) on delete no action on update no action;
-alter table favorites add constraint fk_favoriteuserid
-	foreign key (user_id) references user_account (user_id) on delete no action on update no action;
+
+insert into user_account (user_id, username, password, role, credits, favorites, playlists) 
+     values (1, 'Cus1', 'pass', 'customer', 1, '{1,2,3}', '{11,21,31}' );
+insert into user_account (user_id, username, password, role, credits, favorites, playlists) 
+	 values (2, 'Cus2', 'pass', 'customer', 2, '{1,2,3}', '{11,21,31}' );
+insert into user_account (user_id, username, password, role, credits, favorites, playlists) 
+	 values (3, 'Cus3', 'pass', 'customer', 3, '{1,2,3}', '{11,21,31}' );
+
+
+insert into song (song_id, clicked)
+	values (1, 5);
+insert into song (song_id, clicked)
+	values (2, 0);
+insert into song (song_id, clicked)
+	values (3, 1);
+	insert into song (song_id, clicked)
+	values (4, 5);
+insert into song (song_id, clicked)
+	values (5, 0);
+insert into song (song_id, clicked)
+	values (6, 1);
+
+
+
+insert into playlist (playlist_id, song_id, user_id)
+	values (1, 2, 3);
+insert into playlist (playlist_id, song_id, user_id)
+	values (2, 1, 3);
+insert into playlist (playlist_id, song_id, user_id)
+	values (3, 2, 1);
+
+
+select * from user_account;
+
+select * from song;
+
+select * from playlist;
 
 
 
 
+drop table experiment;
+
+ create table experiment(
+	song_id int not null,
+	clicked integer not null, 
+	CONSTRAINT pk_experiment PRIMARY KEY  (song_id)
+);

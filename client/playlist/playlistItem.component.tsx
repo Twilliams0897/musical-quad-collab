@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Text, View, StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { changeSong } from '../store/actions';
 
 function PlaylistItem(props: any) {

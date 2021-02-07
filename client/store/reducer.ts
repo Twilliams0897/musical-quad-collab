@@ -13,6 +13,7 @@ export const initialState: AppState = {
 	loginUser: new User(),
 	userInput: new User(),
 	songlist: [],
+	songs: [],
 	song: new Song(),
 	songInput: new Song(),
 	playlist: [],
@@ -20,12 +21,11 @@ export const initialState: AppState = {
 	favorites: [],
 };
 
-// Make sure that the reducer has a default argument of the inital state or it will not work.
+// Make sure that the reducer has a default argument of the initial state or it will not work.
 const reducer = (
 	state: AppState = initialState,
 	action: Actions.AppAction
 ): AppState => {
-	//console.log(action);
 	// We want to call setState. (redux will do that when we return a new state object from the reducer)
 	const newState = { ...state }; // If we return this, it will re render the application. (call setState)
 

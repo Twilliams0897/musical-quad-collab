@@ -1,9 +1,8 @@
 import React from 'react';
-import { Button, Text, View } from 'react-native';
+import { Button, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../store/store';
-import styles from '../global-styles';
 import { thunkGetSongs } from '../store/thunks';
 
 function NavBarComponent() {
@@ -17,6 +16,7 @@ function NavBarComponent() {
 				onPress={() => {
 					dispatch(thunkGetSongs);
 					nav.navigate('Home');
+					window.location.reload();
 				}}
 				title="Songs"
 			/>) : (

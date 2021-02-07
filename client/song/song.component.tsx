@@ -1,46 +1,62 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, Image } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { changeSong } from '../store/actions';
+import images from '../images';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Song } from './song';
 
 const { create } = require('react-native-pixel-perfect');
+
+const onPress = (props: any) => {
+	alert('you pressed');
+	return <View>pressed </View>;
+};
 const designResolution = {
 	width: 1125,
 	height: 2436,
 }; // what we're designing for
 const perfectSize = create(designResolution);
 
-function SongComponent(props: any) {
+interface SongProps {
+	data: Song;
+}
+
+function SongComponent({ data }: SongProps) {
 	const nav = useNavigation();
 	const dispatch = useDispatch();
 
 	function handlePlay() {
-		dispatch(changeSong(props.data));
+		dispatch(changeSong(data));
 	}
+	const goToSong = () => {
+		nav.navigate('SongDetail', {
+			song_id: data.song_id,
+			title: data.title,
+			artist: data.artist,
+			year: data.year,
+			web_url: data.web_url,
+			img_url: data.img_url,
+			clicks: data.clicks,
+			price: data.price,
+		});
+	};
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>{props.data.title}</Text>
-			<Text style={styles.artist}>{props.data.artist}</Text>
+			<TouchableOpacity onPress={goToSong}>
+				<Image
+					source={{ uri: images[data.artist.length % 10] }}
+					style={styles.image}
+				/>
+			</TouchableOpacity>
+			<Text style={styles.title}>{data.title}</Text>
+			<Text style={styles.artist}>{data.artist}</Text>
 			<View style={styles.buttons}>
 				<Button title="Play" onPress={handlePlay} />
 				<Text> </Text>
-				<Button
-					title="Details"
-					onPress={() => {
-						nav.navigate('SongDetail', {
-							song_id: props.data.song_id,
-							title: props.data.title,
-							artist: props.data.artist,
-							year: props.data.year,
-							web_url: props.data.web_url,
-							img_url: props.data.img_url,
-							clicks: props.data.clicks,
-							price: props.data.price,
-						});
-					}}
-				/>
+				<Button title="Details" onPress={goToSong} />
 			</View>
 		</View>
 	);
@@ -72,6 +88,10 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		fontWeight: '600',
 		color: '#b3ffb3',
+	},
+	image: {
+		height: 200,
+		width: 200,
 	},
 	buttons: {
 		flexDirection: 'row',
