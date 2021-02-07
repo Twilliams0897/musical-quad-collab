@@ -42,7 +42,7 @@ class UserService {
 	addUser(user: User): Promise<null> {
 		return axios
 			.post(this.URI + '/register', user, { withCredentials: true })
-			.then((result: any) =>  { console.log(result.data) ; result.data })
+			.then((result: any) => result.data )
 			.catch((err) => err);
 	}
 }
