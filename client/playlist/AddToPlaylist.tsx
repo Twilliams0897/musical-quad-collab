@@ -69,7 +69,6 @@ function AddToPlaylist({ route, navigation }: Props) {
 		}
 
 		let newPlaylist: Playlist = {
-			user_id: user.userId as number,
 			song_id,
 			playlist_name,
 		};
@@ -103,7 +102,7 @@ function AddToPlaylist({ route, navigation }: Props) {
 			)}
 			<View style={[styles.row, Platform.OS !== 'android' && { zIndex: 2 }]}>
 				<Text style={styles.label}>Pick playlist: </Text>
-				<DropDownPicker
+				{/* <DropDownPicker
 					items={createItems}
 					defaultValue={selection}
 					placeholder="Select playlist"
@@ -134,7 +133,7 @@ function AddToPlaylist({ route, navigation }: Props) {
 					}}
 					dropDownStyle={{ backgroundColor: '#4BA3C3' }}
 					onChangeItem={(item) => setSelection(item.value)}
-				/>
+				/> */}
 			</View>
 			{(selection as unknown) === 'createnew' && (
 				<View style={styles.row}>

@@ -11,11 +11,6 @@ interface Clicks {
 	clicks: number;
 }
 
-interface Favorite {
-	song_id: number;
-	user_id: number;
-}
-
 class SongService {
 	private URI: any;
 	constructor() {
@@ -61,10 +56,6 @@ class SongService {
 		return axios
 			.put(this.URI + `clicks/${song_id}`, clicks)
 			.then((result) => null);
-	}
-
-	addFavorite(favorite: Favorite): Promise<null> {
-		return axios.post(this.URI + 'favorites', favorite).then((res) => null);
 	}
 
 	//for endpoint that adds playlist item to database

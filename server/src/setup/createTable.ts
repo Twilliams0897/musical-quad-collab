@@ -67,7 +67,6 @@ function populateUserTable() {
 	userService
 		.addUser(
 			new User(
-				1,
 				'Cus',
 				'pass',
 				'customer',
@@ -117,7 +116,6 @@ function populateUserTable() {
 	userService
 		.addUser(
 			new User(
-				11,
 				'Emp',
 				'pass',
 				'customer',
@@ -179,7 +177,6 @@ function populateUserTable() {
 	userService
 		.addUser(
 			new User(
-				21,
 				'Adm',
 				'pass',
 				'admin',
