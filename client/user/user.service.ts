@@ -4,9 +4,9 @@ import { User } from './user';
 class UserService {
 	private URI: string;
 	constructor() {
-        // URL of the express server
-        //this.URI = 'http://localhost/users';
-		this.URI = 'http://35.166.133.163:3000/users';
+		// URL of the express server
+		this.URI = 'http://localhost:3000/users/';
+		//this.URI = 'http://35.166.133.163:3000/users';
 	}
 	getLogin(): Promise<User> {
 		// withCredentials sends our cookies with the request.
@@ -62,10 +62,10 @@ class UserService {
 	//statements. BE WARNED
 	addUser(user: User): Promise<null> {
 		return axios
-			.put(this.URI, user, {withCredentials: true})
-			.then(result => null)
+			.post(this.URI + 'register', user, { withCredentials: true })
+			.then((result: any) => result.data)
 			.catch((err) => err);
-    }
+	}
 }
 
 export default new UserService();

@@ -18,6 +18,7 @@ export interface UserState {
 
 export interface SongState {
 	songlist: Song[];
+	songs: Song[];
 	song: Song;
 	songInput: Song;
 	playlist: Song[];
