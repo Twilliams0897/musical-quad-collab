@@ -10,8 +10,7 @@ import NavBarComponent from './navbar.component';
 import LoginComponent from '../user/login.component';
 import RegisterComponent from '../user/register.component';
 import HomeScreen from '../screens/home.screen';
-import ViewAllUsersComponent from '../user/get.users.component';
-import AddEmpComponent from '../user/add.user.component';
+import ViewAllUsersComponent from '../user/user.detail.component';
 import LogoutComponent from '../user/logout.component';
 import SongDetail from '../screens/songDetail.screen';
 import AddToPlaylist from '../playlist/AddToPlaylist';
@@ -58,11 +57,6 @@ function RouterComponent(props: any) {
 			<Stack.Screen
 				name="Login"
 				component={LoginComponent}
-				options={headerOptions}
-			/>
-			<Stack.Screen
-				name="ViewUsers"
-				component={ViewAllUsersComponent}
 				options={headerOptions}
 			/>
 			<Stack.Screen

@@ -18,7 +18,17 @@ function UserComponent({data}: UserProps){
 	//const userContext = useSelector((state: UserState) => state.users);
 	const dispatch = useDispatch();
 
-    
+	const goToUser = () => {
+		nav.navigate('UserDetails', {
+			username: data.username,
+            role: data.role,
+            playlist: data.playlist,
+            favorites: data.favorites,
+            bought: data.bought,
+            credits: data.credits
+		});
+	};
+
     function handleDelete() {
 		if (data.username) {
 			userService.deleteByUsername(data.username).then(() => {
@@ -31,9 +41,8 @@ function UserComponent({data}: UserProps){
 
     return (
         <View >
-            <Text>{data.username}</Text>
-            <Text>Role: {data.role}</Text>
-            <Text>Credits: {data.credits}</Text>
+            <Text>User: {data.username} Role: {data.role} Credits: {data.credits} Favorites: {data.favorites} </Text> 
+            <Button title='User Details' onPress={goToUser} />
             <Button title='Delete User' onPress={handleDelete} />
         </View>
     );

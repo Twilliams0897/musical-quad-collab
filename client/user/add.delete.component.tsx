@@ -16,6 +16,7 @@ function AddDeleteUserComponent({navigation}: RegisterEmpProp) {
 	const [error, setError] = useState({ message: '' });
 	const userSelector = (state: UserState) => state.userInput;
 	const user = useSelector(userSelector);
+	const userContext = useSelector((state: UserState) => state.user);
 	const dispatch = useDispatch();
 
 	const AddUserForm = () => {
@@ -62,9 +63,10 @@ function AddDeleteUserComponent({navigation}: RegisterEmpProp) {
 				}
 				value = {user.role}
 			/>
+			<br></br>
 			<Button onPress={AddUserForm} title="Register New Employee" />
 			<br></br>
-			<Button onPress={handleDelete} title="Remove User" />
+			{userContext.role === 'admin' && (<Button onPress={handleDelete} title="Remove User" />)}
 		</View>
 	);
 }

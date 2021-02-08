@@ -40,21 +40,13 @@ function NavBarComponent() {
 					/>
 				</>
 			)}
-			{user && (user.role === 'employee' || user.role === 'admin') ? (
+			{(user.role === 'employee' || user.role === 'admin') && (
 				<Button
 					onPress={() => {
 						nav.navigate('EditUser');
 					}}
 					title="Manage Users"
 				/>
-			) : (
-				<></>
-			)}
-
-			{user && user.role === 'admin' ? (
-				<Button onPress={() => nav.navigate('ViewUsers')} title="View Users" />
-			) : (
-				<></>
 			)}
 		</View>
 	);

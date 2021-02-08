@@ -17,6 +17,16 @@ router.get('/', (req: any, res, next) => {
 	}
 });
 
+router.get('/users', (req: any, res, next) => {
+	let u = {...req.session.user};
+	console.log(u);
+	if(u.username && u.role === 'admin'){
+		userService.getUsers().then((allUsers) => {
+			res.send(JSON.stringify(allUsers));
+		});
+	}
+});
+
 // needed this to get session
 router.get('/login', function (req: any, res, next) {
 	// If I'm already logged in, why would I log in again?
