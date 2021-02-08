@@ -15,7 +15,8 @@ class UserService {
 			.then((result: any) => {
 				console.log(result);
 				return result.data;
-			}).catch ((err) => {
+			})
+			.catch((err) => {
 				console.log(err);
 			});
 	}
@@ -33,26 +34,26 @@ class UserService {
 	}
 
 	deleteByUsername(username: string): Promise<null> {
-		console.log(`user: ${username} was deleted.`)
+		console.log(`user: ${username} was deleted.`);
 		return axios
 			.delete(this.URI + '/' + username, { withCredentials: true })
 			.then((result) => null)
 			.catch((err) => err);
-    }
-
-    updateUser(user: User): Promise<null> {
-        return axios
-            .put(this.URI, user, {withCredentials: true})
-            .then(result => null);
 	}
-	
-	getUsers(): Promise<User []> {
+
+	updateUser(user: User): Promise<null> {
 		return axios
-		.get(this.URI, {withCredentials: true})
-		.then(result => result.data).
-		catch((err) => {
-			console.error(err)
-		})
+			.put(this.URI, user, { withCredentials: true })
+			.then((result) => null);
+	}
+
+	getUsers(): Promise<User[]> {
+		return axios
+			.get(this.URI, { withCredentials: true })
+			.then((result) => result.data)
+			.catch((err) => {
+				console.error(err);
+			});
 	}
 
 	//Look here to add user
@@ -61,13 +62,6 @@ class UserService {
 			.post(this.URI + 'register', user, { withCredentials: true })
 			.then((result: any) => result.data)
 			.catch((err) => err);
-	}
-
-	updateUser(user: User): Promise<void> {
-		return axios
-			.put(this.URI, user, { withCredentials: true })
-			.then((res) => console.log(res))
-			.catch((err) => console.log(err));
 	}
 }
 

@@ -145,23 +145,21 @@ function SongDetail({ data, route, navigation }: Props) {
 			<View style={styles.buttons}>
 				<Button title="Favorite" onPress={addFavorite} />
 				<Text> </Text>
-				{Platform.OS === 'web' && (
-					<Button
-						title="Add to Playlist"
-						onPress={() =>
-							nav.navigate('AddToPlaylist', {
-								song_id,
-								artist,
-								title,
-								year,
-								web_url,
-								img_url,
-								clicks,
-								price,
-							})
-						}
-					/>
-				)}
+				<Button
+					title="Add to Playlist"
+					onPress={() =>
+						nav.navigate('AddToPlaylist', {
+							song_id,
+							artist,
+							title,
+							year,
+							web_url,
+							img_url,
+							clicks,
+							price,
+						})
+					}
+				/>
 				<Text> </Text>
 				<Button title="Buy Song" onPress={buySong} />
 				{user.role === 'employee' && (
