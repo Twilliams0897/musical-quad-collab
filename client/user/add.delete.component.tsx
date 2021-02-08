@@ -63,6 +63,7 @@ function AddDeleteUserComponent({navigation}: RegisterEmpProp) {
 				value = {user.role}
 			/>
 			<Button onPress={AddUserForm} title="Register New Employee" />
+			<br></br>
 			<Button onPress={handleDelete} title="Remove User" />
 		</View>
 	);
