@@ -63,7 +63,7 @@ function AddToPlaylist({ route, navigation }: Props) {
 			{error.message !== '' && (
 				<Text style={{ color: 'red' }}>{error.message}</Text>
 			)}
-			<View style={[styles.row, Platform.OS !== 'android' && { zIndex: 2 }]}>
+			<View style={styles.container}>
 				<Text style={styles.label}>Pick playlist: </Text>
 				<View
 					style={{
