@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { Audio } from 'expo-av';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 
 interface PianoState {
 	colorC: string;
