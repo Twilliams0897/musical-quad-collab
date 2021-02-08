@@ -11,7 +11,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { changeSong, getSongs } from '../store/actions';
 import { SongState } from '../store/store';
-import { thunkGetSongs } from '../store/thunks';
 import { Song } from './song';
 import songService from './song.service';
 import Playlist from '../playlist/playlist.component';
@@ -156,11 +155,11 @@ function PlayerComponent() {
 							}
 						}}
 					>
-						{/* <Image
+						<Image
 							style={styles.stretch}
-							source={require('../assets/play_icon.png')}
+							source={require('../assets/play.png')}
 							accessibilityLabel="Play"
-						/> */}
+						/>
 					</Pressable>
 				)}
 				{isPlaying && (
@@ -170,11 +169,11 @@ function PlayerComponent() {
 							setPlay(false);
 						}}
 					>
-						{/* <Image
+						<Image
 							style={styles.stretch}
-							source={require('../assets/pause_icon.png')}
+							source={require('../assets/pause.png')}
 							accessibilityLabel="Pause"
-						/> */}
+						/>
 					</Pressable>
 				)}
 				<Pressable
@@ -185,49 +184,49 @@ function PlayerComponent() {
 						dispatch(changeSong(new Song()));
 					}}
 				>
-					{/* <Image
+					<Image
 						style={styles.stretch}
 						source={require('../assets/stop.png')}
 						accessibilityLabel="Stop"
-					/> */}
+					/>
 				</Pressable>
 				<Pressable onPress={handlePrevious}>
-					{/* <Image
+					<Image
 						style={styles.stretch}
 						source={require('../assets/previous.png')}
 						accessibilityLabel="Previous Song"
-					/> */}
+					/>
 				</Pressable>
 				<Pressable onPress={handleNext}>
-					{/* <Image
+					<Image
 						style={styles.stretch}
 						source={require('../assets/next.png')}
 						accessibilityLabel="Next Song"
-					/> */}
+					/>
 				</Pressable>
 				<Pressable onPress={() => setShowPlaylist(!showPlaylist)}>
-					{/* <Image
+					<Image
 						style={styles.stretch}
-						source={require('../assets/playlist_icon.png')}
+						source={require('../assets/playlist.png')}
 						accessibilityLabel="Show/Hide Playlist"
-					/> */}
+					/>
 				</Pressable>
 				{volume && (
 					<Pressable onPress={() => setVolume(false)}>
-						{/* <Image
+						<Image
 							style={styles.stretch}
-							source={require('../assets/volume_on.png')}
+							source={require('../assets/volume.png')}
 							accessibilityLabel="Click to mute"
-						/> */}
+						/>
 					</Pressable>
 				)}
 				{volume === false && (
 					<Pressable onPress={() => setVolume(true)}>
-						{/* <Image
+						<Image
 							style={styles.stretch}
 							source={require('../assets/mute.png')}
 							accessibilityLabel="Click to turn on volume"
-						/> */}
+						/>
 					</Pressable>
 				)}
 			</View>

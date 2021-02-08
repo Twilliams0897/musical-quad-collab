@@ -118,7 +118,7 @@ function populateUserTable() {
 			new User(
 				'Emp',
 				'pass',
-				'customer',
+				'employee',
 				10,
 				[
 					{

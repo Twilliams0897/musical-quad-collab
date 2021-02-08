@@ -19,11 +19,8 @@ function AddDeleteUserComponent({navigation}: RegisterEmpProp) {
 	const userContext = useSelector((state: UserState) => state.user);
 	const dispatch = useDispatch();
 
-	const AddUserForm = () => {
-		userService
-			.addUser({ username: user.username, password: user.password, role: user.role})
-			.then((res) => navigation.navigate('Home'))
-			.catch((err) => setError({ message: err.message }));
+	const handleAdd = () => {
+		userService.addUser(user).then(() => {});
 	};
 
 	const handleDelete = () => {
@@ -61,9 +58,9 @@ function AddDeleteUserComponent({navigation}: RegisterEmpProp) {
 				value = {user.role}
 			/>
 			<br></br>
-			<Button onPress={AddUserForm} title="Register New Employee" />
+			{userContext.role === 'admin' && (<Button onPress={handleDelete} title="Delete User" color="#880022" />)}
 			<br></br>
-			{userContext.role === 'admin' && (<Button onPress={handleDelete} title="Remove User" />)}
+			<Button onPress={handleAdd} title="Add User" color="#880022" />
 		</View>
 	);
 }
