@@ -63,7 +63,7 @@ class SongService {
 		return axios
 			.get(this.URI + `playlists/${encoded_playlist_name}`)
 			.then((result) => {
-				return result;
+				return result.data;
 			})
 			.catch((err) => {
 				console.error(err);
