@@ -55,14 +55,3 @@ function NavBarComponent() {
 }
 
 export default NavBarComponent;
-
-/*
-{if (user) ? (
-	<Button onPress={() => {
-		nav.navigate('Logout');
-		}}
-		title="Logout"/>
-		) : (
-		<></>
-		)}
-*/

@@ -58,9 +58,6 @@ function AddDeleteUserComponent({navigation}: RegisterEmpProp) {
 			<TextInput
 				placeholder="employee"
 				style={style.input}
-				onChangeText={(value: any) => 
-					dispatch(addUser({...user, role: value}))
-				}
 				value = {user.role}
 			/>
 			<br></br>
