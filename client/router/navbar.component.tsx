@@ -10,39 +10,37 @@ function NavBarComponent() {
 	const user = useSelector((state: AppState) => state.user);
 	const dispatch = useDispatch();
 	return (
-
 		<View style={{ flex: 1, flexDirection: 'row' }}>
-			{ user.username !== '' || user.username === undefined ? (<Button
-				onPress={() => {
-					dispatch(thunkGetSongs);
-					nav.navigate('Home');
-				}}
-				title="Songs"
-			/>) : (
-				<></>
+			{user && user.username !== '' && (
+				<>
+					<Button
+						onPress={() => {
+							dispatch(thunkGetSongs);
+							nav.navigate('Home');
+						}}
+						title="Songs"
+					/>
+					<Button
+						onPress={() => {
+							nav.navigate('ViewPlaylists');
+						}}
+						title="Playlists"
+					/>
+					<Button
+						onPress={() => {
+							nav.navigate('Piano');
+						}}
+						title="Piano"
+					/>
+					<Button
+						onPress={() => {
+							nav.navigate('Logout');
+						}}
+						title="Logout"
+					/>
+				</>
 			)}
-			{user.username !== '' || user.username === undefined && (<>
-			<Button
-				onPress={() => {
-					nav.navigate('ViewPlaylists');
-				}}
-				title="Playlists"
-			/>
-			<Button
-				onPress={() => {
-					nav.navigate('Piano');
-				}}
-				title="Piano"
-			/>
-			<Button
-			onPress={() => {
-					nav.navigate('Logout');
-				}}
-				title="Logout"
-			/>): (
-				<></>
-			</>)}
-			{user.role === 'employee' || user.role === 'admin' ? (
+			{user && (user.role === 'employee' || user.role === 'admin') ? (
 				<Button
 					onPress={() => {
 						nav.navigate('EditUser');
@@ -53,7 +51,7 @@ function NavBarComponent() {
 				<></>
 			)}
 
-			{user.role === 'admin' ? (
+			{user && user.role === 'admin' ? (
 				<Button onPress={() => nav.navigate('ViewUsers')} title="View Users" />
 			) : (
 				<></>
@@ -63,3 +61,4 @@ function NavBarComponent() {
 }
 
 export default NavBarComponent;
+

@@ -17,13 +17,14 @@ interface Props {
 
 function PlaylistScreen({ navigation }: Props) {
 	const user = useSelector((state: UserState) => state.user);
-
+	console.log(user.playlist);
 	return (
 		<View style={styles.container}>
 			<Text style={styles.header}>{`${user.username}'s Playlists`}</Text>
 			{user.playlist &&
-				user.playlist.map((list) => (
+				user.playlist.map((list, index) => (
 					<Pressable
+						key={index}
 						onPress={() => {
 							navigation.navigate('PlaylistDetail', { playlist: list });
 						}}

@@ -25,13 +25,26 @@ create table playlist
 alter table playlist add constraint fk_playlistsongid
 	foreign key (song_id) references song (song_id) on delete no action on update no action;
 
-insert into playlist (playlist_id, song_id, playlist_name)
-	values (1, 2, 'Three');
-insert into playlist (playlist_id, song_id, playlist_name)
-	values (2, 1, 'Three');
-insert into playlist (playlist_id, song_id, playlist_name)
-	values (3, 2, 'One');
-
+insert into playlist (song_id, playlist_name) values 
+(23, 'Workout'),
+(45, 'Workout'),
+(67, 'Workout'),
+(35, 'Lo-Fi'),
+(43, 'Lo-Fi'),
+(123, 'Example'),
+(111, 'Example'),
+(105, 'Example'),
+(67, 'Classical'),
+(98, 'Classical'),
+(87, 'Dance'),
+(76, 'Dance'),
+(65, 'Dance'),
+(54, 'Hype'),
+(43, 'Hype'),
+(21, 'Hype'),
+(89, 'Jazz'),
+(45, 'Jazz'),
+(78, 'Jazz');
 
 
 select * from song;
