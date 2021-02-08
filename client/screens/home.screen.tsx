@@ -36,12 +36,12 @@ const HomeScreen = () => {
 		search[searchType as any] = query;
 		songService
 			.searchSongs(search)
-			.then((res) => {
+			.then((res: any) => {
 				dispatch(getSongs(res));
 				setQuery('');
 				setSearch(null);
 			})
-			.catch((err) => setError({ message: err.stack }));
+			.catch((err: any) => setError({ message: err.stack }));
 	};
 
 	return (

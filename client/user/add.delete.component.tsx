@@ -36,7 +36,9 @@ function AddDeleteUserComponent(username: string) {
 				<TextInput
 					secureTextEntry={true}
 					style={style.input}
-					onChangeText={(value) => dispatch(addUser({ ...user, role: value }))}
+					onChangeText={(value) => 
+						dispatch(addUser({ ...user, role: value }))
+					}
 					value={user.role}
 				/>
 			</View>

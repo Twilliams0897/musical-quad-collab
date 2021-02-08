@@ -10,14 +10,18 @@ function NavBarComponent() {
 	const user = useSelector((state: AppState) => state.user);
 	const dispatch = useDispatch();
 	return (
+
 		<View style={{ flex: 1, flexDirection: 'row' }}>
-			<Button
+			{ user.username !== '' ? (<Button
 				onPress={() => {
 					dispatch(thunkGetSongs);
 					nav.navigate('Home');
 				}}
 				title="Songs"
-			/>
+			/>) : (
+				<></>
+			)}
+			{user.username !== '' || user.username === undefined && (<>
 			<Button
 				onPress={() => {
 					nav.navigate('ViewPlaylists');
@@ -30,6 +34,12 @@ function NavBarComponent() {
 				}}
 				title="Piano"
 			/>
+			<Button
+			onPress={() => {
+					nav.navigate('Logout');
+				}}
+				title="Logout"
+			/></>)}
 			{user.role === 'employee' || user.role === 'admin' ? (
 				<Button
 					onPress={() => {
@@ -40,8 +50,25 @@ function NavBarComponent() {
 			) : (
 				<></>
 			)}
+
+			{user.role === 'admin' ? (
+				<Button onPress={() => nav.navigate('ViewUsers')} title="View Users" />
+			) : (
+				<></>
+			)}
 		</View>
 	);
 }
 
 export default NavBarComponent;
+
+/*
+{if (user) ? (
+	<Button onPress={() => {
+		nav.navigate('Logout');
+		}}
+		title="Logout"/>
+		) : (
+		<></>
+		)}
+*/
