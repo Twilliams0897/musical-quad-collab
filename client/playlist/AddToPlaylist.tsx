@@ -9,27 +9,9 @@ import songService from '../song/song.service';
 import { Playlist } from './playlist';
 import userService from '../user/user.service';
 
-const { create } = require('react-native-pixel-perfect');
-const designResolution = {
-	width: 1125,
-	height: 2436,
-}; // what we're designing for
-const perfectSize = create(designResolution);
-
 interface Props {
 	route: any;
 	navigation: any;
-}
-
-class Item {
-	constructor(
-		public label: any,
-		public value: any,
-		public icon?: (() => Element) | undefined,
-		public hidden?: boolean | undefined,
-		public disabled?: boolean | undefined,
-		public selected?: boolean | undefined
-	) {}
 }
 
 function AddToPlaylist({ route, navigation }: Props) {
@@ -39,25 +21,6 @@ function AddToPlaylist({ route, navigation }: Props) {
 	const user = useSelector((state: UserState) => state.user);
 
 	const { song_id } = route.params;
-
-	const createItems = (): Item[] => {
-		let items: Item[] = [
-			{
-				label: 'Create new playlist',
-				value: 'createnew',
-			},
-		];
-
-		let playlistItems: Item[];
-		if (user.playlist) {
-			playlistItems = user.playlist.map(
-				(list) =>
-					new Item(list, list, undefined, undefined, undefined, undefined)
-			);
-			items = [...items, ...playlistItems];
-		}
-		return items;
-	};
 
 	const handleSubmit = () => {
 		let playlist_name: any;
@@ -102,38 +65,34 @@ function AddToPlaylist({ route, navigation }: Props) {
 			)}
 			<View style={[styles.row, Platform.OS !== 'android' && { zIndex: 2 }]}>
 				<Text style={styles.label}>Pick playlist: </Text>
-				{/* <DropDownPicker
-					items={createItems}
-					defaultValue={selection}
-					placeholder="Select playlist"
-					containerStyle={{
-						height: Platform.OS === 'web' ? perfectSize(40) : perfectSize(80),
-						width: Platform.OS === 'web' ? perfectSize(250) : perfectSize(500),
-						borderColor: '#4BA3C3',
-						borderWidth:
-							Platform.OS === 'web' ? perfectSize(1) : perfectSize(2),
-						borderStyle: 'solid',
-						borderRadius:
-							Platform.OS === 'web' ? perfectSize(5) : perfectSize(10),
-					}}
+				<View
 					style={{
-						backgroundColor: '#4BA3C3',
+						flexDirection: 'column',
+						alignItems: 'center',
+						justifyContent: 'center',
 					}}
-					itemStyle={{
-						justifyContent: 'flex-start',
-						zIndex: 3,
-					}}
-					labelStyle={{
-						fontSize: Platform.OS === 'web' ? perfectSize(14) : perfectSize(28),
-						textAlign: 'center',
-						color: '#4d243d',
-					}}
-					selectedLabelStyle={{
-						color: '#fef9ff',
-					}}
-					dropDownStyle={{ backgroundColor: '#4BA3C3' }}
-					onChangeItem={(item) => setSelection(item.value)}
-				/> */}
+				>
+					<Text
+						style={styles.list_button}
+						onPress={() => {
+							setSelection('createnew');
+						}}
+					>
+						Create new playlist
+					</Text>
+					{user.playlist &&
+						user.playlist.map((list, index) => (
+							<Text
+								key={index}
+								style={styles.list_button}
+								onPress={() => {
+									setSelection(list);
+								}}
+							>
+								{list}
+							</Text>
+						))}
+				</View>
 			</View>
 			{(selection as unknown) === 'createnew' && (
 				<View style={styles.row}>
@@ -145,6 +104,12 @@ function AddToPlaylist({ route, navigation }: Props) {
 						placeholder="Playlist Name"
 					/>
 				</View>
+			)}
+			{(selection as unknown) === 'createnew' && (
+				<Text style={styles.label}>Create and add to {textInput}</Text>
+			)}
+			{selection !== 'createnew' && (
+				<Text style={styles.label}>Add to {selection}</Text>
 			)}
 			<Button title="Submit" onPress={handleSubmit} />
 		</View>
