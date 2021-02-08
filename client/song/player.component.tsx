@@ -6,18 +6,27 @@ import {
 	View,
 	Image,
 	StyleSheet,
+	Platform,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeSong } from '../store/actions';
+import { changeSong, getSongs } from '../store/actions';
 import { SongState } from '../store/store';
 import { thunkGetSongs } from '../store/thunks';
 import { Song } from './song';
 import songService from './song.service';
 import Playlist from '../playlist/playlist.component';
 
+const { create } = require('react-native-pixel-perfect');
+const designResolution = {
+	width: 1125,
+	height: 2436,
+}; // what we're designing for
+const perfectSize = create(designResolution);
+
 function PlayerComponent() {
 	const [error, setError] = useState({ message: '' });
 	const [isPlaying, setPlay] = useState(false);
+	const [isStopped, setStop] = useState(false);
 	const [volume, setVolume] = useState(true);
 	const [playlistIndex, setIndex] = useState(0);
 	const [showPlaylist, setShowPlaylist] = useState(false);
@@ -36,9 +45,10 @@ function PlayerComponent() {
 	useEffect(() => {
 		Animated.loop(
 			Animated.timing(flickerAnimation, {
-				toValue: 1,
+				toValue: 5,
 				duration: 1000,
-				useNativeDriver: true,
+				delay: 1000,
+				useNativeDriver: Platform.OS === 'web' ? false : true,
 			}),
 			{ iterations: -1 }
 		).start();
@@ -46,15 +56,17 @@ function PlayerComponent() {
 
 	const addClick = async () => {
 		let { clicks } = song;
-		let newClicks = { clicks: clicks + 1 };
+		let newClicks;
+		if (clicks) newClicks = { clicks: clicks + 1 };
 
-		if (song.song_id)
+		if (song.song_id && newClicks) {
 			await songService
 				.updateClicks(song.song_id, newClicks)
-				.then(() => {
-					dispatch(thunkGetSongs);
-				})
-				.catch((err: any) => setError({ message: err.message }));
+				.catch((err) => setError({ message: err.message }));
+			await songService.getSongs().then((res) => {
+				dispatch(getSongs(res));
+			});
+		}
 	};
 
 	useEffect(() => {
@@ -66,7 +78,7 @@ function PlayerComponent() {
 
 	const play = () => {
 		setPlay(false);
-		if (playlist.length === 0) {
+		if (playlist.length === 0 || isStopped) {
 			dispatch(changeSong(new Song()));
 		}
 		if (playlist.length) {
@@ -111,7 +123,12 @@ function PlayerComponent() {
 	return (
 		<View style={styles.border}>
 			{error && error.message !== '' && (
-				<Text style={{ color: 'red', fontSize: 32 }}>
+				<Text
+					style={{
+						color: 'red',
+						fontSize: Platform.OS === 'web' ? perfectSize(16) : perfectSize(32),
+					}}
+				>
 					Something went wrong. Refresh the page.
 				</Text>
 			)}
@@ -135,6 +152,7 @@ function PlayerComponent() {
 						onPress={() => {
 							if (song.title !== '') {
 								setPlay(true);
+								setStop(false);
 							}
 						}}
 					>
@@ -162,6 +180,7 @@ function PlayerComponent() {
 				<Pressable
 					onPress={() => {
 						clearTimeout(playTO);
+						setStop(true);
 						setPlay(false);
 						dispatch(changeSong(new Song()));
 					}}
@@ -221,24 +240,26 @@ const styles = StyleSheet.create({
 	border: {
 		borderColor: '#b3ffb3',
 		borderStyle: 'solid',
-		borderWidth: 1,
-		margin: 50,
-		width: 500,
+		borderWidth: Platform.OS === 'web' ? perfectSize(1) : perfectSize(2),
+		margin: Platform.OS === 'web' ? perfectSize(50) : 0,
+		width: Platform.OS === 'web' ? perfectSize(900) : perfectSize(1125),
 	},
 	container: {
 		flexDirection: 'row',
 		justifyContent: 'center',
 		backgroundColor: '#4BA3C3',
-		padding: 20,
+		padding: Platform.OS === 'web' ? perfectSize(20) : perfectSize(40),
 	},
 	display: {
 		backgroundColor: '#4d243d',
 		color: '#b3ffb3',
+		fontStyle: 'italic',
+		fontWeight: '500',
 		borderBottomColor: '#b3ffb3',
 		borderStyle: 'solid',
-		borderWidth: 1,
-		fontSize: 24,
-		padding: 40,
+		borderWidth: Platform.OS === 'web' ? perfectSize(1) : perfectSize(2),
+		fontSize: Platform.OS === 'web' ? perfectSize(60) : perfectSize(120),
+		padding: Platform.OS === 'web' ? perfectSize(40) : perfectSize(80),
 	},
 	nosong: {
 		textAlign: 'center',
@@ -246,13 +267,13 @@ const styles = StyleSheet.create({
 		color: '#b3ffb3',
 		borderBottomColor: '#b3ffb3',
 		borderStyle: 'solid',
-		borderWidth: 1,
-		fontSize: 24,
-		padding: 40,
+		borderWidth: Platform.OS === 'web' ? perfectSize(1) : perfectSize(2),
+		fontSize: Platform.OS === 'web' ? perfectSize(72) : perfectSize(154),
+		padding: Platform.OS === 'web' ? perfectSize(40) : perfectSize(80),
 	},
 	stretch: {
-		width: 40,
-		height: 40,
+		width: Platform.OS === 'web' ? perfectSize(100) : perfectSize(150),
+		height: Platform.OS === 'web' ? perfectSize(100) : perfectSize(150),
 	},
 });
 

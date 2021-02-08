@@ -6,7 +6,7 @@ class UserService {
 	constructor() {
 		// URL of the express server
 		this.URI = 'http://localhost:3000/users/';
-		//this.URI = 'http://35.166.133.163:3000/users';
+		// this.URI = 'http://35.166.133.163:3000/users/';
 	}
 	getLogin(): Promise<User> {
 		// withCredentials sends our cookies with the request.
@@ -39,12 +39,6 @@ class UserService {
 			.then((result) => null)
 			.catch((err) => err);
     }
-
-    updateUser(user: User): Promise<null> {
-        return axios
-            .put(this.URI, user, {withCredentials: true})
-            .then(result => null);
-	}
 	
 	getUsers(): Promise<User []> {
 		return axios
@@ -55,13 +49,19 @@ class UserService {
 		})
 	}
 
-	//Look here to updat and add user... guesstimate what you need from the above
-	//statements. BE WARNED
+	//Look here to add user
 	addUser(user: User): Promise<null> {
 		return axios
 			.post(this.URI + 'register', user, { withCredentials: true })
 			.then((result: any) => result.data)
 			.catch((err) => err);
+	}
+
+	updateUser(user: User): Promise<void> {
+		return axios
+			.put(this.URI, user, { withCredentials: true })
+			.then((res) => console.log(res))
+			.catch((err) => console.log(err));
 	}
 }
 

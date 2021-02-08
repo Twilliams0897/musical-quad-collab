@@ -3,15 +3,22 @@ import userService from './user.service';
 import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, loginAction } from '../store/actions';
-import { Button, TextInput, Text, View } from 'react-native';
+import { Button, TextInput, Text, View, Platform } from 'react-native';
 import styles from '../global-styles';
+
+const { create } = require('react-native-pixel-perfect');
+const designResolution = {
+	width: 1125,
+	height: 2436,
+}; // what we're designing for
+const perfectSize = create(designResolution);
 
 // Function Component
 interface LoginProp {
 	navigation: any;
 }
 function LoginComponent({ navigation }: LoginProp) {
-	let [error, setError] = useState({ message: '' });
+	const [error, setError] = useState({ message: '' });
 
 	const userSelector = (state: UserState) => state.loginUser;
 	const user = useSelector(userSelector);
@@ -45,6 +52,7 @@ function LoginComponent({ navigation }: LoginProp) {
 			)}
 			<Text style={styles.label}>Username: </Text>
 			<TextInput
+				placeholder="Username"
 				style={styles.input}
 				onChangeText={(value: any) =>
 					dispatch(loginAction({ ...user, username: value }))
@@ -53,6 +61,7 @@ function LoginComponent({ navigation }: LoginProp) {
 			/>
 			<Text style={styles.label}>Password: </Text>
 			<TextInput
+				placeholder="Password"
 				secureTextEntry={true}
 				style={styles.input}
 				onChangeText={(value: any) =>
@@ -60,8 +69,21 @@ function LoginComponent({ navigation }: LoginProp) {
 				}
 				value={user.password}
 			/>
-			<Button onPress={submitForm} title="Login" />
-			<Button onPress={registerForm} title="Register" />
+			<View
+				style={{
+					margin: Platform.OS === 'web' ? perfectSize(40) : perfectSize(80),
+				}}
+			>
+				<Button onPress={submitForm} title="Login" />
+			</View>
+			<View
+				style={{
+					margin: Platform.OS === 'web' ? perfectSize(40) : perfectSize(80),
+					marginTop: 0,
+				}}
+			>
+				<Button onPress={registerForm} title="Register" />
+			</View>
 		</View>
 	);
 }

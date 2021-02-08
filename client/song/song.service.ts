@@ -59,7 +59,9 @@ class SongService {
 	}
 
 	//for endpoint that adds playlist item to database
-	addToPlaylist(playlist: Playlist) {}
+	addToPlaylist(playlist: Playlist): Promise<null> {
+		return axios.post(this.URI + 'playlists', playlist).then((res) => null);
+	}
 } // end of SongService
 
 export default new SongService();

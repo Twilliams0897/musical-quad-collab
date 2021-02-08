@@ -1,8 +1,10 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { Provider, useDispatch } from 'react-redux';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import store from './store/store';
 import RouterComponent from './router/router.component';
+import userService from './user/user.service';
+import { getUser } from './store/actions';
 
 export default function App() {
 	return (

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 const { create } = require('react-native-pixel-perfect');
 //import {create} from 'react-native-pixel-perfect';
@@ -15,31 +15,33 @@ const styles = StyleSheet.create({
 		backgroundColor: '#4BA3C3',
 		borderBottomColor: '#4BA3C3',
 		borderStyle: 'solid',
-		borderBottomWidth: 1,
+		borderBottomWidth:
+			Platform.OS === 'web' ? perfectSize(10) : perfectSize(20),
+		marginBottom: Platform.OS === 'web' ? perfectSize(40) : perfectSize(80),
 		color: '#4d243d',
-		padding: 10,
+		padding: Platform.OS === 'web' ? perfectSize(10) : perfectSize(20),
 		width: '100%',
-		height: 'fit-content',
-		fontSize: 24,
+		height: Platform.OS === 'web' ? perfectSize(160) : perfectSize(160),
+		fontSize: Platform.OS === 'web' ? perfectSize(110) : perfectSize(110),
 		fontWeight: '700',
 	},
 	input: {
 		backgroundColor: '#b3ffb3',
-		height: 40,
-		width: 300,
-		margin: 10,
+		height: Platform.OS === 'web' ? perfectSize(40) : perfectSize(100),
+		width: Platform.OS === 'web' ? perfectSize(300) : perfectSize(500),
+		margin: perfectSize(10),
 	},
 	label: {
 		color: '#b3ffb3',
-		lineHeight: 40,
-		height: 40,
-		fontSize: 20,
+		lineHeight: Platform.OS === 'web' ? perfectSize(80) : perfectSize(200),
+		height: Platform.OS === 'web' ? perfectSize(80) : perfectSize(200),
+		fontSize: Platform.OS === 'web' ? perfectSize(40) : perfectSize(100),
 	},
 	container: {
 		color: '#b3ffb3',
 		backgroundColor: '#0F4C5C',
 		alignItems: 'center',
-		fontSize: 16,
+		fontSize: Platform.OS === 'web' ? perfectSize(16) : perfectSize(32),
 		fontWeight: '400',
 		width: '100%',
 		height: '100%',
@@ -47,16 +49,17 @@ const styles = StyleSheet.create({
 	row: {
 		flex: 1,
 		flexDirection: 'row',
+		alignItems: 'baseline',
 	},
 	image: {
-		width: 200,
-		height: 200,
+		width: perfectSize(200),
+		height: perfectSize(200),
 	},
 	url: {
 		color: '#fef9ff',
 	},
-	text: { padding: 10 },
-	icon: { padding: 10 },
+	text: { padding: Platform.OS === 'web' ? perfectSize(10) : perfectSize(20) },
+	icon: { padding: Platform.OS === 'web' ? perfectSize(10) : perfectSize(20) },
 });
 
 export default styles;

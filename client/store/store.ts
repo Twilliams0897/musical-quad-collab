@@ -19,7 +19,7 @@ export interface UserState {
 export interface SongState {
 	songlist: Song[];
 	songs: Song[];
-	song: Song;
+	song: Song | Playlist;
 	songInput: Song;
 	playlist: Song[];
 	playlists: Playlist[][];

@@ -40,6 +40,17 @@ router.post('/', function (req: any, res) {
 	});
 });
 
+router.put('/', (req: any, res, next) => {
+	logger.debug(req.body);
+	userService.updateUser(req.body).then((result) => {
+		if (result) {
+			res.status(204).send('User updated');
+		} else {
+			res.status(400).send('Failed to update user');
+		}
+	});
+});
+
 router.delete('/:username', function (req: any, res: any) {
 	const username = req.params.username;
 	if (req.session && req.session.user && req.session.user.role === 'employee') {

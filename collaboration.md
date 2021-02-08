@@ -47,18 +47,12 @@ server
 ```
 
 ```
-user { userId, username, password, role, credits,  favorites: [song_id],
-       playlist: [playlist_id]
+user { username, password, role, credits, favorites: [Song], playlist: [playlist_name], bought: [Song]
  }
  // 'customer', 'employee', 'admin' in dynamoDb
 
-user_account { userId, username, password, role, credits,  favorites: [song_id],
-       playlist: [playlist_id]
- }
- // user_account also in pg
-
 playlist {
-	playlist_id: PK, song_id : FK, user_id: FK,
+	playlist_id: PK, song_id : FK
 
 }   : pg
 
@@ -82,9 +76,18 @@ playlist {
 - GET /users/logout : destroy session cookie
 - DELETE /users : also destroy session cookie
 
-- DELETE /users/anyname : delete user account in dynamo as an employee
+* POST: /users/register body = { "username": "anyname", "password": "anypass"} register
+* POST: /users/ {"username": "Cus", "password" : "pass" } // Cus, Emp, Adm login
+* POST: /users/login {"username": "Cus", "password" : "pass" } // Cus, Emp, Adm login
 
-- GET / : serve index.html shoud serve react native app if hooked with client properly.
+* GET /users : checker whether user is logged in
+* GET /users/login: same as above
+* GET /users/logout : destroy session cookie
+* DELETE /users : also destroy session cookie
+
+* DELETE /users/anyname : delete user account in dynamo as an employee
+
+* GET / : serve index.html shoud serve react native app if hooked with client properly.
 
 ### Maybe we will discuss good api endpoints at the meeting
 

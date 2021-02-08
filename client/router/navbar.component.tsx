@@ -16,20 +16,30 @@ function NavBarComponent() {
 				onPress={() => {
 					dispatch(thunkGetSongs);
 					nav.navigate('Home');
-					window.location.reload();
 				}}
 				title="Songs"
 			/>) : (
 				<></>
 			)}
-			{user.username !== '' ? (<Button
+			{user.username !== '' || user.username === undefined && (<>
+			<Button
 				onPress={() => {
+					nav.navigate('ViewPlaylists');
+				}}
+				title="Playlists"
+			/>
+			<Button
+				onPress={() => {
+					nav.navigate('Piano');
+				}}
+				title="Piano"
+			/>
+			<Button
+			onPress={() => {
 					nav.navigate('Logout');
 				}}
 				title="Logout"
-			/>): (
-				<></>
-			)}
+			/></>)}
 			{user.role === 'employee' || user.role === 'admin' ? (
 				<Button
 					onPress={() => {
