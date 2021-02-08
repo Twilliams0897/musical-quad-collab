@@ -61,11 +61,6 @@ function RouterComponent(props: any) {
 				options={headerOptions}
 			/>
 			<Stack.Screen
-				name="ViewUsers"
-				component={ViewAllUsersComponent}
-				options={headerOptions}
-			/>
-			<Stack.Screen
 				name="EditUser"
 				component={AddDeleteUserComponent}
 				options={headerOptions}

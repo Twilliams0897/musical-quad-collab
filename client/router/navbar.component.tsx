@@ -50,12 +50,6 @@ function NavBarComponent() {
 			) : (
 				<></>
 			)}
-
-			{user && user.role === 'admin' ? (
-				<Button onPress={() => nav.navigate('ViewUsers')} title="View Users" />
-			) : (
-				<></>
-			)}
 		</View>
 	);
 }

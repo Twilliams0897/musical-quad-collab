@@ -42,7 +42,6 @@ function LogoutComponent({ navigation }: LogoutProp) {
 		user.password = '';
 		user.role = '';
 		user.credits = 0;
-		user.userId = 0;
 		user.playlist = undefined;
 		user.favorites = undefined;
 		console.log('Logged out');

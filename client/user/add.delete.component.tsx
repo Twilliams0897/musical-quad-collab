@@ -1,48 +1,29 @@
-import React from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import userService from './user.service';
-import style from '../global-styles';
-import { useDispatch, useSelector } from 'react-redux';
 import { UserState } from '../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+//import {useHistory} from 'react-router-dom';
+import { getUser, loginAction } from '../store/actions';
+import { Button, TextInput, Text, View } from 'react-native';
+import style from '../global-styles';
 import { addUser } from '../store/actions';
 
-function AddDeleteUserComponent(username: string) {
+interface RegisterEmpProp {
+	navigation: any;
+}
+
+function AddDeleteUserComponent({navigation}: RegisterEmpProp) {
+	const [error, setError] = useState({ message: '' });
 	const userSelector = (state: UserState) => state.userInput;
 	const user = useSelector(userSelector);
+	const userContext = useSelector((state: UserState) => state.user);
 	const dispatch = useDispatch();
 
-	const AddForm = () => {
-		Alert.alert('add user');
-		return (
-			<View>
-				<Text>Username: </Text>
-				<TextInput
-					style={style.input}
-					onChangeText={(value) =>
-						dispatch(addUser({ ...user, username: value }))
-					}
-					value={user.username}
-				/>
-				<Text>Password: </Text>
-				<TextInput
-					secureTextEntry={true}
-					style={style.input}
-					onChangeText={(value) =>
-						dispatch(addUser({ ...user, password: value }))
-					}
-					value={user.password}
-				/>
-				<Text>Role: </Text>
-				<TextInput
-					secureTextEntry={true}
-					style={style.input}
-					onChangeText={(value) => 
-						dispatch(addUser({ ...user, role: value }))
-					}
-					value={user.role}
-				/>
-			</View>
-		);
+	const AddUserForm = () => {
+		userService
+			.addUser({ username: user.username, password: user.password, role: user.role})
+			.then((res) => navigation.navigate('Home'))
+			.catch((err) => setError({ message: err.message }));
 	};
 
 	const handleDelete = () => {
@@ -50,17 +31,22 @@ function AddDeleteUserComponent(username: string) {
 	};
 
 	return (
-		<View>
-			<Text>Username: </Text>
+		<View style={style.container}>
+			{error.message !== '' && (
+				<Text style={{ color: 'red' }}>{error.message}</Text>
+			)}
+			<Text style={style.label}>Username: </Text>
 			<TextInput
+				placeholder="Enter Username"
 				style={style.input}
 				onChangeText={(value: any) =>
 					dispatch(addUser({ ...user, username: value }))
 				}
 				value={user.username}
 			/>
-			<Text>Password: </Text>
+			<Text style={style.label}>Password: </Text>
 			<TextInput
+				placeholder="Enter Password"
 				secureTextEntry={true}
 				style={style.input}
 				onChangeText={(value: any) =>
@@ -68,16 +54,19 @@ function AddDeleteUserComponent(username: string) {
 				}
 				value={user.password}
 			/>
-			<Text>Role: </Text>
+			<Text style={style.label}>Role: </Text>
 			<TextInput
+				placeholder="employee"
 				style={style.input}
-				onChangeText={(value) => 
-					dispatch(addUser({ ...user, role: value }))}
-				value={user.role}
+				onChangeText={(value: any) => 
+					dispatch(addUser({...user, role: value}))
+				}
+				value = {user.role}
 			/>
-
-			<Button onPress={handleDelete} title="Delete User" color="#880022" />
-			<Button onPress={AddForm} title="Add User" color="#880022" />
+			<br></br>
+			<Button onPress={AddUserForm} title="Register New Employee" />
+			<br></br>
+			{userContext.role === 'admin' && (<Button onPress={handleDelete} title="Remove User" />)}
 		</View>
 	);
 }
