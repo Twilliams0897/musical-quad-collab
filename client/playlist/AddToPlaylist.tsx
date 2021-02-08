@@ -24,10 +24,10 @@ function AddToPlaylist({ route, navigation }: Props) {
 	const handleSubmit = () => {
 		let playlist_name: any;
 
-		if (selection && (selection as unknown) === 'createnew') {
+		if (selection && selection === 'createnew') {
 			playlist_name = textInput;
 		} else {
-			playlist_name = selection as unknown;
+			playlist_name = selection;
 		}
 
 		let newPlaylist: Playlist = {
@@ -62,38 +62,36 @@ function AddToPlaylist({ route, navigation }: Props) {
 			{error.message !== '' && (
 				<Text style={{ color: 'red' }}>{error.message}</Text>
 			)}
-			<View style={styles.container}>
-				<Text style={styles.label}>Pick playlist: </Text>
-				<View
-					style={{
-						flexDirection: 'column',
-						alignItems: 'center',
-						justifyContent: 'center',
+			<Text style={styles.label}>Pick playlist: </Text>
+			<View
+				style={{
+					flexDirection: 'column',
+					alignItems: 'center',
+					justifyContent: 'center',
+				}}
+			>
+				<Text
+					style={styles.list_button}
+					onPress={() => {
+						setSelection('createnew');
 					}}
 				>
-					<Text
-						style={styles.list_button}
-						onPress={() => {
-							setSelection('createnew');
-						}}
-					>
-						Create new playlist
-					</Text>
-					{user.playlist &&
-						user.playlist.map((list, index) => (
-							<Text
-								key={index}
-								style={styles.list_button}
-								onPress={() => {
-									setSelection(list);
-								}}
-							>
-								{list}
-							</Text>
-						))}
-				</View>
+					Create new playlist
+				</Text>
+				{user.playlist &&
+					user.playlist.map((list, index) => (
+						<Text
+							key={index}
+							style={styles.list_button}
+							onPress={() => {
+								setSelection(list);
+							}}
+						>
+							{list}
+						</Text>
+					))}
 			</View>
-			{(selection as unknown) === 'createnew' && (
+			{selection === 'createnew' && (
 				<View style={styles.row}>
 					<Text style={styles.label}>Playlist Name: </Text>
 					<TextInput
@@ -104,10 +102,9 @@ function AddToPlaylist({ route, navigation }: Props) {
 					/>
 				</View>
 			)}
-			{(selection as unknown) === 'createnew' && (
+			{selection === 'createnew' ? (
 				<Text style={styles.label}>Create and add to {textInput}</Text>
-			)}
-			{selection !== 'createnew' && (
+			) : (
 				<Text style={styles.label}>Add to {selection}</Text>
 			)}
 			<Button title="Submit" onPress={handleSubmit} />

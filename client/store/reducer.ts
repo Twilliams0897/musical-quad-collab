@@ -17,7 +17,6 @@ export const initialState: AppState = {
 	song: new Song(),
 	songInput: new Song(),
 	playlist: [],
-	playlists: [],
 	favorites: [],
 };
 

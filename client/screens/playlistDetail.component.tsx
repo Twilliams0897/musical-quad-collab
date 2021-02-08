@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Text, View } from 'react-native';
 import SongComponent from '../song/song.component';
 import styles from '../global-styles';
 import { FlatList } from 'react-native-gesture-handler';
 import PlayerComponent from '../song/player.component';
 import songService from '../song/song.service';
-import { Playlist } from '../playlist/playlist';
+import { useDispatch, useSelector } from 'react-redux';
+import { SongState } from '../store/store';
+import { playlistChange } from '../store/actions';
 
 interface Props {
 	route: any;
 }
 function PlaylistDetail({ route }: Props) {
-	const [playlistResponse, setResponse] = useState<Playlist[]>([]);
+	const playlistResponse = useSelector((state: SongState) => state.playlist);
+	const dispatch = useDispatch();
+
 	const { playlist } = route.params;
-	console.log('playlist', playlist);
 	useEffect(() => {
 		songService.getPlaylist(playlist).then((res) => {
-			console.log('res', res);
-			setResponse(res);
+			dispatch(playlistChange(res));
 		});
 	}, []);
 

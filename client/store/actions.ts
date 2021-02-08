@@ -15,7 +15,6 @@ export enum SongActions {
 	SongInputAction = 'SONG_INPUT_ACTION',
 	PlaylistChange = 'PLAYLIST_CHANGE',
 	FavoritesChange = 'FAVORITES_CHANGE',
-	GetPlaylists = 'GET_PLAYLISTS',
 }
 
 export interface AppAction {
@@ -101,14 +100,6 @@ export function favoritesChange(songs: Song[]): SongAction {
 	const action: SongAction = {
 		type: SongActions.FavoritesChange,
 		payload: songs,
-	};
-	return action;
-}
-
-export function getPlaylists(playlists: Playlist[][]): SongAction {
-	const action: SongAction = {
-		type: SongActions.GetPlaylists,
-		payload: playlists,
 	};
 	return action;
 }

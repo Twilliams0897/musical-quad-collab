@@ -11,7 +11,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { changeSong, getSongs } from '../store/actions';
 import { SongState } from '../store/store';
-import { thunkGetSongs } from '../store/thunks';
 import { Song } from './song';
 import songService from './song.service';
 import Playlist from '../playlist/playlist.component';
