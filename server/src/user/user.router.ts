@@ -30,12 +30,12 @@ router.get('/login', function (req: any, res, next) {
 /* testing whether dynamo db connection works and set session*/
 router.post('/', function (req: any, res) {
 	logger.debug(req.body);
-	user.login(req.body.username, req.body.password).then((user) => {
-		if (user === null) {
+	user.login(req.body.username, req.body.password).then((result) => {
+		if (result === null) {
 			res.sendStatus(401);
 		} else {
-			req.session.user = user;
-			res.send(JSON.stringify(user));
+			req.session.user = result;
+			res.send(JSON.stringify(result));
 		}
 	});
 });

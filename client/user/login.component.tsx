@@ -28,14 +28,14 @@ function LoginComponent({ navigation }: LoginProp) {
 	function submitForm() {
 		userService
 			.login(user)
-			.then((user) => {
-				console.log(user);
+			.then((res) => {
+				console.log(res);
 				/*
                 When logged in, a new user with the same credentials is created. 
                 That way, when we click the back to the home page, the previous user is no longer logged in.
             */
 
-				dispatch(getUser(user));
+				dispatch(getUser(res));
 				navigation.navigate('Home');
 			})
 			.catch((err) => setError({ message: err.message }));

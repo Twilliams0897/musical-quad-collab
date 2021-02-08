@@ -2,7 +2,6 @@ import * as Actions from './actions';
 import { Song } from '../song/song';
 import { User } from '../user/user';
 import { AppState } from './store';
-import { Playlist } from '../playlist/playlist';
 
 // We need to define the initial state of the application and that
 // state should include everything that the application might keep track of.

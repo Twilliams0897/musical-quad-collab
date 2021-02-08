@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { View, Text, TextInput, Button } from 'react-native';
 import userService from './user.service';
 import style from '../global-styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserState } from '../store/store';
 import { addUser } from '../store/actions';
 
-function AddDeleteUserComponent(username: string) {
+function AddDeleteUserComponent() {
 	const userSelector = (state: UserState) => state.userInput;
 	const user = useSelector(userSelector);
 	const dispatch = useDispatch();
