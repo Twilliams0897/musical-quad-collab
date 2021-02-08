@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import userService from './user.service';
-import style from '../global-styles';
-import { useDispatch, useSelector } from 'react-redux';
 import { UserState } from '../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import style from '../global-styles';
 import { addUser } from '../store/actions';
 
 function AddDeleteUserComponent() {
+	const [error, setError] = useState({ message: '' });
 	const userSelector = (state: UserState) => state.userInput;
 	const user = useSelector(userSelector);
+	const userContext = useSelector((state: UserState) => state.user);
 	const dispatch = useDispatch();
 
 	const handleAdd = () => {
@@ -20,17 +22,22 @@ function AddDeleteUserComponent() {
 	};
 
 	return (
-		<View>
-			<Text>Username: </Text>
+		<View style={style.container}>
+			{error.message !== '' && (
+				<Text style={{ color: 'red' }}>{error.message}</Text>
+			)}
+			<Text style={style.label}>Username: </Text>
 			<TextInput
+				placeholder="Enter Username"
 				style={style.input}
 				onChangeText={(value: any) =>
 					dispatch(addUser({ ...user, username: value }))
 				}
 				value={user.username}
 			/>
-			<Text>Password: </Text>
+			<Text style={style.label}>Password: </Text>
 			<TextInput
+				placeholder="Enter Password"
 				secureTextEntry={true}
 				style={style.input}
 				onChangeText={(value: any) =>
@@ -38,14 +45,13 @@ function AddDeleteUserComponent() {
 				}
 				value={user.password}
 			/>
-			<Text>Role: </Text>
-			<TextInput
-				style={style.input}
-				onChangeText={(value) => dispatch(addUser({ ...user, role: value }))}
-				value={user.role}
-			/>
-
-			<Button onPress={handleDelete} title="Delete User" color="#880022" />
+			<Text style={style.label}>Role: </Text>
+			<TextInput placeholder="employee" style={style.input} value={user.role} />
+			<br></br>
+			{userContext.role === 'admin' && (
+				<Button onPress={handleDelete} title="Delete User" color="#880022" />
+			)}
+			<br></br>
 			<Button onPress={handleAdd} title="Add User" color="#880022" />
 		</View>
 	);
