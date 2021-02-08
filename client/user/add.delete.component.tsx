@@ -11,7 +11,7 @@ function AddDeleteUserComponent(username: string) {
 	const user = useSelector(userSelector);
 	const dispatch = useDispatch();
 
-	const AddForm = () => {
+	const handleAdd = () => {
 		userService.addUser(user).then(() => {});
 	};
 
@@ -46,7 +46,7 @@ function AddDeleteUserComponent(username: string) {
 			/>
 
 			<Button onPress={handleDelete} title="Delete User" color="#880022" />
-			<Button onPress={AddForm} title="Add User" color="#880022" />
+			<Button onPress={handleAdd} title="Add User" color="#880022" />
 		</View>
 	);
 }
