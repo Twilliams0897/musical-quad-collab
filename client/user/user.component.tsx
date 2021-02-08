@@ -31,7 +31,6 @@ function UserComponent({data}: UserProps){
 
     return (
         <View >
-            <Text>{data.userId}</Text>
             <Text>{data.username}</Text>
             <Text>Role: {data.role}</Text>
             <Text>Credits: {data.credits}</Text>
