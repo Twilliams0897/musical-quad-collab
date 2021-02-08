@@ -6,8 +6,7 @@ export enum UserActions {
 	GetUser = 'GET_USER',
 	LoginChange = 'CHANGE_LOGIN',
 	GetAllUsers = 'GET_ALL_USERS',
-	ChangeUser = 'CHANGE_USER',
-	AddUser = 'ADD_USER'
+	AddUser = 'ADD_USER',
 }
 
 export enum SongActions {
@@ -62,13 +61,6 @@ export function getAllUsers(users: User[]): UserAction {
 	const action: UserAction = {
 		type: UserActions.GetAllUsers,
 		payload: users,
-	};
-	return action;
-}
-export function changeUser(user: User): UserAction {
-	const action: UserAction = {
-		type: UserActions.ChangeUser,
-		payload: user,
 	};
 	return action;
 }

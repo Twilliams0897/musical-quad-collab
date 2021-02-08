@@ -7,6 +7,7 @@ import { getUser } from '../store/actions';
 import { Button, Text, View, Platform } from 'react-native';
 import style from '../global-styles';
 import styles from '../global-styles';
+import { User } from './user';
 
 const { create } = require('react-native-pixel-perfect');
 const designResolution = {
@@ -21,23 +22,15 @@ interface LogoutProp {
 }
 
 function LogoutComponent({ navigation }: LogoutProp) {
-	const userSelector = (state: UserState) => state.loginUser;
-	const user = useSelector(userSelector);
 	const dispatch = useDispatch();
 
 	function submitForm() {
-		userService.logout().then((user) => {
-			console.log(`user: ${user}`);
+		userService.logout().then((res) => {
+			console.log(`user: ${res}`);
 			navigation.navigate('Login');
 		});
-		user.username = '';
-		user.password = '';
-		user.role = '';
-		user.credits = 0;
-		user.playlist = undefined;
-		user.favorites = undefined;
 		console.log('Logged out');
-		dispatch(getUser(user));
+		dispatch(getUser(new User()));
 	}
 
 	function stayLoggedIn() {

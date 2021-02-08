@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
 		color: '#4d243d',
 		padding: Platform.OS === 'web' ? perfectSize(10) : perfectSize(20),
 		width: '100%',
-		height: Platform.OS === 'web' ? perfectSize(160) : perfectSize(160),
-		fontSize: Platform.OS === 'web' ? perfectSize(110) : perfectSize(110),
+		height: perfectSize(160),
+		fontSize: perfectSize(110),
 		fontWeight: '700',
 	},
 	input: {

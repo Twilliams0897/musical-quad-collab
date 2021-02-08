@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Text, View, Platform } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import { Button, Text, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { UserState } from '../store/store';
