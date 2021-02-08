@@ -12,37 +12,7 @@ function AddDeleteUserComponent(username: string) {
 	const dispatch = useDispatch();
 
 	const AddForm = () => {
-		Alert.alert('add user');
-		return (
-			<View>
-				<Text>Username: </Text>
-				<TextInput
-					style={style.input}
-					onChangeText={(value) =>
-						dispatch(addUser({ ...user, username: value }))
-					}
-					value={user.username}
-				/>
-				<Text>Password: </Text>
-				<TextInput
-					secureTextEntry={true}
-					style={style.input}
-					onChangeText={(value) =>
-						dispatch(addUser({ ...user, password: value }))
-					}
-					value={user.password}
-				/>
-				<Text>Role: </Text>
-				<TextInput
-					secureTextEntry={true}
-					style={style.input}
-					onChangeText={(value) => 
-						dispatch(addUser({ ...user, role: value }))
-					}
-					value={user.role}
-				/>
-			</View>
-		);
+		userService.addUser(user).then(() => {});
 	};
 
 	const handleDelete = () => {
@@ -71,8 +41,7 @@ function AddDeleteUserComponent(username: string) {
 			<Text>Role: </Text>
 			<TextInput
 				style={style.input}
-				onChangeText={(value) => 
-					dispatch(addUser({ ...user, role: value }))}
+				onChangeText={(value) => dispatch(addUser({ ...user, role: value }))}
 				value={user.role}
 			/>
 

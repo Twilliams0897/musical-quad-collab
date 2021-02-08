@@ -11,7 +11,6 @@ import LoginComponent from '../user/login.component';
 import RegisterComponent from '../user/register.component';
 import HomeScreen from '../screens/home.screen';
 import ViewAllUsersComponent from '../user/get.users.component';
-import AddEmpComponent from '../user/add.user.component';
 import LogoutComponent from '../user/logout.component';
 import SongDetail from '../screens/songDetail.screen';
 import AddToPlaylist from '../playlist/AddToPlaylist';
@@ -101,7 +100,7 @@ function RouterComponent(props: any) {
 				options={headerOptions}
 			/>
 			<Stack.Screen name="Piano" component={Piano} options={headerOptions} />
-			<Stack.Screen 
+			<Stack.Screen
 				name="Logout"
 				component={LogoutComponent}
 				options={headerOptions}
