@@ -47,18 +47,12 @@ server
 ```
 
 ```
-user { userId, username, password, role, credits,  favorites: [song_id],
-       playlist: [playlist_id]
+user { username, password, role, credits, favorites: [Song], playlist: [playlist_name], bought: [Song]
  }
  // 'customer', 'employee', 'admin' in dynamoDb
 
-user_account { userId, username, password, role, credits,  favorites: [song_id],
-       playlist: [playlist_id]
- }
- // user_account also in pg
-
 playlist {
-	playlist_id: PK, song_id : FK, user_id: FK,
+	playlist_id: PK, song_id : FK
 
 }   : pg
 
@@ -73,22 +67,6 @@ playlist {
 
 ## express server api endpoints for users:
 
-<<<<<<< HEAD
-* GET /users/logout  : destroy session cookie
-* DELETE /users  : also destroy session cookie
-
-* DELETE /users/anyname  : delete user account in dynamo as an employee
-
-
-* GET /   : serve index.html shoud serve react native app if hooked with client properly.
-
-### Maybe we will discuss good api endpoints at the meeting
-
-### testing songs from the follow ip addresses. We might go with the first one. my suggestgion is save this .env 
-with name LAMBDASONGAPI=ipaddress
-* 1.  https://v3gpanxg9k.execute-api.us-west-2.amazonaws.com/default/gethomesongs/
-* 1.  https://3qt05wpja8.execute-api.us-west-2.amazonaws.com/default/songs/
-=======
 - POST: /users/register body = { "username": "anyname", "password": "anypass"} register
 - POST: /users/ {"username": "Cus", "password" : "pass" } // Cus, Emp, Adm login
 - POST: /users/login {"username": "Cus", "password" : "pass" } // Cus, Emp, Adm login
@@ -98,9 +76,18 @@ with name LAMBDASONGAPI=ipaddress
 - GET /users/logout : destroy session cookie
 - DELETE /users : also destroy session cookie
 
-- DELETE /users/anyname : delete user account in dynamo as an employee
+* POST: /users/register body = { "username": "anyname", "password": "anypass"} register
+* POST: /users/ {"username": "Cus", "password" : "pass" } // Cus, Emp, Adm login
+* POST: /users/login {"username": "Cus", "password" : "pass" } // Cus, Emp, Adm login
 
-- GET / : serve index.html shoud serve react native app if hooked with client properly.
+* GET /users : checker whether user is logged in
+* GET /users/login: same as above
+* GET /users/logout : destroy session cookie
+* DELETE /users : also destroy session cookie
+
+* DELETE /users/anyname : delete user account in dynamo as an employee
+
+* GET / : serve index.html shoud serve react native app if hooked with client properly.
 
 ### Maybe we will discuss good api endpoints at the meeting
 
@@ -110,7 +97,6 @@ with name LAMBDASONGAPI=ipaddress
 
 - 1.  https://v3gpanxg9k.execute-api.us-west-2.amazonaws.com/default/gethomesongs/
 - 1.  https://3qt05wpja8.execute-api.us-west-2.amazonaws.com/default/songs/
->>>>>>> 555b52cd1175f70f1e666113c52ac64f8f372636
 
 - searchSongs POST request https://1bt2tfiy3m.execute-api.us-west-2.amazonaws.com/dev/search/
 - e.g. : req.body={ "artist": "sublime" } or { "title": "fish" } will return array (search results).

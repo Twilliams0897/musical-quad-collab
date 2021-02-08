@@ -5,13 +5,8 @@ class UserService {
 	private URI: string;
 	constructor() {
 		// URL of the express server
-<<<<<<< HEAD
-		this.URI ='http://localhost:3000/users';
-		// this.URI = 'http://35.166.133.163:3000/users';
-=======
-		this.URI = 'http://localhost:3000/users/';
-		//this.URI = 'http://35.166.133.163:3000/users';
->>>>>>> 4f6e9fa08c8a71b5fa140ba714eecb1709c2d4e7
+		// this.URI = 'http://localhost:3000/users';
+		this.URI = 'http://35.166.133.163:3000/users';
 	}
 	getLogin(): Promise<User> {
 		// withCredentials sends our cookies with the request.
@@ -20,6 +15,9 @@ class UserService {
 			.then((result: any) => {
 				console.log(result);
 				return result.data;
+			})
+			.catch((err) => {
+				console.log(err);
 			});
 	}
 
@@ -36,17 +34,32 @@ class UserService {
 	}
 
 	deleteByUsername(username: string): Promise<null> {
+		console.log(`user: ${username} was deleted.`);
 		return axios
 			.delete(this.URI + '/' + username, { withCredentials: true })
-			.then((result: any) => null)
-			.catch((err: any) => err);
+			.then((result) => null)
+			.catch((err) => err);
 	}
 
-	//Look here to updat and add user... guesstimate what you need from the above
-	//statements. BE WARNED
+	updateUser(user: User): Promise<null> {
+		return axios
+			.put(this.URI, user, { withCredentials: true })
+			.then((result) => null);
+	}
+
+	getUsers(): Promise<User[]> {
+		return axios
+			.get(this.URI, { withCredentials: true })
+			.then((result) => result.data)
+			.catch((err) => {
+				console.error(err);
+			});
+	}
+
+	//Look here to add user
 	addUser(user: User): Promise<null> {
 		return axios
-			.post(this.URI + 'register', user, { withCredentials: true })
+			.post(this.URI + '/register', user, { withCredentials: true })
 			.then((result: any) => result.data)
 			.catch((err) => err);
 	}

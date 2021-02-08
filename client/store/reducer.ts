@@ -1,6 +1,6 @@
 import * as Actions from './actions';
 import { Song } from '../song/song';
-import { User } from './../user/user';
+import { User } from '../user/user';
 import { AppState } from './store';
 import { Playlist } from '../playlist/playlist';
 
@@ -9,6 +9,7 @@ import { Playlist } from '../playlist/playlist';
 
 export const initialState: AppState = {
 	user: new User(),
+	users: [],
 	loginUser: new User(),
 	userInput: new User(),
 	songlist: [],
@@ -16,7 +17,6 @@ export const initialState: AppState = {
 	song: new Song(),
 	songInput: new Song(),
 	playlist: [],
-	playlists: [],
 	favorites: [],
 };
 
@@ -36,11 +36,15 @@ const reducer = (
 		case Actions.UserActions.LoginChange:
 			newState.loginUser = action.payload as User;
 			return newState;
+		case Actions.UserActions.GetAllUsers:
+			newState.users = action.payload as User[];
+			return newState;
 		case Actions.UserActions.AddUser:
 			newState.userInput = action.payload as User;
 			return newState;
 		case Actions.SongActions.GetSongs:
 			newState.songlist = action.payload as Song[];
+			console.log(newState);
 			return newState;
 		case Actions.SongActions.SongChange:
 			newState.song = action.payload as Song;
@@ -53,9 +57,6 @@ const reducer = (
 			return newState;
 		case Actions.SongActions.FavoritesChange:
 			newState.favorites = action.payload as Song[];
-			return newState;
-		case Actions.SongActions.GetPlaylists:
-			newState.playlists = action.payload as Playlist[][];
 			return newState;
 		default:
 			return state;

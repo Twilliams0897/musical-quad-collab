@@ -17,6 +17,7 @@ class UserService {
 			.scan(params)
 			.promise()
 			.then((data) => {
+				logger.debug(`data Items: ${data.Items}`);
 				return data.Items as User[];
 			});
 	}
@@ -76,15 +77,19 @@ class UserService {
 		const params = {
 			TableName: 'users',
 			Key: {
-				name: user.username,
+				username: user.username,
 			},
 			UpdateExpression:
-				'set password = :pa, credits = :cr, favorites = :fa, playlist: =pl',
+				'set #p = :pa, credits = :cr, favorites = :fa, playlist = :pl, bought = :bo',
+			ExpressionAttributeNames: {
+				'#p': 'password',
+			},
 			ExpressionAttributeValues: {
-				cr: user.credits,
-				fa: user.favorites,
-				pl: user.playlist,
+				':cr': user.credits,
+				':fa': user.favorites,
+				':pl': user.playlist,
 				':pa': user.password,
+				':bo': user.bought,
 			},
 			ReturnValues: 'UPDATED_NEW',
 		};
@@ -100,6 +105,7 @@ class UserService {
 				return false;
 			});
 	}
+
 	async deleteUser(username: string): Promise<boolean> {
 		const params = {
 			TableName: 'users',

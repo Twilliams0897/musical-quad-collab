@@ -58,8 +58,22 @@ class SongService {
 			.then((result) => null);
 	}
 
+	getPlaylist(playlist_name: string): Promise<any> {
+		let encoded_playlist_name = encodeURIComponent(playlist_name);
+		return axios
+			.get(this.URI + `playlists/${encoded_playlist_name}`)
+			.then((result) => {
+				return result.data;
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	}
+
 	//for endpoint that adds playlist item to database
-	addToPlaylist(playlist: Playlist) {}
+	addToPlaylist(playlist: Playlist): Promise<null> {
+		return axios.post(this.URI + 'playlists', playlist).then((res) => null);
+	}
 } // end of SongService
 
 export default new SongService();

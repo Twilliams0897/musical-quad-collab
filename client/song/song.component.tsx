@@ -1,18 +1,15 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
-import { View, Text, StyleSheet, Button, Image } from 'react-native';
+import { View, Text, StyleSheet, Button, Image, Platform } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { changeSong } from '../store/actions';
 import images from '../images';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Song } from './song';
+import { Playlist } from '../playlist/playlist';
 
 const { create } = require('react-native-pixel-perfect');
 
-const onPress = (props: any) => {
-	alert('you pressed');
-	return <View>pressed </View>;
-};
 const designResolution = {
 	width: 1125,
 	height: 2436,
@@ -20,7 +17,7 @@ const designResolution = {
 const perfectSize = create(designResolution);
 
 interface SongProps {
-	data: Song;
+	data: Song | Playlist;
 }
 
 function SongComponent({ data }: SongProps) {
@@ -47,7 +44,7 @@ function SongComponent({ data }: SongProps) {
 		<View style={styles.container}>
 			<TouchableOpacity onPress={goToSong}>
 				<Image
-					source={{ uri: images[data.artist.length % 10] }}
+					source={{ uri: data.artist && images[data.artist.length % 10] }}
 					style={styles.image}
 				/>
 			</TouchableOpacity>
@@ -67,31 +64,33 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		margin: 10,
+		margin: Platform.OS === 'web' ? perfectSize(10) : perfectSize(20),
 		textAlign: 'center',
 		borderColor: '#4BA3C3',
 		borderStyle: 'solid',
-		borderWidth: 1,
+		borderWidth: Platform.OS === 'web' ? perfectSize(1) : perfectSize(2),
 		backgroundColor: '#0F4C5C',
-		padding: 10,
-		fontSize: 16,
+		padding: Platform.OS === 'web' ? perfectSize(10) : perfectSize(20),
 		fontWeight: '400',
-		width: perfectSize(500),
+		width: Platform.OS === 'web' ? perfectSize(800) : perfectSize(1000),
 	},
 	title: {
 		color: '#b3ffb3',
-		margin: 2,
-		fontSize: 20,
+		textAlign: 'center',
+		margin: Platform.OS === 'web' ? perfectSize(10) : perfectSize(20),
+		fontSize: Platform.OS === 'web' ? perfectSize(56) : perfectSize(112),
 	},
 	artist: {
-		margin: 2,
-		fontSize: 16,
-		fontWeight: '600',
+		textAlign: 'center',
+		fontStyle: 'italic',
+		margin: Platform.OS === 'web' ? perfectSize(10) : perfectSize(20),
+		fontSize: Platform.OS === 'web' ? perfectSize(48) : perfectSize(96),
+		fontWeight: '700',
 		color: '#b3ffb3',
 	},
 	image: {
-		height: 200,
-		width: 200,
+		height: Platform.OS === 'web' ? perfectSize(200) : perfectSize(400),
+		width: Platform.OS === 'web' ? perfectSize(200) : perfectSize(400),
 	},
 	buttons: {
 		flexDirection: 'row',
