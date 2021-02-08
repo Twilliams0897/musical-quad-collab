@@ -58,9 +58,6 @@ const reducer = (
 		case Actions.SongActions.FavoritesChange:
 			newState.favorites = action.payload as Song[];
 			return newState;
-		case Actions.SongActions.GetPlaylists:
-			newState.playlists = action.payload as Playlist[][];
-			return newState;
 		default:
 			return state;
 	}

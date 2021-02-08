@@ -1,7 +1,6 @@
 import React from 'react';
 import userService from './user.service';
-import { UserState } from '../store/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 //import {useHistory} from 'react-router-dom';
 import { getUser } from '../store/actions';
 import { Button, Text, View, Platform } from 'react-native';
