@@ -5,6 +5,7 @@ import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../global-styles';
 import { addUser } from '../store/actions';
+import {User} from '../user/user';
 
 function AddDeleteUserComponent() {
 	const [error, setError] = useState({ message: '' });
@@ -14,11 +15,24 @@ function AddDeleteUserComponent() {
 	const dispatch = useDispatch();
 
 	const handleAdd = () => {
-		userService.addUser(user).then(() => {});
+		if (user.username !== '' && user.password !== ''){
+			userService.addUser(user).then(() => {
+				dispatch(addUser(new User()));
+			});
+		}else{
+			setError({message: 'Enter user credentials!'});
+		}
+
 	};
 
 	const handleDelete = () => {
-		userService.deleteByUsername(user.username).then(() => {});
+		if(user.username !== '' && user.password !== ''){
+			userService.deleteByUsername(user.username).then(() => {
+				dispatch(addUser(new User()));
+			});
+		}else{
+			setError({message: 'Enter user credentials!'});
+		}
 	};
 
 	return (

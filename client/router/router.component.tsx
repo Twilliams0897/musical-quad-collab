@@ -37,7 +37,7 @@ export type StackParams = {
 
 const Stack = createStackNavigator<StackParams>();
 const headerOptions: StackHeaderOptions = {
-	headerTitle: () => <Text>Musical Quad Collab</Text>,
+	headerTitle: () => <Text>Music Mania</Text>,
 	headerRight: () => <NavBarComponent />,
 };
 function RouterComponent(props: any) {
