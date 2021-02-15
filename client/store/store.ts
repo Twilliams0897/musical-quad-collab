@@ -13,7 +13,7 @@ export interface UserState {
 	loginUser: User;
 	locale?: string;
 	users: User[];
-	userInput:User;
+	userInput: User;
 }
 
 export interface SongState {
@@ -22,7 +22,6 @@ export interface SongState {
 	song: Song | Playlist;
 	songInput: Song;
 	playlist: Song[];
-	playlists: Playlist[][];
 	favorites: Song[];
 }
 

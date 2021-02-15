@@ -10,7 +10,10 @@ import NavBarComponent from './navbar.component';
 import LoginComponent from '../user/login.component';
 import RegisterComponent from '../user/register.component';
 import HomeScreen from '../screens/home.screen';
+<<<<<<< HEAD
 import ViewAllUsersComponent from '../user/user.detail.component';
+=======
+>>>>>>> 2323c5f5207eb083a4fbee896542a59b13717a2f
 import LogoutComponent from '../user/logout.component';
 import SongDetail from '../screens/songDetail.screen';
 import AddToPlaylist from '../playlist/AddToPlaylist';
@@ -38,7 +41,7 @@ export type StackParams = {
 
 const Stack = createStackNavigator<StackParams>();
 const headerOptions: StackHeaderOptions = {
-	headerTitle: () => <Text>Musical Quad Collab</Text>,
+	headerTitle: () => <Text>Music Mania</Text>,
 	headerRight: () => <NavBarComponent />,
 };
 function RouterComponent(props: any) {
@@ -95,7 +98,7 @@ function RouterComponent(props: any) {
 				options={headerOptions}
 			/>
 			<Stack.Screen name="Piano" component={Piano} options={headerOptions} />
-			<Stack.Screen 
+			<Stack.Screen
 				name="Logout"
 				component={LogoutComponent}
 				options={headerOptions}

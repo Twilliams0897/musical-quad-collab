@@ -2,7 +2,6 @@ import * as Actions from './actions';
 import { Song } from '../song/song';
 import { User } from '../user/user';
 import { AppState } from './store';
-import { Playlist } from '../playlist/playlist';
 
 // We need to define the initial state of the application and that
 // state should include everything that the application might keep track of.
@@ -17,7 +16,6 @@ export const initialState: AppState = {
 	song: new Song(),
 	songInput: new Song(),
 	playlist: [],
-	playlists: [],
 	favorites: [],
 };
 
@@ -37,14 +35,9 @@ const reducer = (
 		case Actions.UserActions.LoginChange:
 			newState.loginUser = action.payload as User;
 			return newState;
-		case Actions.UserActions.LoginChange:
-			newState.loginUser = action.payload as User;
-			return newState;
-		case Actions.UserActions.ChangeUser:
-			newState.loginUser = action.payload as User;
-			return newState;
 		case Actions.UserActions.GetAllUsers:
 			newState.users = action.payload as User[];
+			return newState;
 		case Actions.UserActions.AddUser:
 			newState.userInput = action.payload as User;
 			return newState;
@@ -63,9 +56,6 @@ const reducer = (
 			return newState;
 		case Actions.SongActions.FavoritesChange:
 			newState.favorites = action.payload as Song[];
-			return newState;
-		case Actions.SongActions.GetPlaylists:
-			newState.playlists = action.payload as Playlist[][];
 			return newState;
 		default:
 			return state;

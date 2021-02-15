@@ -6,8 +6,7 @@ export enum UserActions {
 	GetUser = 'GET_USER',
 	LoginChange = 'CHANGE_LOGIN',
 	GetAllUsers = 'GET_ALL_USERS',
-	ChangeUser = 'CHANGE_USER',
-	AddUser = 'ADD_USER'
+	AddUser = 'ADD_USER',
 }
 
 export enum SongActions {
@@ -16,7 +15,6 @@ export enum SongActions {
 	SongInputAction = 'SONG_INPUT_ACTION',
 	PlaylistChange = 'PLAYLIST_CHANGE',
 	FavoritesChange = 'FAVORITES_CHANGE',
-	GetPlaylists = 'GET_PLAYLISTS',
 }
 
 export interface AppAction {
@@ -65,13 +63,6 @@ export function getAllUsers(users: User[]): UserAction {
 	};
 	return action;
 }
-export function changeUser(user: User): UserAction {
-	const action: UserAction = {
-		type: UserActions.ChangeUser,
-		payload: user,
-	};
-	return action;
-}
 
 export function getSongs(songs: Song[]): SongAction {
 	const action: SongAction = {
@@ -109,14 +100,6 @@ export function favoritesChange(songs: Song[]): SongAction {
 	const action: SongAction = {
 		type: SongActions.FavoritesChange,
 		payload: songs,
-	};
-	return action;
-}
-
-export function getPlaylists(playlists: Playlist[][]): SongAction {
-	const action: SongAction = {
-		type: SongActions.GetPlaylists,
-		payload: playlists,
 	};
 	return action;
 }

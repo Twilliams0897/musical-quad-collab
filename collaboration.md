@@ -2,10 +2,10 @@
 
 - master branch name: main (update publishing time?)
 - dev branch name: dev (update at the meeting?)
-- jamie:
+- jamie: seemusic, playmusic, jamie
 - michael: michael
-- tashika:
-- yasmine:
+- tashika: tashika
+- yasmine: yasmine
 
 #One of two ways of starting a project:
 
@@ -102,28 +102,15 @@ with name LAMBDASONGAPI=ipaddress
 - e.g. : req.body={ "artist": "sublime" } or { "title": "fish" } will return array (search results).
 
 # user strories:
-
-## Product backlog
-
 - As a user I want to save favorite songs
 - As a user I want to make a playlist
 - As a user I want to buy songs
 - As a user I want to preview a song
 - As any user play piano
 - As a system keep track of individual track plays
-
-## Sprint Backlog
-
 - As a new user I want to make a new account
 - As admin remove employees
-
----
-
-## In Progress
-
 - As a user see available music
 - As a user I want to login
 - As an admin I want to add an employee
 - As an employee I can delete user accounts\*\* (delete from array of users?)
-
-## In testing
