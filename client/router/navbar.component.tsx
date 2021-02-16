@@ -8,7 +8,6 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 import styles from '../global-styles';
 
 const { create } = require('react-native-pixel-perfect');
-//import {create} from 'react-native-pixel-perfect';
 
 const designResolution = {
 	width: 1125,

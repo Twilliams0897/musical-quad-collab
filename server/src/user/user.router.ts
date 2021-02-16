@@ -9,7 +9,6 @@ const router = express.Router();
 router.get('/', (req: any, res, next) => {
 	let u = { ...req.session.user };
 	logger.debug(u);
-	//delete u.password;
 	if (u.username) {
 		res.send(JSON.stringify(u));
 	} else {
@@ -74,8 +73,7 @@ router.delete('/:username', function (req: any, res: any) {
 			})
 			.catch((err) => res.send(JSON.stringify(err)));
 	} else {
-		console.log('You are not authorized to delete ' + username);
-		res.send('You are not authorized to delete ' + username);
+		res.status(401).send('You are not authorized to delete users');
 	}
 });
 
@@ -138,16 +136,6 @@ router.post('/login', function (req: any, res: any) {
 			res.send(JSON.stringify(newUser));
 		})
 		.catch((err) => res.send(JSON.stringify(err)));
-});
-
-// bad practice, check if the  user logged in
-router.get('/login', function (req: any, res, next) {
-	if (req.session.user) {
-		console.debug(req.session.user);
-		res.redirect('/');
-	}
-	console.log('not logged in');
-	res.sendFile('not logged in');
 });
 
 // let userlogout

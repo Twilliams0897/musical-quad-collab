@@ -1,10 +1,8 @@
 import React from 'react';
 import userService from './user.service';
 import { useDispatch } from 'react-redux';
-//import {useHistory} from 'react-router-dom';
 import { getUser } from '../store/actions';
 import { Button, Text, View, Platform } from 'react-native';
-import style from '../global-styles';
 import styles from '../global-styles';
 import { User } from './user';
 
@@ -37,7 +35,7 @@ function LogoutComponent({ navigation }: LogoutProp) {
 	}
 
 	return (
-		<View style={style.container}>
+		<View style={styles.container}>
 			<Text style={styles.label}>Are you sure you want to log out?</Text>
 			<View
 				style={{

@@ -13,7 +13,7 @@ class UserService {
 		const params = {
 			TableName: 'users',
 		};
-		return await this.doc
+		return this.doc
 			.scan(params)
 			.promise()
 			.then((data) => {
@@ -29,7 +29,7 @@ class UserService {
 				username: username,
 			},
 		};
-		return await this.doc
+		return this.doc
 			.get(params)
 			.promise()
 			.then((data) => {
@@ -60,7 +60,7 @@ class UserService {
 			},
 		};
 
-		return await this.doc
+		return this.doc
 			.put(params)
 			.promise()
 			.then((result: any) => {
@@ -93,7 +93,7 @@ class UserService {
 			},
 			ReturnValues: 'UPDATED_NEW',
 		};
-		return await this.doc
+		return this.doc
 			.update(params)
 			.promise()
 			.then((data: any) => {
@@ -114,7 +114,7 @@ class UserService {
 			},
 		};
 
-		return await this.doc
+		return this.doc
 			.delete(params)
 			.promise()
 			.then((data: any) => {

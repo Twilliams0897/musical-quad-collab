@@ -25,7 +25,7 @@ class UserService {
 	login(user: User): Promise<User> {
 		return axios
 			.post(this.URI, user, { withCredentials: true })
-			.then((result: any) => result.data)
+			.then((result: any) => result.data);
 	}
 	logout(): Promise<null> {
 		return axios
@@ -34,10 +34,9 @@ class UserService {
 	}
 
 	deleteByUsername(username: string): Promise<null> {
-		console.log(`user: ${username} was deleted.`);
 		return axios
 			.delete(this.URI + '/' + username, { withCredentials: true })
-			.then((result) => null)
+			.then((result) => console.log(`user: ${username} was deleted.`))
 			.catch((err) => err);
 	}
 

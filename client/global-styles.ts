@@ -1,7 +1,6 @@
 import { StyleSheet, Platform } from 'react-native';
 
 const { create } = require('react-native-pixel-perfect');
-//import {create} from 'react-native-pixel-perfect';
 
 const designResolution = {
 	width: 1125,
