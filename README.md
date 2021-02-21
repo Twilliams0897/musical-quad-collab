@@ -87,4 +87,4 @@ When done logout:
 - Jamie Tater
 - Yasmine Smith
 - Tashika Williams
-- Michael Wong
+- Michael Woo
