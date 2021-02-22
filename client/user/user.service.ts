@@ -5,9 +5,8 @@ class UserService {
 	private URI: string;
 	constructor() {
 		// URL of the express server
-		//this.URI = 'http://localhost:3000/users';
-		//this.URI = 'http://18.237.199.1:3000/users';
-		this.URI = 'http://54.149.182.124:3000/users';
+		this.URI = 'http://localhost:3000/users';
+		// this.URI = 'http://34.216.137.225:3000/users'
 	}
 	getLogin(): Promise<User> {
 		// withCredentials sends our cookies with the request.
