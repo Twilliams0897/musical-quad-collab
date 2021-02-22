@@ -13,7 +13,6 @@ interface UserProps {
 function UserComponent({ data }: UserProps) {
 	const nav = useNavigation();
 
-	//const userContext = useSelector((state: UserState) => state.users);
 	const dispatch = useDispatch();
 
 	function handleDelete() {

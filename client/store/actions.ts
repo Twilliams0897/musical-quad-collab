@@ -5,7 +5,6 @@ import { Playlist } from '../playlist/playlist';
 export enum UserActions {
 	GetUser = 'GET_USER',
 	LoginChange = 'CHANGE_LOGIN',
-	GetAllUsers = 'GET_ALL_USERS',
 	AddUser = 'ADD_USER',
 }
 
@@ -24,7 +23,7 @@ export interface AppAction {
 
 export interface UserAction extends AppAction {
 	type: UserActions;
-	payload: User | User[];
+	payload: User;
 }
 
 export interface SongAction extends AppAction {
@@ -52,14 +51,6 @@ export function loginAction(user: User): UserAction {
 	const action: UserAction = {
 		type: UserActions.LoginChange,
 		payload: user,
-	};
-	return action;
-}
-
-export function getAllUsers(users: User[]): UserAction {
-	const action: UserAction = {
-		type: UserActions.GetAllUsers,
-		payload: users,
 	};
 	return action;
 }

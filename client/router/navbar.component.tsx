@@ -8,7 +8,6 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 import styles from '../global-styles';
 
 const { create } = require('react-native-pixel-perfect');
-//import {create} from 'react-native-pixel-perfect';
 
 const designResolution = {
 	width: 1125,
@@ -25,6 +24,14 @@ function NavBarComponent() {
 		<>
 			{Platform.OS === 'web' ? (
 				<View style={{ flex: 1, flexDirection: 'row' }}>
+					{user && (user.role === 'employee' || user.role === 'admin') && (
+						<Button
+							onPress={() => {
+								nav.navigate('EditUser');
+							}}
+							title="Manage Users"
+						/>
+					)}
 					{user && user.username !== '' && (
 						<>
 							<Button
@@ -42,25 +49,11 @@ function NavBarComponent() {
 							/>
 							<Button
 								onPress={() => {
-									nav.navigate('Piano');
-								}}
-								title="Piano"
-							/>
-							<Button
-								onPress={() => {
 									nav.navigate('Logout');
 								}}
 								title="Logout"
 							/>
 						</>
-					)}
-					{user && (user.role === 'employee' || user.role === 'admin') && (
-						<Button
-							onPress={() => {
-								nav.navigate('EditUser');
-							}}
-							title="Manage Users"
-						/>
 					)}
 				</View>
 			) : (
@@ -74,6 +67,14 @@ function NavBarComponent() {
 						}}
 						style={styles.container}
 					>
+						{user && (user.role === 'employee' || user.role === 'admin') && (
+							<Button
+								onPress={() => {
+									nav.navigate('EditUser');
+								}}
+								title="Manage Users"
+							/>
+						)}
 						{user && user.username !== '' && (
 							<>
 								<Button
@@ -102,21 +103,6 @@ function NavBarComponent() {
 									title="Logout"
 								/>
 							</>
-						)}
-						{user && (user.role === 'employee' || user.role === 'admin') && (
-							<Button
-								onPress={() => {
-									nav.navigate('EditUser');
-								}}
-								title="Manage Users"
-							/>
-						)}
-
-						{user && user.role === 'admin' && (
-							<Button
-								onPress={() => nav.navigate('ViewUsers')}
-								title="View Users"
-							/>
 						)}
 						<Button
 							onPress={() => {

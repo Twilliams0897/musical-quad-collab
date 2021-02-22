@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button } from 'react-native';
 import userService from './user.service';
 import { UserState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-//import {useHistory} from 'react-router-dom';
-import { getUser, loginAction } from '../store/actions';
-import { Button, TextInput, Text, View } from 'react-native';
 import style from '../global-styles';
 import { addUser } from '../store/actions';
+import {User} from '../user/user';
 
-interface RegisterEmpProp {
-	navigation: any;
-}
-
-function AddDeleteUserComponent({navigation}: RegisterEmpProp) {
+function AddDeleteUserComponent() {
 	const [error, setError] = useState({ message: '' });
 	const userSelector = (state: UserState) => state.userInput;
 	const user = useSelector(userSelector);
@@ -20,11 +15,24 @@ function AddDeleteUserComponent({navigation}: RegisterEmpProp) {
 	const dispatch = useDispatch();
 
 	const handleAdd = () => {
-		userService.addUser(user).then(() => {});
+		if (user.username !== '' && user.password !== ''){
+			userService.addUser(user).then(() => {
+				dispatch(addUser(new User()));
+			});
+		}else{
+			setError({message: 'Enter user credentials!'});
+		}
+
 	};
 
 	const handleDelete = () => {
-		userService.deleteByUsername(user.username).then(() => {});
+		if(user.username !== '' && user.password !== ''){
+			userService.deleteByUsername(user.username).then(() => {
+				dispatch(addUser(new User()));
+			});
+		}else{
+			setError({message: 'Enter user credentials!'});
+		}
 	};
 
 	return (
@@ -52,13 +60,11 @@ function AddDeleteUserComponent({navigation}: RegisterEmpProp) {
 				value={user.password}
 			/>
 			<Text style={style.label}>Role: </Text>
-			<TextInput
-				placeholder="employee"
-				style={style.input}
-				value = {user.role}
-			/>
+			<TextInput placeholder="employee" style={style.input} value={user.role} />
 			<br></br>
-			{userContext.role === 'admin' && (<Button onPress={handleDelete} title="Delete User" color="#880022" />)}
+			{userContext.role === 'admin' && (
+				<Button onPress={handleDelete} title="Delete User" color="#880022" />
+			)}
 			<br></br>
 			<Button onPress={handleAdd} title="Add User" color="#880022" />
 		</View>

@@ -20,7 +20,7 @@ export async function login(
 	password: string
 ): Promise<User | null> {
 	logger.debug(`${username + ' ' + password}`);
-	return await userService.getUserByName(username).then((user) => {
+	return userService.getUserByName(username).then((user) => {
 		if (user && user.password === password) {
 			return user;
 		} else {

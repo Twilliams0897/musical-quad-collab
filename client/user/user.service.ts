@@ -5,8 +5,8 @@ class UserService {
 	private URI: string;
 	constructor() {
 		// URL of the express server
-		// this.URI = 'http://localhost:3000/users';
-		this.URI = 'http://35.166.133.163:3000/users';
+		this.URI = 'http://localhost:3000/users';
+		// this.URI = 'http://34.216.137.225:3000/users'
 	}
 	getLogin(): Promise<User> {
 		// withCredentials sends our cookies with the request.
@@ -24,8 +24,7 @@ class UserService {
 	login(user: User): Promise<User> {
 		return axios
 			.post(this.URI, user, { withCredentials: true })
-			.then((result: any) => result.data)
-			.catch((err: any) => err);
+			.then((result: any) => result.data);
 	}
 	logout(): Promise<null> {
 		return axios
@@ -34,10 +33,9 @@ class UserService {
 	}
 
 	deleteByUsername(username: string): Promise<null> {
-		console.log(`user: ${username} was deleted.`);
 		return axios
 			.delete(this.URI + '/' + username, { withCredentials: true })
-			.then((result) => null)
+			.then((result) => console.log(`user: ${username} was deleted.`))
 			.catch((err) => err);
 	}
 
@@ -45,15 +43,6 @@ class UserService {
 		return axios
 			.put(this.URI, user, { withCredentials: true })
 			.then((result) => null);
-	}
-
-	getUsers(): Promise<User[]> {
-		return axios
-			.get(this.URI, { withCredentials: true })
-			.then((result) => result.data)
-			.catch((err) => {
-				console.error(err);
-			});
 	}
 
 	//Look here to add user

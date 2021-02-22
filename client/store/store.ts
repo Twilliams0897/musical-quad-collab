@@ -12,7 +12,6 @@ export interface UserState {
 	user: User;
 	loginUser: User;
 	locale?: string;
-	users: User[];
 	userInput: User;
 }
 

@@ -10,7 +10,6 @@ import NavBarComponent from './navbar.component';
 import LoginComponent from '../user/login.component';
 import RegisterComponent from '../user/register.component';
 import HomeScreen from '../screens/home.screen';
-import ViewAllUsersComponent from '../user/get.users.component';
 import LogoutComponent from '../user/logout.component';
 import SongDetail from '../screens/songDetail.screen';
 import AddToPlaylist from '../playlist/AddToPlaylist';
@@ -38,7 +37,7 @@ export type StackParams = {
 
 const Stack = createStackNavigator<StackParams>();
 const headerOptions: StackHeaderOptions = {
-	headerTitle: () => <Text>Musical Quad Collab</Text>,
+	headerTitle: () => <Text>Music Mania</Text>,
 	headerRight: () => <NavBarComponent />,
 };
 function RouterComponent(props: any) {

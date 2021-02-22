@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUser, loginAction } from '../store/actions';
 import { Button, TextInput, Text, View, Platform } from 'react-native';
 import styles from '../global-styles';
+import {User} from '../user/user';
 
 const { create } = require('react-native-pixel-perfect');
 const designResolution = {
@@ -26,19 +27,27 @@ function LoginComponent({ navigation }: LoginProp) {
 	const dispatch = useDispatch();
 
 	function submitForm() {
-		userService
+		if (user.username !== '' && user.password !== ''){
+			userService
 			.login(user)
-			.then((user) => {
-				console.log(user);
+			.then((res) => {
+				console.log(res);
 				/*
                 When logged in, a new user with the same credentials is created. 
                 That way, when we click the back to the home page, the previous user is no longer logged in.
             */
 
-				dispatch(getUser(user));
+				dispatch(getUser(res));
+				dispatch(loginAction(new User()));
 				navigation.navigate('Home');
 			})
-			.catch((err) => setError({ message: err.message }));
+			.catch((err) => setError({ message: 'Username or Password is incorrect!'}));
+		}else {
+			setError({message: 'Enter login credentials'});
+		}
+
+
+		
 	}
 
 	function registerForm() {
