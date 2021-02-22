@@ -45,15 +45,6 @@ class UserService {
 			.then((result) => null);
 	}
 
-	getUsers(): Promise<User[]> {
-		return axios
-			.get(this.URI, { withCredentials: true })
-			.then((result) => result.data)
-			.catch((err) => {
-				console.error(err);
-			});
-	}
-
 	//Look here to add user
 	addUser(user: User): Promise<null> {
 		return axios
